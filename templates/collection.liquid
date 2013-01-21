@@ -1,0 +1,76 @@
+{% paginate collection.products by settings.collection_ppp %}
+
+<ul class="clearfix" id="collection-header">
+  <li id="collection-title"><h1 class="page-title">{{ collection.title }}</h1></li>
+  {% if settings.show_bbt and collection.all_tags.size > 0 %}
+  <li class="clearfix filter">
+    <p>{{ settings.bbt_label }}</p>
+    <select class="special-select coll-filter" name="coll-filter" size="1">
+      <option value="">All</option>
+      {% for tag in collection.all_tags %}
+      {% if current_tags contains tag %}
+      <option value="{{ tag | handleize }}" selected>{{ tag }}</option>
+      {% else %}
+      <option value="{{ tag | handleize }}">{{ tag }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </li>
+  {% endif %}
+</ul>
+
+{% if collection.description.size > 0 %}
+<div id="collection-description" class="rte">
+  {{ collection.description }}
+</div><!-- .collection-description rte -->
+{% endif %}
+
+{% if shop.products_count == 0 %}
+
+  {% include 'snippet-default-products' %}
+
+{% else %}
+  
+  <ul id="coll-product-list" class="clearfix">
+    {% for product in collection.products %}
+      {% if settings.products_per_row == '3' %}
+        {% include 'snippet-product-item' with 'three' %}
+      {% else %}
+        {% include 'snippet-product-item' with 'four' %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+  
+{% endif %}
+
+{% include 'snippet-pagination' %}
+{% include 'snippet-breadcrumbs' %}
+
+{% endpaginate %}
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection pages */
+  /* Brought to you by Caroline Schnapp */
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+    var newTags = [];
+    collFilters.each(function() { 
+      if (jQuery(this).val()) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    if (newTags.length) {
+      var query = newTags.join('+');
+      window.location.href = jQuery('{{ '0my-tag0' | link_to_tag: '0my-tag0' }}').attr('href').replace('0my-tag0', query);
+    } 
+    else {
+      {% if collection.handle %}
+      window.location.href = '/collections/{{ collection.handle }}';
+      {% elsif collection.products.first.type == collection.title %}
+      window.location.href = '{{ collection.title | url_for_type }}';
+      {% elsif collection.products.first.vendor == collection.title %}
+      window.location.href = '{{ collection.title | url_for_vendor }}';
+      {% endif %}
+    }
+  });
+</script>

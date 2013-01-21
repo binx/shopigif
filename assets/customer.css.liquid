@@ -1,0 +1,603 @@
+/* Inputs / Submit & Global Styles */
+    
+    .customer .styled-input {
+        margin-bottom:26px;
+        margin-left:0px;
+        padding:11px 9px;
+        background:#ffffff;
+    }
+    
+    .customer .styled-submit {
+        left:0;
+        padding:11px 13px;
+    }
+
+    .customer select {
+        margin:0;
+        width:310px;
+        height:28px !important;
+    }
+    
+    .customer p {
+        font-size:14px;
+        color:{{ settings.global_text_font_color }};
+    }
+    
+    .page-header h1 {
+        text-align:center;
+        font-size:35px;
+        font-size:35px;
+        color:{{ settings.global_heading_font_color }};
+        margin:0 0 40px 0;
+        font-family:{{ settings.headings_font }};
+    }
+    
+        .lt-ie8 .page-header {
+            margin-bottom:40px;
+        }
+    
+    .page-header a {
+        float:left;
+        font-size:13px;
+        margin:21px 0;
+        color:{{ settings.global_link_color }};
+    }
+    
+        .page-header a:hover { color:{{ settings.global_hover_color }}; }
+
+    .content {
+        margin-top:58px;
+    }
+
+/* Login and register */
+    
+    #recover-password { display:none; }    
+    
+    .template-customerslogin .page-header h1, 
+    .template-customersresetpassword .page-header h1,
+    .template-customersregister .page-header h1
+    {
+        text-align:center;
+        float:none;
+    }
+    
+    .template-customerslogin #recover-password .page-header h1, 
+    .template-customerslogin #customer-login .page-header h1,
+    .template-customerslogin #guest .page-header h1,
+    .template-customersregister #create-customer .page-header h1
+    {
+        margin:0 0 38px;
+    }
+    
+    .template-customerslogin .action-bottom, 
+    .template-customersresetpassword .action-bottom
+    {
+        margin-top:12px;
+    }
+    
+    .show_guest_login #customer-login, .show_guest_login #recover-password {
+        width:49%;
+        float:left;
+    }
+    
+    #guest {
+        width:49%;
+        float:right;
+    }
+    
+    #customer_login, 
+    #recover-password-wrap, 
+    #customer-reset-password form, 
+    #customer-account-activation form,
+    #create_customer {
+        width:346px;
+        margin:0 auto;
+        display:block;
+        padding:42px 37px 38px;
+        -webkit-border-radius:4px;
+        -moz-border-radius:4px;
+        border-radius:4px;
+        background-color:{{ settings.f_t_background_color }};
+        {% if settings.f_t_inner_glow %}
+            -webkit-box-shadow:inset 0px 0px 0px 1px rgba(0,0,0,0.75);
+            -moz-box-shadow:inset 0px 0px 0px 1px rgba(0,0,0,0.75);
+            box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,0.75);
+        {% endif %}
+        border:1px solid {{ settings.f_t_border_color }};
+        margin-bottom:112px;
+        text-align:left;
+    }
+    
+        body:not(:-moz-handler-blocked) #customer_login, 
+        body:not(:-moz-handler-blocked) #recover-password-wrap, 
+        body:not(:-moz-handler-blocked) #customer-account-activation form,
+        body:not(:-moz-handler-blocked) #create_customer {
+            -moz-box-shadow:none;
+        }
+        
+        #customer_login .errors, 
+        #recover-password .errors, 
+        #customer-reset-password .errors, 
+        #customer-account-activation .errors,
+        #create_customer .errors {
+            width:324px;
+            margin:0 auto 30px;
+            background-color:#fcedec;
+            border:1px solid #fb8077;
+            padding:10px;
+            -webkkit-border-radius:2px;
+            -moz-border-radius:2px;
+            border-radius:2px;
+        }
+        
+        #customer_login .errors ul, 
+        #recover-password .errors ul, 
+        #customer-reset-password .errors ul, 
+        #customer-account-activation .errors ul,
+        #create_customer .errors ul {
+            padding:0;
+            margin:0;
+            list-style:none;
+        }
+    
+        #customer_login label, 
+        #recover-password-wrap label, 
+        #customer-reset-password label, 
+        #customer-account-activation label,
+        #create_customer label {
+            display:block;
+            font-size:14px;
+            margin-bottom:12px;
+        }
+        
+        #customer_login .styled-input, 
+        #recover-password-wrap .styled-input, 
+        #customer-reset-password .styled-input, 
+        #customer-account-activation .styled-input,
+        #create_customer .styled-input {
+            width:326px;
+        }
+        
+        #recover-password-wrap .styled-input {
+            margin-bottom:18px;
+        }
+        
+        .action-bottom .styled-submit {
+            float:left;
+        }
+        
+        #forgot_password {
+            float:right;
+            margin-top:11px;
+        }
+        
+            #forgot_password a, #recover-password span.note a, #customer-login .note a {
+                color:{{ settings.global_link_color }};
+                font-size:14px;
+            }
+            
+                #forgot_password a:hover, #recover-password span.note a:hover, #customer-login .note a:hover {
+                    color:{{ settings.global_hover_color }};
+                }
+            
+    #recover-password p.note, #customer-login p.note, #customer-account-activation p.note, #create-customer p.note {
+        width:100%;
+        text-align:center;
+        font-size:14px;
+        line-height:21px;
+        color:{{ settings.global_text_font_color }};
+        margin-bottom:32px;
+    }
+    
+    #recover-password .action-bottom, 
+    #customer-account-activation .action-bottom, 
+    #create_customer .action-bottom {
+        margin-top:22px;
+    }
+    
+    #recover-password span.note {
+        font-size:14px;
+        margin-top:11px;
+        margin-left:11px;
+        display:block;
+        float:left;
+    }
+    
+    #guest {
+        text-align:center;
+        margin:0 0 112px;
+    }
+    
+        #guest .page-header h1 {
+            margin-bottom:24px;
+        }
+        
+        #guest .styled-submit {
+            display:inline-block;
+            margin-top:18px;
+        }   
+
+        
+/* Account */   
+    
+    .template-customersaccount .content {
+        margin-bottom:78px;
+    }
+    
+    .template-customersaccount h1 {
+        margin-bottom:60px;
+    }
+    
+      .change-password-form {
+          border-top:1px solid {{ settings.primary_border }}; 
+          padding:20px 0;
+          margin-top:20px;
+      }
+        
+        #customer_sidebar {
+            float:left;
+            width:180px;
+            padding-right:39px;
+        }
+        
+            #customer_sidebar h2, #customer_orders h2 {
+                font-size:19px;
+                font-weight:700;
+                margin:0 0 26px;
+                font-family:{{ settings.headings_font }};
+                color:{{ settings.global_heading_font_color }};
+            }
+            
+            #customer_sidebar {
+                font-size:14px;
+            }
+            
+            .name {
+                font-weight:700;
+                margin:0 0 6px 0;
+            }
+            
+            .email.note {
+                display:inline-block;
+                margin:4px 0 20px 0;
+            }
+            
+            .address {
+                margin-top:20px;
+                margin-bottom:28px;
+            }
+            
+            .address p {
+                margin:0;
+            }
+            
+            #view_address {
+                color:{{ settings.global_link_color }};
+            }
+            
+                #view_address:hover {
+                    color:{{ settings.global_hover_color }};
+                }
+        
+        #customer_orders {
+            width:640px;
+            float:right;
+        }
+        
+            #customer_orders a:hover { color:{{ settings.global_hover_color }}; }
+        
+            #customer_orders th {
+                font-size:14px;
+                font-weight:700;
+                color:{{ settings.global_heading_font_color }};
+                padding-bottom:16px;
+                padding-top:0;
+                padding-left:0;
+                text-align:left;
+                font-family:{{ settings.headings_font }};
+            }
+            
+            #customer_orders tr { 
+                border-bottom:1px solid {{ settings.primary_border }}; 
+            }
+            
+            #customer_orders tr.last { border-bottom:none; }
+            
+                #customer_orders td {
+                    padding:23px 0;
+                    font-size:14px;
+                }
+                
+                    .fullfillment_color {
+                        color:{{ settings.global_small_link_color }};
+                        font-size:12px;
+                    }
+            
+            #customer_orders .order_number {
+                width:160px;
+                padding-right:40px;
+            }
+            
+            #customer_orders .date {
+                width:120px;
+                padding-right:40px;
+            }
+            #customer_orders .payment_status {
+                width:120px;
+                padding-right:40px;
+            }
+            #customer_orders .fulfillment_status {
+                width:120px;
+                padding-right:40px;
+            }
+            #customer_orders .total {
+                width:120px;
+            }
+
+
+/* Address */
+
+.template-customersaddresses .content {
+    margin-bottom:40px;
+}
+
+.lt-ie9 .template-customersaddresses .special-select {
+    margin-top:9px;
+}
+
+.template-customersaddresses .action_add.note {
+    font-size:16px;
+    color:{{ settings.global_link_color }};
+    display:inline-block;
+    margin-bottom:12px;
+    -webkit-text-stroke:0.1px;
+}
+
+    .template-customersaddresses .action_add.note:hover {
+        color:{{ settings.global_hover_color }};
+    }
+    
+    #address_tables {
+        margin-top:24px;
+    }
+    
+    .address_title {
+        font-size:16px;
+        color:{{ settings.global_heading_font_color }};
+        margin:0 0 14px 0;
+        font-family:{{ settings.headings_font }};
+    }
+    
+    .default_address.note {
+        font-size:13px;
+        color:{{ settings.global_small_link_color }};
+    }
+    
+    .address_actions a {
+        color:{{ settings.global_font_color }};
+        font-size:14px;
+        margin-right:8px;
+    }
+    
+        .address_actions a:hover {
+            color:{{ settings.global_hover_color }};
+        }
+    
+    .address_actions {
+        margin-bottom:24px;
+    }
+    
+    .view_address p {
+        margin:0;
+        font-size:14px;
+        color:{{ settings.global_text_font_color }};
+        line-height:21px;
+    }
+    
+    .address_table {
+        padding:24px 0 0;
+        border-top:1px solid {{ settings.primary_border }};
+    }
+    
+    .address_table.first {
+        padding:0;
+        border-top:none;
+    }
+    
+    /* Add & Edit New Address */
+    
+    select.address_form {
+        min-width: 280px !important;
+        height: 32px !important;
+    }
+    
+    #address_form_new, .edit_address form {
+        margin-top:20px;
+        margin-bottom:48px;
+        width:490px;
+        display:block;
+        padding:22px 41px 38px;
+        -webkit-border-radius:4px;
+        -moz-border-radius:4px;
+        border-radius:4px;
+        background-color:{{ settings.f_t_background_color }};
+        {% if settings.f_t_inner_glow %}
+            -webkit-box-shadow:inset 0px 0px 0px 1px rgba(0,0,0,0.75);
+            -moz-box-shadow:inset 0px 0px 0px 1px rgba(0,0,0,0.75);
+            box-shadow:inset 0px 0px 0px 1px rgba(255,255,255,0.75);
+        {% endif %}
+        border:1px solid {{ settings.f_t_border_color }};
+        text-align:left;
+    }
+    
+    #add_address {
+        border-bottom:1px solid {{ settings.primary_border }};
+    }
+    
+    .customer_address .styled-input {
+        padding:9px;
+        width:328px;
+        margin-bottom:0;
+    }
+    
+    .customer_address_table td.label {
+        width:120px;
+        padding-right:40px;
+        font-size:14px;
+    }
+    
+    .customer_address_table td.value {
+        padding:14px 0;
+    }
+    
+    .set_default {
+        font-size:13px;
+        color:{{ settings.global_small_link_color }};
+        padding:20px 0 10px !important;
+    }
+    
+    .customer_address .action-bottom {
+        margin:32px 0 2px 142px;
+    }
+    
+    .action-bottom .note {
+        margin-top:11px;
+        display:block;
+        font-size:14px;
+        margin-left:8px;
+        float:left;
+    }   
+    
+        .action-bottom .note a { color:{{ settings.global_link_color }}; }
+        .action-bottom .note a:hover { color:{{ settings.global_hover_color }}; }
+        
+/* Orders */
+
+.template-customersorder .content {
+    margin-bottom:60px;
+}
+
+#order_address {
+    float:left;
+    width:180px;
+    padding-right:39px;
+}
+
+    #order_details_label {
+        font-size:20px;
+        color:{{ settings.global_heading_font_color }};
+        margin:0 0 28px 0;
+        font-family:{{ settings.headings_font }};
+    }
+    
+        .order_section_title {
+            font-size:14px;
+            color:{{ settings.global_text_font_color }};
+            margin:0 0 8px 0;
+            font-family:{{ settings.headings_font }};
+        }
+        
+        .address.note {
+            margin:0 0 22px 0;
+        }
+        
+        .address.note p {
+            font-size:14px;
+            line-height:21px;
+            color:{{ settings.global_text_font_color }};
+            margin:0;
+        }
+
+#order_details {
+    width:640px;
+    float:right;
+}
+
+    #order_details th {
+        font-size:16px;
+        font-weight:700;
+        color:{{ settings.global_heading_font_color }};
+        padding-bottom:15px;
+        padding-top:0;
+        padding-left:0;
+        text-align:right;
+        font-family:{{ settings.headings_font }};
+    }
+    
+    #order_details th.first {
+        text-align:left;
+    }
+    
+    #order_details th.last {
+        text-align:right;
+    }
+    
+    #order_details th.center {
+        text-align:center;
+    }
+    
+    #order_details tr { 
+        border-bottom:1px solid {{ settings.primary_border }}; 
+        padding:26px 0;
+    }
+    
+    #order_details tr.last { border-bottom:none; }
+    
+        #order_details td {
+            padding:21px 0;
+            font-size:14px;
+            text-align:right;
+            line-height:21px;
+        }
+        
+        #order_details p {
+            margin:0.5em 0 0;
+        }
+        
+        #order_details td.first { 
+            padding-top:21px;
+            padding-bottom:21px;
+        }
+            
+            #order_details td.first a { color:{{ settings.global_link_color }}; }
+            #order_details td.first a:hover { color:{{ settings.global_hover_color }}; }
+    
+        #order_details .product {
+            width:260px;
+            padding-right:40px;
+            font-family:{{ settings.headings_font }};
+            text-align:left;
+        }
+        #order_details .money {
+            width:auto;
+            padding-right:70px;
+        }
+        #order_details .quantity {
+            width:auto;
+            padding-right:40px;
+        }
+        #order_details .total {
+            width:auto;
+            padding-right:0px;
+        }
+        
+        #order_details .order_summary {
+            border-bottom:none !important;
+        }
+        
+            #order_details .order_summary td {
+                padding:0px 0px 24px;
+            }
+            
+            #order_details .order_summary.first td {
+                padding:24px 0px 24px;
+            }
+            
+            #order_details .order_summary.last td {
+                padding-top:24px;
+            }
+        
+        #order_details .order_summary.order_total {
+            border-top:1px solid {{ settings.primary_border }};
+            font-weight:700;
+        }

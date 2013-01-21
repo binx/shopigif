@@ -1,0 +1,27 @@
+{% if snippet-collection-item == '' %}{% assign snippet-collection-item = 'four' %}{% endif %}
+<li class="{{ snippet-collection-item }}-per-row clearfix">
+  <div class="coll-image-wrap">
+    {% assign ratio = settings.product_img_w_to_h_ratio | times: 1.0 %}
+    <a href="{{ collection.url }}">
+    {% if snippet-collection-item == 'three' or ratio < 1 %}
+      {% if collection.image %}
+        {{ collection.image.src | collection_img_url: 'large' | img_tag: collection.image.alt }}
+      {% else %}
+        {{ collection.products.first.featured_image.src | product_img_url: 'large' | img_tag: collection.title }}
+      {% endif %}
+    {% else %}
+      {% if collection.image %}
+        {{ collection.image.src | collection_img_url: 'medium' | img_tag: collection.image.alt }}
+      {% else %}
+        {{ collection.products.first.featured_image.src | product_img_url: 'medium' | img_tag: collection.title }}
+      {% endif %}
+    {% endif %}
+    </a>
+  </div><!-- .coll-image-wrap -->
+  <div class="coll-prod-caption">
+    <div class="coll-prod-meta no-medallion">
+      <a href="{{ collection.url }}" class="coll-prod-title">{{ collection.title }}</a>
+      <p class="collection-list-product-count accent-text">{{ collection.all_products_count }} {{ collection.all_products_count | pluralize:'product','products' }}</p>
+    </div><!-- .coll-prod-meta -->
+  </div><!-- .prod-prod-meta -->
+</li>

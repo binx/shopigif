@@ -1,0 +1,21 @@
+<div class="clearfix page-container instapaper_body hentry">
+
+  <h1 class="page-title instapaper_title entry-title">{{ page.title }}</h1>
+
+  <div id="page-content" class="rte">
+    {{ page.content }}
+  </div><!-- #page-content -->
+
+  <div id="toc-sidebar" class="follow-along sidebar">
+    <h2>Table of Content</h2>
+    <ul id="toc"></ul>
+  </div>
+
+  <script>
+  $(document).ready(function(){
+      $("#toc").tableOfContents('#page-content', { startLevel: 2, depth: 2 });
+  })
+  </script>
+
+</div><!-- #page-container -->
+{% include 'snippet-breadcrumbs' %}

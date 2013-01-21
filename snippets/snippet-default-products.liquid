@@ -1,0 +1,28 @@
+
+{% if template == 'index' %}<ul id="fp-product-list" class="clearfix default" >{% endif %}
+{% if template contains 'collection' %}<ul id="coll-product-list" class="clearfix default">{% endif %}
+
+  {% for i in (1..4) %}
+
+  <li class="{% if settings.products_per_row == '3' and template contains 'collection' %}three{% else %}four{% endif %}-per-row default clearfix">
+    <div class="coll-image-wrap">
+      <p>Example</p>
+    </div><!-- .coll-image-wrap -->
+    <div class="coll-prod-caption">
+      <div class="coll-prod-meta {% if settings.show_buy_medallion == false %}no-medallion{% endif %}">
+        <p class="coll-prod-title">Your Product</p>
+        <p class="coll-prod-price accent-text">$0.00</p>
+      </div><!-- .coll-prod-meta -->
+      <a class="coll-prod-buy styled-small-button" href="/">{{ settings.buy_medallion_text }}</a>
+    </div><!-- .coll-prod-caption -->
+  </li>
+
+  {% endfor %}
+
+</ul>
+
+{% if template == 'index' %}
+<div id="add-first-product" class="clearfix">
+  <a class="styled-submit clearfix" href="/admin/products/new"><span></span>Add your first product</a>
+</div><!-- #add-first-product -->
+{% endif %}

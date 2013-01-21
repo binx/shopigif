@@ -1,0 +1,10 @@
+<h3>Share this product</h3>
+
+{% capture shareurl %}{{ shop.url }}{{ product.url }}{% endcapture %}
+
+<a id="ps-twitter" class="product-share-item" href="http://twitter.com/home?status=Check%20out%20this%20{%if template contains "article" or template contains "blog"%}blog%20post{% elsif template contains "product" %}product{%endif%}:+{{ shareurl }}"></a>
+<a id="ps-facebook" class="product-share-item" href="http://www.facebook.com/sharer.php?u={{ shareurl }}&t={{ product.title }}"></a>
+<a id="ps-pinterest" class="product-share-item pin-it-button" href="http://pinterest.com/pin/create/button/?url={{ shareurl }}&media={{ product.featured_image | product_img_url: 'original' }}&description={{ product.title | strip_html | escape | replace: ' ', '%20' }}" count-layout="none"></a>      
+<a id="ps-tumblr" class="product-share-item" href="http://www.tumblr.com/share/link?url={{ shareurl | replace: 'http://', '' }}"></a>
+<a id="ps-google" class="product-share-item" href="https://plus.google.com/share?url={{ shareurl }}" onclick="javascript:window.open(this.href,  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"></a>
+<a id="ps-mail" class="product-share-item" href="mailto:?subject={{ article.title }}&body=Check out this {%if template contains "article" or template contains "blog"%}blog post{% elsif template contains "product" %}product{%endif%}: {{ shareurl }}"></a>

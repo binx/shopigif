@@ -1,0 +1,195 @@
+{% form article %}
+{% paginate article.comments by settings.article_cpp %}
+<div class="clearfix page-container">
+
+  <h1 class="page-title"><a href="{{ blog.url }}">{{ blog.title }}</a></h1>
+
+  <ul id="blog-content">
+    
+    <li class="blog-article {% unless blog.comments_enabled? %}no-comment{% endunless %}">
+      
+      <article class="instapaper_body hentry">
+
+        <header>
+          <h2 class="blog-article-date accent-text"><time pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time></h2>
+          <h1 class="blog-article-title-outter instapaper_title entry-title"><a class="blog-article-title" href="{{ shop.url }}{{ article.url }}">{{ article.title }}</a></h1>
+        </header>
+   
+        <div class="rte entry-content">
+          {{ article.content }}
+        </div><!-- .rte -->
+      
+      </article>
+    
+      <ul class="blog-article-meta accent-text">
+     
+          {% if article.tags.size > 0 %}
+          <li class="blog-article-meta-item blog-article-meta-tags">
+          <span></span>
+            {% for tag in article.tags %} 
+            <a class="blog-article-tags" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}{% unless forloop.last %}, {% endunless %}</a>
+            {% endfor %}
+          </li>
+          {% endif %}
+        
+          <li class="blog-article-meta-item blog-article-meta-share">
+            <span></span>
+            <a href="{{ article.url }}" class="blog-article-share">Share</a>
+            {% capture shareurl %}{{ shop.url }}{{ article.url }}{% endcapture %}
+            <div class="share-widget">
+              <a href="http://twitter.com/home?status=Check%20out%20this%20blog%20post:+{{ shareurl }}" class="sw-twitter"></a>
+              <a href="http://www.facebook.com/sharer.php?u={{ shareurl }}&t={{ article.title }}" class="sw-facebook"></a>
+              <a href="http://www.tumblr.com/share/link?url={{ shareurl | replace: 'http://', '' }}" class="sw-tumblr"></a>
+              <a href="https://plus.google.com/share?url={{ shareurl }}" onclick="javascript:window.open(this.href,  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="sw-google"></a>
+              <a href="mailto:?subject={{ article.title }}&body=Check out this blog post: {{ shareurl }}" class="sw-mail"></a>
+            </div>
+          </li>
+          
+          <li class="blog-article-meta-item share-stats" data-url="{{ shareurl }}"></li>
+        
+        </ul>
+      
+    </li>
+  
+    {% if blog.next_article or blog.previous_article %}
+    <li class="accent-text prev-next clearfix"> 
+      {% if blog.next_article %}
+      {% capture next_url %}{{ blog.next_article }}#content{% endcapture %}
+      <span class="left">{{ '&larr; Next Post' | link_to: next_url }}</span>
+      {% endif %}    
+      {% if blog.previous_article %}
+      {% capture prev_url %}{{ blog.previous_article }}#content{% endcapture %}
+      <span class="right">{{ 'Previous Post &rarr;' | link_to: prev_url }}</span>
+      {% endif %}
+    </li>
+    {% endif %}
+
+    {% if blog.comments_enabled? == true %}
+    <li class="blog-comments" id="comments">
+      {% if article.comments_count > 0 %}
+      <h3 id="comments-title">Comments on this post <em>({% if comment and comment.created_at %}{{ article.comments_count | plus: 1 }} {{ article.comments_count | plus: 1 | pluralize: 'comment': 'comments' }}{% else %}{{ article.comments_count }} {{ article.comments_count | pluralize: 'comment': 'comments' }}{% endif %})</em></h3>
+      <ul id="comment-list">
+        {% if comment and comment.created_at %}        
+        <li>
+            <div class="success feedback accent-text">
+                {% if blog.moderated? %}
+                <p>Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.</p>
+                {% else %}
+                <p>Your comment was posted successfully! Thank you!</p>
+                {% endif %}
+            </div>
+        </li>        
+        <li id="{{ comment.id }}" class="comment clearfix">
+          <h2 class="comment-author accent-text">{{ comment.author }} says...</h2>
+          <img class="comment-author-picture" src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=80" />
+          <div class="comment-content">
+            <em class="quote-glyph">&ldquo;</em>
+            <div>
+              {{ comment.content }}
+            </div>
+          </div><!-- .comment-content -->
+          <p class="comment-date accent-text">
+            On {{ comment.created_at | date: "%B %d, %Y" }}
+          </p>
+        </li>
+        {% endif %}
+
+        {% for comment in article.comments %}
+        <li id="{{ comment.id }}" class="comment {% if forloop.last %}last{% endif %} clearfix">
+          <h2 class="comment-author accent-text">{{ comment.author }} says...</h2>
+          <img class="comment-author-picture" src="http://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=80" />
+          <div class="comment-content">
+            <em class="quote-glyph">&ldquo;</em>
+            <div>
+              {{ comment.content }}
+            </div>
+          </div><!-- .comment-content -->
+          <p class="comment-date accent-text">
+            On {{ comment.created_at | date: "%B %d, %Y" }}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% elsif comment and comment.created_at %}
+      <h3 id="comments-title">Comments on this post <em>({{ article.comments_count | plus: 1 }} {{ article.comments_count | plus: 1 | pluralize: 'comment': 'comments' }})</em></h3>
+      <ul id="comment-list">
+        <li id="{{ comment.id }}" class="comment last">
+          <h2 class="comment-author accent-text">{{ comment.author }} says...</h2>
+          <div class="comment-content">
+            <em class="quote-glyph">&ldquo;</em>
+            <div>
+              {{ comment.content }}
+            </div>
+          </div><!-- .comment-content -->
+          <p class="comment-date accent-text">
+            On {{ comment.created_at | date: "%B %d, %Y" }}
+          </p>
+        </li>
+      </ul>
+      {% else %} <!-- No comments -->
+      {% comment %}
+      <h1 id="comments-title" class="no-comments">There aren't any comments for this post.</h1>
+      {% endcomment %}
+      {% endif %}
+
+    </li>
+
+    <li class="blog-add-comments">
+      <h3 id="add-comment-title">Leave a comment</h3>
+
+      {% if form.errors %}
+      <div class="feedback error" id="comment-errors">
+        <p>{{ settings.comments_error_message }}</p>
+        {% for field in form.errors %}
+        <p>The {{ field | capitalize | replace: 'Body', 'Message' }} field {{ form.errors.messages[field] }}.</p>
+        {% endfor %}
+      </div><!-- #comment-errors -->
+      {% endif %}
+
+      <p>
+        <label for="add-comment-name">Name</label>
+        <input required="required" class="styled-input {% if form.errors contains "author" %}error{% endif %}" type="text" name="comment[author]" placeholder="Your name" id="add-comment-name" value="{{ form.author }}" />
+      </p>
+
+      <p>
+        <label for="add-comment-email">Email</label>
+        <input required="required" class="styled-input {% if form.errors contains "email" %}error{% endif %}" type="email" name="comment[email]" placeholder="your@email.com" id="add-comment-email" value="{{ form.email }}" />
+      </p>
+
+      <p>
+        <label for="add-comment-body">Message</label>
+        <textarea required="required" class="styled-input {% if form.errors contains "body" %}error{% endif %}" id="add-comment-body" name="comment[body]" rows="10" cols="60">{{ form.body }}</textarea>
+      </p>
+
+      <input class="smooth styled-submit" id="add-comment-submit" type="submit" value="Post Comment">      
+      
+    </li>
+    {% if paginate.pages > 1 %} 
+    <li>
+      {% include 'snippet-pagination' %}
+    </li>
+    {% endif %}
+    {% endif %}
+  </ul><!-- #blog-content -->
+
+  {% endpaginate %}
+
+  {% if settings.show_page_blog %} {% include 'snippet-sidebar' %} {% endif %}
+
+</div><!-- #blog-container -->
+
+  {% if form.errors %}
+    <script>
+      window.location.hash = '#add-comment-title';
+    </script>
+  {% endif %}
+  
+  {% if form.posted_successfully? %}
+    <script>
+      window.location.hash = '#comments';
+    </script>
+  {% endif %}
+
+{% endform %}
+
+{% include 'snippet-breadcrumbs' %}

@@ -1,0 +1,58 @@
+{% assign no_tags = 'no-tags' %}
+{% if template contains 'page' or template contains 'search' %}
+  {% assign blog = blogs[settings.page_blog] %}
+  {% assign title = settings.page_blog_label %} 
+{% else %}
+  {% assign title = settings.blog_label %}
+  {% if blog.all_tags.size > 0 %}
+    {% assign no_tags = '' %}
+  {% endif %}
+{% endif %}
+
+<ul id="snippet-blog-sidebar" class="sidebar {{ no_tags }}">
+  <li>
+    <h2 id="snippet-blog-sidebar-title">
+      {{ title }}
+      <a id="blog-share-rss" class="blog-share ir" href="/blogs/{{ blog.handle }}.atom">RSS</a>
+    </h2>
+  </li>
+  {% for article in blogs[blog.handle].articles limit: settings.page_blog_limit %}
+  <li class="sidebar-article {% if forloop.last %}last{% endif %} ">
+    <h2>
+      <a class="sidebar-article-title" href="{{ article.url }}">
+        {{ article.title }}
+      </a>
+    </h2>
+    <p class="sidebar-article-date accent-text">{{ article.published_at | date: '%b %d, %Y' }}</p>
+  </li>
+  {% endfor %}
+</ul><!-- #snippet-blog-sideba -->
+
+{% unless no_tags == 'no-tags' %}
+<ul id="snippet-tag-sidebar" class="sidebar">
+  <li>
+    <h2 id="snippet-tag-title">Tags</h2>
+  </li>
+  {% for tag in blog.all_tags %}
+  <li class="sidebar-tag {{ tag | handle }} {% if current_tags contains tag %}current{% endif %} {% if forloop.last %}last{% endif %}">
+    <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+  </li>
+  {% endfor %}
+</ul>
+<script type="text/javascript" charset="utf-8">
+{% for tag in blog.all_tags %}
+  {% assign the_tag = tag %}
+  {% assign the_tag_count = 0 %}
+  var tag_count = 0
+  {% for article in blogs[blog.handle].articles %}
+    {% for tag in article.tags %}
+      {% if tag == the_tag %}
+        tag_count++;
+        {% assign the_tag_count = the_tag_count | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+  jQuery('#snippet-tag-sidebar .{{ tag | handle }}').append('<a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tag-count accent-text">' + tag_count + '</a>');
+{% endfor %}
+</script>
+{% endunless %}

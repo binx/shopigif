@@ -1,0 +1,71 @@
+{% paginate blog.articles by settings.blog_app %}  
+<div class="clearfix page-container">
+  
+    {% if current_tags %}
+      <h1 class="page-title">{{ blog.title | link_to: blog.url }} / {{ current_tags.first }}</h1>
+    {% else %}
+      <h1 class="page-title">{{ blog.title }}</h1>
+    {% endif %}
+
+  <ul id="blog-content">
+    {% for article in blog.articles %}
+    <li class="blog-article {% if forloop.last %}last{% endif %} {% if forloop.first %}first{% endif %}">
+      <h2 href="{{ article.url }}" class="blog-article-date accent-text">{{ article.published_at | date: '%b %d, %Y' }}</h2>
+      <h1 class="blog-article-title-outter"><a class="blog-article-title" href="{{ article.url }}">{{ article.title }}</a></h1>
+      <div class="rte">
+        {% if article.excerpt.size > 0 %}
+        {{ article.excerpt }}
+        {% else %}
+        <p>{{ article.content | strip_html | truncatewords: 100 }}</p>        
+        {% endif %}
+      </div><!-- .rte -->
+      <a class="blog-read-more accent-text" href="{{ article.url }}">{{ settings.fp_blog_rm_label }} →</a>
+      <ul class="blog-article-meta accent-text">
+        
+        {% if blog.comments_enabled? == true %}
+          <li class="blog-article-meta-item blog-article-meta-comments">
+              <span></span>
+              <a href="{{ article.url }}#comments" class="blog-article-comments">{{ article.comments_count }} {{ article.comments_count | pluralize:'Comment','Comments' }}</a>
+          </li>
+        {% endif %}
+
+        {% if article.tags.size > 0 %}
+        <li class="blog-article-meta-item blog-article-meta-tags">
+          <span></span>
+          {% for tag in article.tags %} 
+          <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+          {% endfor %}
+        </li>
+        {% endif %}
+
+        <li class="blog-article-meta-item blog-article-meta-share">
+          <span></span>
+          <a href="{{ article.url }}" class="blog-article-share">Share</a>
+          {% capture shareurl %}{{ shop.url }}{{ article.url }}{% endcapture %}
+          <div class="share-widget">
+            <a href="http://twitter.com/home?status=Check%20out%20this%20blog%20post:+{{ shareurl }}" class="sw-twitter"></a>
+            <a href="http://www.facebook.com/sharer.php?u={{ shareurl }}&t={{ article.title }}" class="sw-facebook"></a>
+            <a href="http://www.tumblr.com/share/link?url={{ shareurl | replace: 'http://', '' }}" class="sw-tumblr"></a>
+            <a href="https://plus.google.com/share?url={{ shareurl }}" onclick="javascript:window.open(this.href,  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="sw-google"></a>
+            <a href="mailto:?subject={{ article.title }}&body=Check out this blog post: {{ shareurl }}" class="sw-mail"></a>
+          </div>
+        </li>
+        
+        <li class="blog-article-meta-item share-stats" data-url="{{ shareurl }}"></li>
+        
+      </ul>
+
+    </li>
+
+    {% endfor %}
+    <li class="blog-pagination">
+      {% include 'snippet-pagination' %}
+    </li>
+    {% endpaginate %}
+  </ul><!-- #page-content -->
+
+  {% if settings.show_page_blog %}<div style="width:268px; float:right">{% include 'snippet-sidebar' %}</div>{% endif %}
+
+</div><!-- #page-container -->
+
+{% include 'snippet-breadcrumbs' %}

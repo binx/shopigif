@@ -1,0 +1,43 @@
+{% layout settings.customer_layout %}
+
+<div id="customer-accounts" class="content clearfix customer">
+
+  <!-- Create Customer -->
+  <div id="create-customer">
+    <div class="page-header">
+      <h1>Create an account</h1>
+    </div>
+      
+    <p class="note">New to {{ shop.name }}? Sign up for a free account.</p>
+
+    {% form 'create_customer' %}
+      
+      {{ form.errors | default_errors }}
+
+      <div id="first_name" class="clearfix form-row">
+        <label for="first_name" class="login">First Name</label>
+        <input type="text" name="customer[first_name]" id="first_name" class="styled-input" placeholder="Your first name" value="{{ form.first_name }}" size="30" />
+      </div>
+
+      <div id="last_name" class="clearfix form-row">
+        <label for="last_name" class="login">Last Name</label>
+        <input type="text" name="customer[last_name]" id="last_name" class="styled-input" placeholder="Your last name" value="{{ form.last_name }}" size="30" />
+      </div>
+
+      <div id="email" class="clearfix form-row">
+        <label for="email" class="login">Email Address</label>
+        <input type="email" name="customer[email]" id="email" class="styled-input{% if form.errors contains 'email' %} error{% endif %}" placeholder="your@email.com" value="{{ form.email }}" size="30" />
+      </div>
+
+      <div id="password" class="clearfix form-row">
+        <label for="password" class="login">Password</label>
+        <input type="password" name="customer[password]" id="password" class="password styled-input{% if form.errors contains 'password' %} error{% endif %}" value="{{ form.password }}" size="30" />
+      </div>
+
+      <div class="action-bottom clearfix">
+        <input class="btn styled-submit" type="submit" value="Create" />
+      </div>
+    {% endform %}
+  </div><!-- /#create-customer -->
+
+</div><!-- #customer-accounts -->

@@ -1,0 +1,74 @@
+{% paginate search.results by settings.search_ppp %}
+<div class="page-container clearfix">
+
+  <h1 class="page-title">{{ settings.search_title }}</h1>
+
+  <div id="search-content" class="{% if settings.show_page_blog == false %}full-width{% endif %}">
+    {% if search.performed %}
+    
+      {% if search.results.size > 0 %}
+      
+      <p class="accent-text" id="searching-for">{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} found for "{{ search.terms }}"</p>
+
+      <ol>
+        {% for item in search.results %}
+        <li class="search-result {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %} clearfix">
+          {% if item.featured_image %}
+          <a class="search-result-image" href="{{ item.url }}" title="{{ item.title | escape }}">
+            <img{% unless item.available %} class="sold-out"{% endunless %} src="{{ item.featured_image | product_img_url: 'large' }}" />
+          </a>
+          {% endif %}
+
+          <div class="search-result-details {% unless item.featured_image %}no-image{% endunless %}">
+            <h2 class="search-result-title">{{ item.title | link_to: item.url }}{% if item.available == false %} <span class="accent-text">Sold Out</span>{% endif %}</h2>
+            {% if item.featured_image %}
+              {% assign product = item %}
+              {% if product.compare_at_price > product.price %}
+              <p class="on-sale accent-text search-result-price">
+                {{ product.price | money }} 
+                <em class="compare-at-price">{{ product.compare_at_price | money }}</em>
+              </p>
+              {% else %}
+              <p class="accent-text search-result-price">
+                {% if product.price_varies %}From{% endif %}
+                {{ product.price | money }}
+              </p>
+              {% endif %}
+            {% endif %}
+            <p class="search-result-description">{% if item.featured_image %}{{ item.description | strip_html | truncatewords: 55 | highlight: search.terms }}{% else %}{{ item.content | strip_html | truncatewords: 55 | highlight: search.terms }}{% endif %}</p>
+          </div><!-- .result-details -->
+        </li>
+        {% endfor %}
+
+        <li class="search-pagination">
+          {% include 'snippet-pagination' %}
+        </li>
+      </ol>
+      
+      {% else %}
+      
+      <p id="searching-for" class="accent-text">No results were found for "{{ search.terms }}"</p>
+      
+      {% endif %}
+    
+    {% endif %}
+    
+    {% unless search.performed and search.results.size > 0 %}
+    
+    <form action="/search" method="get">
+      <p>{% if settings.search_products_only %}
+        <input type="hidden" name="type" value="product" />{% endif %}
+        <input name="q" type="text" class="styled-input" placeholder="Search store..." />
+        <input type="submit" value="Submit" name="submit" class="btn styled-submit" />
+      </p>
+    </form>
+    
+    {% endunless %}
+    
+  </div><!-- #search-content -->
+  {% endpaginate %}
+
+  {% if settings.show_page_blog %} {% include 'snippet-sidebar' %} {% endif %}
+
+</div><!-- .page-container -->
+{% include 'snippet-breadcrumbs' %}

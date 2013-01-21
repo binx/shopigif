@@ -1,0 +1,38 @@
+<div class="clearfix page-container instapaper_body hentry{% if settings.show_page_blog == false %} full-width{% endif %}">
+
+  <h1 class="page-title instapaper_title entry-title">{{ page.title }}</h1>
+
+  <div id="page-content" class="rte ">
+    {{ page.content }}
+  </div><!-- #page-content -->
+  
+  {% comment %}
+  Do you wish to add content to your sidebar on one particular page?
+  1. Create an alternate page template, then open it in the Template Editor.
+  2. On line no 1, remove the following:
+     {% if settings.show_page_blog == false %} full-width{% endif %}
+  2. Right above this very comment, paste the following code:
+     <div class="sidebar">
+     </div>
+  3. Inside that div element, add some HTML. For example:
+     <div class="sidebar">
+       <h2>Section title</h2>
+       <p>
+          <img src="http://i0.kym-cdn.com/photos/images/original/000/096/044/trollface.jpg?1296494117" />
+       </p>
+       <p>
+       Maecenas quis tortor arcu. Vivamus rutrum nunc non neque consectetur 
+       quis placerat neque lobortis. Nam vestibulum, arcu sodales feugiat consectetur, 
+       nisl orci bibendum elit, eu euismod magna sapien ut nibh. Donec semper quam 
+       scelerisque.
+       </p>
+     </div>
+  4. Now go to your special page and select your page template in the Template drop-down.
+  5. And you are done.
+  -- Caroline.
+  {% endcomment %}
+  
+  {% if settings.show_page_blog %} {% include 'snippet-sidebar' %} {% endif %}
+
+</div><!-- #page-container -->
+{% include 'snippet-breadcrumbs' %}

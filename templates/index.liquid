@@ -1,0 +1,299 @@
+{% if shop.products_count < 1 and settings.show_slideshow == false %}
+
+  {% include 'snippet-default-slideshow-message' %}
+
+{% else %}
+
+    {% if settings.show_slideshow %}
+    <div id="slideshow">
+
+      <div id="slideshow-container">
+        <ul id="slides">
+          
+        {% comment %}
+        {% raw %}
+        
+        To add slides to your home page slideshow, you need to do 2 things:
+        
+        1.  Add settings to your config/settings.html file for each additional slide that you want to add. 
+            Copy a block of code for a slide, replace any instance of the number for that slide 
+            with the number of the next slide that you want to add. For example, if you're adding a 7th slide, 
+            you would replace all instances of '6' with '7'. Repeat for each added slide. Then, save your 
+            config/settings.html file and come back here.
+        2.  Change the '6' in {% for i in (1..6) %} right below to the new total of slides you have.
+
+        {% endraw %}        
+        {% endcomment %}
+          
+        {% for i in (1..6) %}
+        
+          {% capture slide %}slide_{{ i }}{% endcapture %}
+          {% capture slide_img %}slide_{{ i }}.jpg{% endcapture %}
+          {% capture slide_media_type %}slide_{{ i }}_media_type{% endcapture %}
+          {% capture slide_bg_color %}slide_{{ i }}_bg_color{% endcapture %}
+          {% capture slide_link_type %}slide_{{ i }}_link_type{% endcapture %}
+          {% capture slide_link_url %}slide_{{ i }}_link_url{% endcapture %}
+          {% capture slide_link_title %}slide_{{ i }}_link_title{% endcapture %}
+          {% capture slide_caption %}slide_{{ i }}_caption{% endcapture %}
+          {% capture slide_video %}slide_{{ i }}_video{% endcapture %}
+
+
+          {% if settings[slide] %}
+
+            {% if settings[slide_media_type] == 'image' %}
+              <li style="background: url('{{ slide_img | asset_url }}') no-repeat 50% 50% {{ settings[slide_bg_color] }} ;" id="slide-{{ i }}" class="slide">
+                {% if settings[slide_link_type] == 'slide_link' and settings[slide_link_url].size > 0 %}
+                  <a class="slide-link-through" href="{{ settings[slide_link_url] }}"></a>
+                {% endif %}
+
+                {% if settings[slide_caption].size > 0 or settings[slide_link_title].size > 0 %}
+                  <div class="slide-caption">
+                    {% if settings[slide_caption].size > 0 %}
+                      <h2 class="smooth">{{ settings[slide_caption] }}</h2>
+                    {% endif %}
+
+                    {% if settings[slide_link_title].size > 0 %}
+                      <a class="slide-link smooth" href="{{ settings[slide_link_url] }}">{{ settings[slide_link_title] }}</a>
+                    {% endif %}
+                  </div><!-- .slide_caption -->
+                {% endif %}
+              </li>
+            {% else %}
+              <li style="background:{{ settings[slide_bg_color] }};" id="slide-{{ i }}" class="slide">
+                {{ settings[slide_video] }}
+              </li>
+            {% endif %}
+
+          {% endif %}
+          
+        {% endfor %}
+
+        </ul>
+      </div><!-- #slideshow-container -->
+
+      <ul id="slideshow-controls"></ul>
+
+    </div><!-- #slideshow -->
+    {% endif %}
+
+{% endif %}
+
+
+{% if settings.show_product_slider and settings.mini_slider_collection != '' and collections[settings.mini_slider_collection].handle == settings.mini_slider_collection %}
+<div id="product-slider">
+
+  <h2 class="smooth clearfix">{{ settings.mini_slider_title }}</h2>
+  
+  
+  <a class="mini-slider-controls" id="mini-slider-prev" href=""></a>
+  <a class="mini-slider-controls" id="mini-slider-next" href=""></a>
+
+  <div id="mini-slider-container">
+
+    <ul class="clearfix" id="mini-slides">
+      {% assign collection = collections[settings.mini_slider_collection] %}
+      {% for product in collections[settings.mini_slider_collection].products limit: settings.mini_slider_limit %}
+        {% include 'snippet-product-item' with 'three' %}
+      {% else %}
+         <p style="width:884px; overflow:visible; text-align:center;">Your <strong>{{ collection.title }}</strong> collection is empty. <a target="_blank" href="{{ shop.url }}/admin/custom_collections">Go and add some products to it</a>.</p>
+      {% endfor %}
+    </ul>
+
+  </div><!-- #slider-container -->
+
+</div><!-- #product-slider -->
+{% endif %}
+
+<div class="clearfix" id="columns-wrap">
+
+  {% assign full_width = false %}
+
+  {% if settings.show_blog or settings.show_browse or settings.show_link_list_1 or settings.show_link_list_2 %}
+  <ul id="widgets">
+
+    {% if settings.show_blog %}
+    <li class="widget" id="fp-blog-container">
+      <h2 class="smooth widget-title" id="fp-blog-title">
+        {{ settings.fp_blog_title }} 
+        {% if settings.social_rss.size > 0 %}
+          <a id="blog-share-rss" class="blog-share ir" href="/blogs/{{ settings.fp_blog }}.atom">RSS</a>
+        {% endif %}
+      </h2>
+
+      <ul id="fp-blog" class="clearfix">
+        {% for article in blogs.[settings.fp_blog].articles limit: settings.fp_blog_limit %}
+          <li id="{{ article.id }}" class="fp-article {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
+            <em class="fp-article-date accent-text">{{ article.published_at | date: "%B %d, %Y" }}</em>
+            <h3 class="fp-article-title smooth"><a href="{{article.url}}">{{ article.title }}</a></h3>
+            <div class="fp-article-content rte">
+              {% if article.excerpt.size > 0 %}
+                {{ article.excerpt }}
+              {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 50 }}</p>                
+              {% endif %}              
+            </div><!-- .fp-article-content -->
+            <a class="fp-read-more accent-text" href="{{ article.url }}">{{ settings.fp_blog_rm_label }} →</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </li><!-- #fp-blog -->
+    {% endif %}
+
+    {% if settings.show_browse %}
+    <li class="widget {% if settings.show_blog == false %}first{% endif %}" id="fp-browse">
+      <h2 class="smooth widget-title" id="fp-browse-title">{{ settings.fp_browse_label }}</h2>
+
+      {% if settings.show_bb_vendor and settings.show_vendor %}
+      {% assign first_letter = settings.word_for_vendor | truncate: 1, '' %}
+      <div class="browse-by">
+        <h3 class="browse-sub-titles">Browse by {{ settings.word_for_vendor }}</h3>
+        <select class="special-select" name="fp_bb_vendor" id="fp_bb_vendor" size="1">
+          {% assign vowels = 'aeiouAEIOU' %}
+          <option value="">Choose {% if vowels contains first_letter %}an{% else %}a{% endif %} {{ settings.word_for_vendor }}</option>
+          {% for product_vendor in shop.vendors %}
+            {% assign product_vendor_handle = product_vendor | handle %}
+            {% if collections[product_vendor_handle].handle == product_vendor_handle %}
+            <option value="/collections/{{ product_vendor_handle }}">{{ product_vendor }}</option>
+            {% else %}
+            <option value="{{ product_vendor | url_for_vendor }}">{{ product_vendor }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+      {% if settings.show_bb_category %}
+      <div class="browse-by">
+        <h3 class="browse-sub-titles">Browse by category</h3>
+        <select class="special-select" name="fp_bb_category" id="fp_bb_category" size="1">
+          <option value="">Choose a category</option>
+          {% for collection in collections %}
+          {% unless collection.handle == 'all' or collection.handle == 'all-products' or collection.handle == 'frontpage' %}
+          <option value="{{ collection.url }}">{{ collection.title }}</option>
+          {% endunless %}
+          {% endfor %}
+        </select>
+      </div>
+      {% endif %}
+
+    </li>
+    {% endif %}
+
+    {% if settings.show_link_list_1 %}
+    <li class="widget {% if settings.show_blog == false and settings.show_browse == false %}first{% endif %}" id="fp-link-list-1">
+      <h2 class="smooth widget-title" id="fp-link-list-1-title">{{ settings.fp_link_list_1_label }}</h2>
+      <ul id="link-list-1" class="link-list">
+        {% for link in linklists[settings.fp_link_list_1].links %}
+          <li class="ll-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+
+    {% if settings.show_link_list_2 %}
+    <li class="widget {% if settings.show_blog == false and settings.show_browse == false and settings.show_link_list_1 == false %}first{% endif %}" id="fp-link-list-2">
+      <h2 class="smooth widget-title" id="fp-link-list-2-title">{{ settings.fp_link_list_2_label }}</h2>
+      <ul id="link-list-2" class="link-list">
+        {% for link in linklists[settings.fp_link_list_2].links %}
+        <li class="ll-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+
+  </ul>
+  {% else %}
+  {% assign full_width = true %}
+  {% endif %}
+
+  {% if settings.show_product_list or settings.show_collection_list or settings.show_welcome_text %}
+  <div id="products-column"{% if full_width %} class="full-width"{% endif %}>
+    
+    {% if settings.show_product_list and settings.product_list_collection != '' and collections[settings.product_list_collection].handle == settings.product_list_collection %}
+    
+    <div id="products-column-header" class="clearfix">
+      <h2>{{ settings.product_list_title }}</h2>
+      {% unless settings.hide_view_collection_link %}
+        <a class="accent-text" href="/collections/{{ settings.product_list_collection }}">View collection →</a>
+      {% endunless %}
+    </div><!-- #products-column-header -->
+      
+      {% if shop.products_count == 0 %}
+      
+        {% include 'snippet-default-products' %}
+      
+      {% else %}
+      
+          {% if collections.[settings.product_list_collection].products_count == 0 %}
+
+            <div class="rte">
+              <p>It looks like the collection that you've selected is empty. Add products to your collection by clicking <a href="/admin/custom_collections">here</a>.</p>
+            </div><!-- .rte -->
+            
+          {% else %}
+      
+            <ul class="clearfix{% if shop.products_count == 0 %} default{% endif %}" id="fp-product-list">
+              {% assign collection = collections[settings.product_list_collection] %}
+              {% for product in collection.products limit: settings.product_list_limit %}      
+                {% include 'snippet-product-item' with 'four' %}
+              {% endfor %}
+            </ul>
+            
+          {% endif %}
+            
+       {% endif %}
+       
+     {% endif %}
+     
+     {% if settings.show_collection_list and settings.collection_list_ll and linklists[settings.collection_list_ll].links.size > 0 %}
+     <div id="products-column-header" class="clearfix">
+       <h2>{{ settings.collection_list_title }}</h2>
+         <a class="accent-text" href="{{ shop.url }}/collections">View all collections →</a>
+     </div><!-- #products-column-header -->
+      
+     {% assign count = 0 %}
+
+     <ul id="collection-list" class="clearfix">
+     {% for link in linklists[settings.collection_list_ll].links %}    
+       {% if link.type == 'collection_link' %}
+         {% assign collection = link.object %}
+         {% include 'snippet-collection-item' with 'four' %}
+         {% assign count = count | plus: 1 %}
+       {% endif %}
+     {% endfor %}
+     </ul>
+     
+     {% if count == 0 %}
+     <div class="rte">
+        <p>There are no collections in your <strong>{{ linklists[settings.collection_list_ll].title }}</strong> link list.</p>
+        <p>Either add collections to your <strong>{{ linklists[settings.collection_list_ll].title }}</strong> link list by browsing to your <a href="/admin/links">Navigation page</a>, or choose a different link list in your <a href="/admin/themes/current/settings">theme settings</a> in the <strong>Home > Module: Collection List</strong> section.</p>
+     </div>
+     {% endif %}
+            
+    {% endif %}
+     
+    {% if settings.show_welcome_text %}
+    <div id="welcome-text">
+      <h2 class="smooth widget-title" id="fp-welcome-title">{{ pages[settings.welcome_text_page].title }}</h2>
+      <div class="rte">
+        {{ pages[settings.welcome_text_page].content }}
+      </div>
+    </div><!-- #welcome-text -->
+    {% endif %}
+      
+  </div><!-- #products-column -->
+  {% endif %}
+  
+</div><!-- #columns-wrap -->
+
+<script>
+
+/* Module: Browse */
+
+jQuery('#fp_bb_category, #fp_bb_vendor').change(function(){
+  if (jQuery(this).val().length > 0) {
+    window.location = jQuery(this).val();
+  }
+});
+
+</script>
