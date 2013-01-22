@@ -30,7 +30,7 @@
               <li class="{{ variant.id }}">
                 <div class="compare {{ variant.id }}"></div>
                 <div class="type">{{ variant.title }}</div>
-                <div>{{ variant.price | money }}</div>
+                <div class="price">{{ variant.price | money }}</div>
               </li>
             {% endfor %}
           </ul>

@@ -2494,10 +2494,16 @@ a.slide-link {
   text-decoration:line-through;
 }
 
-#product-variants { padding-bottom: 31px ; }
+#product-variants { padding-bottom: 1em ; }
 
 #product-variants .selector-wrapper {
   display: none;
+}
+
+#product-variants .price {
+  font-family: Georgia, Utopia, 'Times New Roman', Times, serif;
+  font-size: 12px;
+  line-height: 12px;
 }
 
 #product-variants ul {
@@ -2522,7 +2528,7 @@ a.slide-link {
 #product-variants .compare {
   display: inline-block;
   padding: 5px;
-  background-color: #999;
+  background-color: {{ settings.price_color }};
 }
 #product-variants li.selected .compare,
 #product-variants li.selected:hover .compare {
