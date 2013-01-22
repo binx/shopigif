@@ -211,12 +211,12 @@
     
     {% if settings.show_product_list and settings.product_list_collection != '' and collections[settings.product_list_collection].handle == settings.product_list_collection %}
     
-    <div id="products-column-header" class="clearfix">
+    <!-- <div id="products-column-header" class="clearfix">
       <h2>{{ settings.product_list_title }}</h2>
       {% unless settings.hide_view_collection_link %}
         <a class="accent-text" href="/collections/{{ settings.product_list_collection }}">View collection →</a>
       {% endunless %}
-    </div><!-- #products-column-header -->
+    </div> -->
       
       {% if shop.products_count == 0 %}
       
@@ -235,7 +235,7 @@
             <ul class="clearfix{% if shop.products_count == 0 %} default{% endif %}" id="fp-product-list">
               {% assign collection = collections[settings.product_list_collection] %}
               {% for product in collection.products limit: settings.product_list_limit %}      
-                {% include 'snippet-product-item' with 'four' %}
+                {% include 'snippet-product-item' with 'two' %}
               {% endfor %}
             </ul>
             
