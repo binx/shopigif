@@ -22,6 +22,28 @@
         <h2 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h2>
         {% endif %}
       </li>
+
+      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
+        <div{% if hide_default_title %} class="hidden"{% endif %}>
+          <ul>
+            {% for variant in product.variants %}
+              <li class="{{ variant.id }}">
+                <div class="compare {{ variant.id }}"></div>
+                <div class="type">{{ variant.title }}</div>
+                <div>{{ variant.price | money }}</div>
+              </li>
+            {% endfor %}
+          </ul>
+          <select id="product-select" name="id" class="hidden" style="display: none;">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% if settings.show_qty %}
+        {% include 'snippet-quantity' %}
+        {% endif %}
+      </li>     
       
       {% if settings.prod_desc_placement == 'above' %}
       <li id="product-description" class="above">
@@ -33,6 +55,7 @@
       {% endif %}
       
       <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <h2 class="product-type"></h2>
         <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
         {% if product.available %}
         <link itemprop="availability" href="http://schema.org/InStock" />
@@ -52,19 +75,6 @@
       {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
         {% assign hide_default_title = true %}
       {% endif %}       
-
-      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
-        <div{% if hide_default_title %} class="hidden"{% endif %}>
-          <select id="product-select" name="id" class="hidden">
-            {% for variant in product.variants %}
-            <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        {% if settings.show_qty %}
-        {% include 'snippet-quantity' %}
-        {% endif %}
-      </li>        
         
       {% comment %}
       Additional form fields to customize your product.
@@ -229,6 +239,7 @@ jQuery(function() {
   Shopify.doNotTriggerClickOnThumb = false;
   
   var selectCallback = function(variant, selector) {
+    console.log(variant,selector)
 
     if (variant) {
       
@@ -255,6 +266,7 @@ jQuery(function() {
       if ( variant.compare_at_price > variant.price ) {
         jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<span class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</span>');  // update price field
       } else {
+        jQuery("#product-prices .product-type").text(variant.title);
         jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );  // update price field
       }
     
@@ -272,6 +284,15 @@ jQuery(function() {
   };
 
   new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+  
+  $("#product-variants li:first").addClass("selected")  
+
+  $("#product-variants li").click(function(){
+    $("#product-variants li").removeClass("selected");
+    $(this).addClass("selected");
+    var type = $(this).find(".type").text();
+    $("#product-select-option-0").val(type).change();
+  })
   
   jQuery('.single-option-selector').addClass('special-select').customStyle();
   

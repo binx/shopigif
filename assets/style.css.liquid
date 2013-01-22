@@ -6,6 +6,7 @@ body { margin: 0; font-size:14px; line-height:21px; }
 body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 ::-moz-selection { background: {{ settings.global_text_highlight_color }}; color: #fff; text-shadow: none; }
 ::selection { background: {{ settings.global_text_highlight_color }}; color: #fff; text-shadow: none; }
+h2 { font-size: 30px;}
 a:hover, a:active, a:focus { outline: 0; }
 abbr[title] { border-bottom: 1px dotted; }
 b, strong { font-weight: bold; }
@@ -2494,6 +2495,61 @@ a.slide-link {
 }
 
 #product-variants { padding-bottom: 31px ; }
+
+#product-variants .selector-wrapper {
+  display: none;
+}
+
+#product-variants ul {
+  padding: 0;
+  list-style-type: none;
+}
+#product-variants li {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  color: {{ settings.price_color }};
+  border: none;
+}
+#product-variants li.selected,
+#product-variants li.selected:hover {
+  color: black;
+}
+#product-variants li:hover {
+  color: #666;
+}
+#product-variants .compare {
+  display: inline-block;
+  padding: 5px;
+  background-color: #999;
+}
+#product-variants li.selected .compare,
+#product-variants li.selected:hover .compare {
+  background-color: black;
+}
+#product-variants li:hover .compare {
+  background-color: #666;
+}
+
+/* flip postcard */
+#product-variants li:nth-child(1) .compare {
+  width: 35px;
+  height: 20px;
+}
+/* flip 5x5 */
+#product-variants li:nth-child(2) .compare  {
+  width: 55px;
+  height: 30px;
+}
+#product-variants li:nth-child(3) .compare  {
+  width: 50px;
+  height: 50px;
+}
+#product-variants li:nth-child(4) .compare  {
+  width: 30px;
+  height: 30px;
+}
 
 #product-details select {
   margin-top:4px;
