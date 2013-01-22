@@ -34,7 +34,7 @@
       <a href="{{ product.url | within: collection }}" class="coll-prod-title">
         {{ product.title }}
       </a>
-      {% if product.compare_at_price > product.price %}
+      <!-- {% if product.compare_at_price > product.price %}
       <p class="coll-prod-price on-sale accent-text">
         {{ product.price | money }} 
         <em class="compare-at-price">{{ product.compare_at_price | money }}</em>
@@ -44,7 +44,7 @@
         {% if product.price_varies %}From{% endif %}
         {{ product.price | money }}
       </p>
-      {% endif %}
+      {% endif %} -->
     </div><!-- .coll-prod-meta -->
 
   </div><!-- .coll-prod-caption -->

@@ -13,7 +13,7 @@
       "sale_rondel_text": "Sale",
       "show_sold_out_rondel": true,
       "sold_out_rondel_text": "Sold Out",
-      "show_buy_medallion": true,
+      "show_buy_medallion": false,
       "buy_medallion_text": "Get Started!",
       "show_vendor": false,
       "word_for_vendor": "brand",

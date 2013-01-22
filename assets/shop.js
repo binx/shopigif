@@ -468,7 +468,9 @@ if (IS_INDEX) {
         }
     });
 
-    $('#fp-product-list li').css('height',golden_height);
+    // TAKING OUT HEIGHT FOR INDEX PRODUCTS
+    
+    // $('#fp-product-list li').css('height',golden_height);
 
 } // END of IS_INDEX
 
