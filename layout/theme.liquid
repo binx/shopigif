@@ -120,6 +120,10 @@
       {% else %}
       <h1 id="title" class="smooth" role="banner"><a href="/">{{ shop.name }}</a></h1>
       {% endif %}
+
+      <hr class="title" />
+      <div class="title-text header-text">Give the Gift of GIF</div>
+      
         
       <nav role="navigation">  
         <ul id="nav">
@@ -171,6 +175,8 @@
 
     </header><!-- #header -->
 
+    <div id="video" style="width: 100%; height: 400px; background-color: #999;"></div>
+
     <div class="clearfix" id="content" role="main">
       {% if template == 'list-collections' %}
         {% if settings.ll_collections != '' and linklists[settings.ll_collections].links.size > 0 %}
@@ -201,6 +207,8 @@
             {{ settings.about_module_text | newline_to_br }}
           </div>
           {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ft-share-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
+        </li>
+        <li class="ft-module {{ width }}">
           {% if settings.social_facebook.size > 0 %}<a id="ft-share-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
           {% if settings.social_tumblr.size > 0 %}<a id="ft-share-tumblr" class="ft-share ir" href="{{ settings.social_tumblr }}">Tumblr</a>{% endif %}
           {% if settings.social_instagram.size > 0 %}<a id="ft-share-instagram" class="ft-share ir" href="{{ settings.social_instagram }}">Instagram</a>{% endif %}          
@@ -286,13 +294,13 @@
     <div id="sub-footer" class="clearfix">
       
       <div class="footer-left-content">
-        {% if linklists.footer.links.size > 0 %}
+        <!-- {% if linklists.footer.links.size > 0 %}
         <div class="footer-nav accent-text" role="navigation">
         {% for link in linklists.footer.links %}
           <a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a>
         {% endfor %}
         </div>
-        {% endif %}
+        {% endif %} -->
         <p id="shopify-attr" class="accent-text" role="contentinfo">Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}. {{ powered_by_link }}.</p>
       </div> <!-- #footer-left-content -->
       
