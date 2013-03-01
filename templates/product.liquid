@@ -7,6 +7,9 @@
   {% if product.available %}
   <form action="/cart/add" method="post" enctype="multipart/form-data">
   {% endif %}
+
+    <iframe id="gifbot" src="http://127.0.0.1:3000/upload"></iframe>
+    <!-- {{ product.title | replace: ' ', '_' }}.html"></iframe> -->
     
     <ul id="product-details">
       
@@ -284,15 +287,19 @@ jQuery(function() {
   };
 
   new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
+
+  var gifbot = document.getElementById("gifbot").contentWindow;
   
-  $("#product-variants li:first").addClass("selected")  
+  $("#product-variants li:first").addClass("selected");
 
   $("#product-variants li").click(function(){
     $("#product-variants li").removeClass("selected");
     $(this).addClass("selected");
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
-  })
+    var t = type.toLowerCase().replace(" ","_");
+    gifbot.postMessage("s_"+t, "http://127.0.0.1:3000/upload");
+  });
   
   jQuery('.single-option-selector').addClass('special-select').customStyle();
   
