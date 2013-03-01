@@ -13,7 +13,7 @@
     
     <ul id="product-details">
       
-      <li id="product-title">
+      <!-- <li id="product-title">
         <h1 itemprop="name">{{ product.title }}</h1>
         {% if settings.show_vendor %}
         {% assign product_vendor_handle = product.vendor | handle %}
@@ -24,10 +24,11 @@
         {% endif %}
         <h2 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h2>
         {% endif %}
-      </li>
+      </li> -->
 
-      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
+      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %} half">
         <div{% if hide_default_title %} class="hidden"{% endif %}>
+          <div class="sub-header">Size</div>
           <ul>
             {% for variant in product.variants %}
               <li class="{{ variant.id }}">
@@ -48,16 +49,21 @@
         {% endif %}
       </li>     
       
+      <li class="half">
+        <label for="quantity" class="sub-header">Quantity</label> 
+        <input min="1" type="number" id="quantity" name="quantity" value="1" />
+        <style>#quantity { padding:5px; width:35px; border: 1px solid #555; }</style>
+      </li>
       {% if settings.prod_desc_placement == 'above' %}
-      <li id="product-description" class="above">
+      <!-- <li id="product-description" class="above">
         {% comment %}<h2>Description</h2>{% endcomment %}
         <div id="full_description" class="rte" itemprop="description">
           {{ product.description }}
-        </div><!-- #full_description rte -->
-      </li>
+        </div>
+      </li> -->
       {% endif %}
       
-      <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+      <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
         <h2 class="product-type"></h2>
         <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
         {% if product.available %}
@@ -132,7 +138,7 @@
         
       <li id="product-add">
         <div id="product-add-wrap">
-          <div id="product-add-medallion" class=""></div><!-- #product-add-medallion -->
+          <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
           <input type="submit" name="add" id="add" value="Add to cart" class="smooth">
         </div><!-- #product-add-wrap -->
       </li>

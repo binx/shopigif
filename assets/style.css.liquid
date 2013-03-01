@@ -2448,6 +2448,12 @@ a.slide-link {
   border: 1px solid #ddd;
 }
 
+.sub-header {
+  font-family: "Futura";
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
 .no-js #product-select {
   display:inline;
   visibility:visible;
@@ -2511,8 +2517,14 @@ a.slide-link {
 }
 
 .property-wrapper { margin:29px 0;}
-
-#product-details li { border-bottom:1px solid {{ settings.secondary_border }} }
+#product-details .half {
+  width: 100%;
+}
+#product-details .half { 
+  width: 422px;
+  float: left;
+  /*border-bottom:1px solid {{ settings.secondary_border }} */
+}
 
 #product-details li:last-child { border-bottom:0; }
 
@@ -2689,15 +2701,17 @@ a.slide-link {
 
 #product-add input {
   font-weight:700;
-  font-size:19px;
-  color:{{ settings.global_link_color }};
-  display:inline;
+  font-size:30px;
+  /*color:{{ settings.global_link_color }};*/
+  display:inline-block;
   position:relative;
-  top:-13px;
-  margin-left:6px;
-  border:none;
-  background:none;
-  font-family:{{ settings.text_font }};
+  background-color: #ff9900;
+  font-family:"Futura";
+  text-transform: uppercase;
+  font-style: italic;
+  color: white;
+  border: none;
+  padding: 5px 15px;
   -webkit-font-smoothing: antialiased;
 }
 
