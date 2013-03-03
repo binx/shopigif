@@ -107,9 +107,9 @@
             <input type="submit" value="" name="submit" id="search-submit" />
         </form>
         
-        <a href="/cart" class="cart-elem smooth roundify-total round" id="cart-total">
+        <!-- <a href="/cart" class="cart-elem smooth roundify-total round" id="cart-total">
           <span id="cart-price">{{ cart.total_price | money }}</span>
-        </a>
+        </a> -->
           
       </div><!-- #cart-summary -->
 
@@ -202,7 +202,8 @@
         <li class="ft-module {{ width }}" id="about-module">
           <h3>{{ settings.about_module_title | strip_html }}</h3>
           <div id="about-description" class="clearfix">
-            {{ settings.about_module_text | newline_to_br }}
+            <!-- {{ settings.about_module_text | newline_to_br }} -->
+            gifpop! is a project by <a href="http://rachelbinx.com">Rachel Binx</a> and <a href="http://postarchitectural.com">Sha Hwang</a>. They are in love with internet culture, data visualization, and travel. Previous collaborations of theirs include <a href="http://meshu.io">Meshu</a>.
           </div>
           {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ft-share-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
         </li>
