@@ -34,7 +34,7 @@
               <li class="{{ variant.id }}">
                 <div class="compare {{ variant.id }}"></div>
                 <div class="type">{{ variant.title }}</div>
-                <div class="price">{{ variant.price | money }}</div>
+                <!-- <div class="price">{{ variant.price | money }}</div> -->
               </li>
             {% endfor %}
           </ul>
@@ -50,9 +50,21 @@
       </li>     
       
       <li class="half">
-        <label for="quantity" class="sub-header">Quantity</label> 
-        <input min="1" type="number" id="quantity" name="quantity" value="1" />
-        <style>#quantity { padding:5px; width:35px; border: 1px solid #555; }</style>
+        <label for="quantity" class="sub-header" style="margin-bottom:30px;">Quantity</label> 
+        <div class="pair">
+          <div class="money">{{ product.price | money }}</div>
+          <div class="caption">each</div>
+        </div>
+        <div class="arith" style="font-size: 30px; margin-right:4px;">&#x2715;</div>
+        <div class="pair" style="margin-right:10px;">
+          <input min="1" max="99" type="number" id="quantity" name="quantity" value="1" />
+          <div class="caption" style="margin-left: -10px">pop</div>
+        </div>
+        <div class="arith" style="margin-right: 10px;">&#x3d;</div>
+        <div class="pair" style="margin-right:0px;">
+          <div class="total">{{ product.price | money }}</div>
+          <div class="caption">total</div>
+        </div>
       </li>
       {% if settings.prod_desc_placement == 'above' %}
       <!-- <li id="product-description" class="above">
@@ -63,7 +75,7 @@
       </li> -->
       {% endif %}
       
-      <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
+      <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
         <h2 class="product-type"></h2>
         <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
         {% if product.available %}
@@ -78,7 +90,7 @@
           <span class="product-price" itemprop="price">{{ product.price | money }}</span>
           {% endif %}
         </p>
-      </li>
+      </li> -->
       
       {% assign hide_default_title = false %}
       {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
@@ -170,7 +182,7 @@
       {% if settings.prod_desc_placement == 'bottom' %}
       <li id="product-share">
         {% include 'snippet-product-share' %}
-      </li><!-- #product-share -->
+      </li>
       {% endif %}
       
     </ul><!-- #product-description -->
@@ -276,7 +288,9 @@ jQuery(function() {
         jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<span class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</span>');  // update price field
       } else {
         jQuery("#product-prices .product-type").text(variant.title);
-        jQuery('#product-price').html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );  // update price field
+        var shortPrice = Shopify.formatMoney(variant.price, "{{ shop.money_format }}").slice(0,-3);
+        jQuery('#product-price').html('<span class="product-price">'+ shortPrice + '</span>' );  // update price field
+        $(".money").text(shortPrice);
       }
     
       {% if settings.show_multiple_currencies %}
@@ -303,9 +317,36 @@ jQuery(function() {
     $(this).addClass("selected");
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
-    var t = type.toLowerCase().replace(" ","_");
+    var t = type.toLowerCase().replace(".","_");
     gifbot.postMessage("s_"+t, "http://127.0.0.1:3000/upload");
+    setTotal();
   });
+
+  var quantity = $("#quantity");
+
+  quantity.keyup(function(){
+    if ($(this).val() > 99)
+      $(this).val(99);
+    setQuantityWidth(quantity);
+  });
+  quantity.click(function(){
+    setQuantityWidth(quantity);
+  })
+  function setQuantityWidth(q) {
+    var num = q.val();
+    q.css("width",(1+Math.floor(Math.log(num)/Math.log(10)))*30 + 20 + "px");
+    if (num > 1)
+      q.parent().find(".caption").text("pops");
+    else
+      q.parent().find(".caption").text("pop");
+    setTotal();
+  }
+  function setTotal() {
+    var num = quantity.val();
+    var price = $(".money").text().substring(1);
+    $(".total").text("$"+(num*price));
+  }
+  setTotal();
   
   jQuery('.single-option-selector').addClass('special-select').customStyle();
   

@@ -2511,6 +2511,7 @@ a.slide-link {
   width:884px;
   margin: 0 auto;
   padding-bottom:40px;
+  font-family: "Futura";
 }
 
 #product-details {
@@ -2527,7 +2528,7 @@ a.slide-link {
   width: 100%;
 }
 #product-details .half { 
-  width: 422px;
+  width: 442px;
   float: left;
   /*border-bottom:1px solid {{ settings.secondary_border }} */
 }
@@ -2593,6 +2594,8 @@ a.slide-link {
   cursor: pointer;
   color: {{ settings.price_color }};
   border: none;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 #product-variants li.selected,
 #product-variants li.selected:hover {
@@ -2613,24 +2616,35 @@ a.slide-link {
 #product-variants li:hover .compare {
   background-color: #666;
 }
-
+#product-variants li:nth-child(1) {
+  width: 82px;
+}
+#product-variants li:nth-child(2) {
+  width: 120px;
+}
+#product-variants li:nth-child(3) {
+  width: 105px;
+}
+#product-variants li:nth-child(4) {
+  width: 75px;
+}
 /* flip postcard */
 #product-variants li:nth-child(1) .compare {
-  width: 35px;
-  height: 20px;
+  width: 52px;
+  height: 30px;
 }
 /* flip 5x5 */
 #product-variants li:nth-child(2) .compare  {
-  width: 50px;
-  height: 35px;
+  width: 90px;
+  height: 60px;
 }
 #product-variants li:nth-child(3) .compare  {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
 }
 #product-variants li:nth-child(4) .compare  {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
 }
 
 #product-details select {
@@ -2683,7 +2697,41 @@ a.slide-link {
   font-family:{{ settings.text_font }};
 }
 
-#quantity { width:35px; margin-bottom:0; text-align:center; }
+#quantity { 
+  width:50px; 
+  margin-bottom:0; 
+  text-align:center; 
+  border: 2px solid white;
+  padding: 0 5px;
+  font-size: 50px;
+  font-family: "Futura";
+  line-height: 70px;
+}
+#quantity:hover {
+  border: 2px solid #ff9900;
+}
+
+.pair {
+  display: inline-block;
+  margin-right: 12px;
+}
+.money, .total {
+  font-size: 50px;
+  line-height: 70px;
+}
+.caption {
+  text-transform: uppercase;
+  font-size: 20px;
+  text-align: center;
+  color: #a9aaaa;
+}
+.arith {
+  font-size: 40px;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 78px;
+  color: #a9aaaa;
+}
 
 #product-add { padding:18px 0 10px; }
 
@@ -2719,6 +2767,8 @@ a.slide-link {
   border: none;
   padding: 5px 15px;
   -webkit-font-smoothing: antialiased;
+  margin-top: 70px;
+  float: right;
 }
 
 #product-add input:hover { color: {{ settings.global_hover_color }} }
