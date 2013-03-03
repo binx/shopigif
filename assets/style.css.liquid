@@ -3283,21 +3283,19 @@ a.slide-link {
   margin-left:0;
 }
 
-#empty-cart { color:{{ settings.global_text_font_color }} }
-
-#empty-cart h1 {
-  font-family:{{ settings.headings_font }};
-  margin-bottom:10px;
+#empty-cart h1, h2 {
+  color: #808080;
+  font-weight: normal;
+  font-size: 20px;
 }
 
-#empty-cart h2 {
-  font-weight:400;
-  margin-top:10px;
+#empty-cart h2 a { 
+  font-family: Futura;
+  font-style: italic;
+  color:#000; 
 }
 
-#empty-cart h2 a { color:{{ settings.global_link_color }} }
-
-#empty-cart h2 a:hover { color:{{ settings.global_hover_color }} }
+#empty-cart h2 a:hover { color:#ff9900; }
 
 #shipping-calculator {
   border-top:1px solid {{ settings.primary_border }};
