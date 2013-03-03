@@ -205,16 +205,16 @@
             <!-- {{ settings.about_module_text | newline_to_br }} -->
             gifpop! is a project by <a href="http://rachelbinx.com">Rachel Binx</a> and <a href="http://postarchitectural.com">Sha Hwang</a>. They are in love with internet culture, data visualization, and travel. Previous collaborations of theirs include <a href="http://meshu.io">Meshu</a>.
           </div>
-          {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ft-share-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
         </li>
         <li class="ft-module {{ width }}">
-          {% if settings.social_facebook.size > 0 %}<a id="ft-share-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
           {% if settings.social_tumblr.size > 0 %}<a id="ft-share-tumblr" class="ft-share ir" href="{{ settings.social_tumblr }}">Tumblr</a>{% endif %}
           {% if settings.social_instagram.size > 0 %}<a id="ft-share-instagram" class="ft-share ir" href="{{ settings.social_instagram }}">Instagram</a>{% endif %}          
           {% if settings.social_pinterest.size > 0 %}<a id="ft-share-pinterest" class="ft-share ir" href="{{ settings.social_pinterest }}">Pinterest</a>{% endif %}
           {% if settings.social_youtube.size > 0 %}<a id="ft-share-youtube" class="ft-share ir" href="{{ settings.social_youtube }}">YouTube</a>{% endif %}
           {% if settings.social_vimeo.size > 0 %}<a id="ft-share-vimeo" class="ft-share ir" href="{{ settings.social_vimeo }}">Vimeo</a>{% endif %}
           {% if settings.social_rss.size > 0 %}<a id="ft-share-rss" class="ft-share ir" href="/blogs/{{ settings.social_rss }}.atom">RSS</a>{% endif %}
+          {% if settings.social_facebook.size > 0 %}<a id="ft-share-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
+          {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ft-share-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
         </li>
         {% endif %}
 
