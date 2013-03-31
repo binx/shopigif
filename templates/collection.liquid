@@ -1,4 +1,4 @@
-{% paginate collection.products by settings.collection_ppp %}
+<!-- {% paginate collection.products by settings.collection_ppp %}
 
 <ul class="clearfix" id="collection-header">
   <li id="collection-title"><h1 class="page-title">{{ collection.title }}</h1></li>
@@ -22,8 +22,8 @@
 {% if collection.description.size > 0 %}
 <div id="collection-description" class="rte">
   {{ collection.description }}
-</div><!-- .collection-description rte -->
-{% endif %}
+</div>
+{% endif %} -->
 
 {% if shop.products_count == 0 %}
 
@@ -31,12 +31,12 @@
 
 {% else %}
   
-  <ul id="coll-product-list" class="clearfix">
+  <ul id="coll-product-list" class="clearfix" style="margin: 20px 0 70px -40px;">
     {% for product in collection.products %}
       {% if settings.products_per_row == '3' %}
         {% include 'snippet-product-item' with 'three' %}
       {% else %}
-        {% include 'snippet-product-item' with 'four' %}
+        {% include 'snippet-product-item' with 'two' %}
       {% endif %}
     {% endfor %}
   </ul>
@@ -44,7 +44,7 @@
 {% endif %}
 
 {% include 'snippet-pagination' %}
-{% include 'snippet-breadcrumbs' %}
+<!-- {% include 'snippet-breadcrumbs' %} -->
 
 {% endpaginate %}
 

@@ -119,6 +119,14 @@ a {
   text-decoration:none;
   color:{{ settings.global_link_color }};
 }
+
+.skew {
+  transform:skew(-10deg);
+  -ms-transform:skew(-10deg); /* IE 9 */
+  -moz-transform:skew(-10deg); /* Firefox */
+  -webkit-transform:skew(-10deg); /* Safari and Chrome */
+  -o-transform:skew(-10deg); /* Opera */
+}
         
 #container {
   width:884px;
@@ -421,7 +429,6 @@ margin:0 auto;
   color: #ff9900;
   font-size: 16px;
   text-transform: uppercase;
-  font-family: Futura;
 }
 
 .three-per-row .coll-prod-caption,
@@ -557,7 +564,6 @@ margin:0 auto;
 }
 
 .three-per-row .coll-prod-title, .two-per-row .coll-prod-title {
-  font-family: "Futura";
   font-style: italic;
   font-size: 50px;
   color: white;
@@ -1053,7 +1059,7 @@ p.highlight {
   line-height:19px;
 }
 
-#breadcrumbs a { color:{{ settings.global_link_color }}; }
+#breadcrumbs a { color: #808080; }
 #breadcrumbs a:hover { color:{{ settings.global_hover_color }}; }
                
         
@@ -1113,7 +1119,6 @@ p.highlight {
   float:right;
   top:0px;
   padding:5px 0 5px 20px;
-  font-family: "Futura";
   text-transform: uppercase;
   /*border-left:1px solid {{ settings.secondary_border }};*/
   /*margin-right:59px;*/
@@ -1207,20 +1212,20 @@ p.highlight {
 }
 
 #title {
-  font-size: 45px;
-  margin: 10px auto 50px;
-  background-color: #ff9900;
-  border-radius: 100px;
-  color: white;
-  width: 175px;
-  height: 175px;
-  box-sizing: border-box;
-  font-family: "Futura";
+  /*font-size: 45px;*/
+  margin: 5px auto 45px;
+  /*background-color: #ff9900;
+  border-radius: 100px;*/
+  /*color: white;*/
+  width: 185px;
+  height: 185px;
+  background-image: url({{ 'logo.png' | asset_url }});
+  /*box-sizing: border-box;
   font-weight: normal;
   -webkit-transform: rotate(-20deg); 
   -moz-transform: rotate(-20deg); 
   padding: 70px 15px;
-  font-weight: 100;
+  font-weight: 100;*/
   /*{% if settings.logo_font contains 'Google' %}
     {% assign logo_font_parts = settings.logo_font | split: '_' %}
     {% assign font_url = logo_font_parts[1] %}
@@ -1245,7 +1250,6 @@ hr.title {
 }
 
 .header-text {
-  font-family: "Futura";
   text-transform: uppercase;
   font-size: 18px;
   margin: 20px auto;
@@ -1512,7 +1516,6 @@ hr.title {
   /*color:{{ settings.global_heading_font_color }};*/
   color: white;
   font-size: 30px;
-  font-family: "Futura";
   text-transform: uppercase;
   /*font-size:16px;
   font-weight:700;
@@ -1524,6 +1527,7 @@ hr.title {
 #about-description {
   margin-bottom:26px;
   color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .ft-share {
@@ -2451,14 +2455,25 @@ a.slide-link {
 /* TEMPLATE: Product */
 /* ==================================== */
 
+#product-options {
+  display: none;
+}
+
 #gifbot {
   width: 100%;
+  height: 500px;
+  border: none;
+  overflow: hidden;
+}
+#gifbot.done {
   height: 400px;
-  border: 1px solid #ddd;
+  transition: height 1s;
+  -moz-transition: height 1s; /* Firefox 4 */
+  -webkit-transition: height 1s; /* Safari and Chrome */
+  -o-transition: height 1s; /* Opera */
 }
 
 .sub-header {
-  font-family: "Futura";
   text-transform: uppercase;
   font-size: 18px;
 }
@@ -2514,7 +2529,6 @@ a.slide-link {
   width:884px;
   margin: 0 auto;
   padding-bottom:40px;
-  font-family: "Futura";
 }
 
 #product-details {
@@ -2707,7 +2721,6 @@ a.slide-link {
   border: 2px solid white;
   padding: 0 5px;
   font-size: 50px;
-  font-family: "Futura";
   line-height: 70px;
 }
 #quantity:hover {
@@ -2751,7 +2764,7 @@ a.slide-link {
 
 #product-add-wrap:hover * {
   background-position: -387px -55px !important; 
-  color: {{ settings.global_hover_color }} !important;
+  /*color: {{ settings.global_hover_color }} !important;*/
 }
 
 #product-add-medallion:hover { background-position: -387px -55px; }
@@ -2763,18 +2776,16 @@ a.slide-link {
   display:inline-block;
   position:relative;
   background-color: #ff9900;
-  font-family:"Futura";
   text-transform: uppercase;
-  font-style: italic;
   color: white;
   border: none;
-  padding: 5px 15px;
+  padding: 5px 10px;
   -webkit-font-smoothing: antialiased;
   margin-top: 70px;
   float: right;
 }
 
-#product-add input:hover { color: {{ settings.global_hover_color }} }
+#product-add input:hover { color: white; }
 
 #product-description { padding:21px 0 14px; }
 
@@ -3104,21 +3115,19 @@ a.slide-link {
 #cart-title {
   font-size:30px;
   font-style: italic;
-  font-family: "Futura";
   text-transform: uppercase;
   color:{{ settings.global_heading_font_color }};
   margin:0 0 40px 0;
 }
 
 #cartform {
-  font-family: "Futura";
+  
 }
 
 .cart-table-header td {
   color: #000;
   font-size: 14px;
   padding-bottom: 5px;
-  font-family: "Futura";
   text-transform: uppercase;
 }
 
@@ -3139,7 +3148,6 @@ a.slide-link {
 .cart-item a {
   display:block;
   line-height:0;
-  min-height:100px;
 }
 
 .cart-item a img { width:120px; }
@@ -3149,7 +3157,6 @@ a.slide-link {
 .cart-detail h2 { margin:0 0 4px 0 }
 
 .cart-detail h2 a {
-  font-family: "Futura";
   font-style: italic;
   font-size:16px;
   color: #555;
@@ -3193,7 +3200,6 @@ a.slide-link {
   padding-bottom:15px;
   border-bottom:1px solid {{ settings.primary_border }};
   margin:9px 0 20px 0;
-  font-family: "Futura";
   text-transform: uppercase;
 }
 
@@ -3220,7 +3226,6 @@ a.slide-link {
   border:none;
   outline:none;
   margin-right:10px;
-  font-family: "Futura";
 }
 
 #update-cart:hover, .un-styled-btn:hover { color: black; }
@@ -3242,13 +3247,11 @@ a.slide-link {
   font-size: 20px;
   display: inline-block;
   background-color: #ff9900;
-  font-family: "Futura";
   text-transform: uppercase;
-  font-style: italic;
   color: white;
   border: none;
   border-radius: 0;
-  padding: 5px 15px;
+  padding: 3px 8px;
   -webkit-font-smoothing: antialiased;
   margin-left: 10px;
 }
@@ -3290,7 +3293,6 @@ a.slide-link {
 }
 
 #empty-cart h2 a { 
-  font-family: Futura;
   font-style: italic;
   color:#000; 
 }
@@ -3320,11 +3322,24 @@ a.slide-link {
   margin-right:0;
 }
 
-#shipping-calculator-form-wrapper #get-rates-container input { margin-left: 0 }
+#shipping-calculator-form-wrapper #get-rates-container input { 
+  margin-left: 5px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  background-color: #808080;
+  padding: 7px 10px;
+}
 
 #shipping-calculator-form-wrapper #address_zip_container { width:123px }
 
-#shipping-calculator-form-wrapper #address_zip_container input  { width:105px }
+#shipping-calculator-form-wrapper #address_zip_container input  { 
+  width:105px;
+  padding: 6px 9px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+}
 
 #shipping-calculator-form-wrapper select { width:230px }
 

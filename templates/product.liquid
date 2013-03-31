@@ -2,13 +2,13 @@
   
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
+
+  <iframe id="gifbot" src="http://127.0.0.1:3000/upload"></iframe>
   
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
   {% if product.available %}
-  <form action="/cart/add" method="post" enctype="multipart/form-data">
+  <form id="product-options" action="/cart/add" method="post" enctype="multipart/form-data">
   {% endif %}
-
-    <iframe id="gifbot" src="http://127.0.0.1:3000/upload"></iframe>
     <!-- {{ product.title | replace: ' ', '_' }}.html"></iframe> -->
     
     <ul id="product-details">
@@ -151,7 +151,7 @@
       <li id="product-add">
         <div id="product-add-wrap">
           <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
-          <input type="submit" name="add" id="add" value="Add to cart" class="smooth">
+          <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
         </div><!-- #product-add-wrap -->
       </li>
       
@@ -317,7 +317,7 @@ jQuery(function() {
     $(this).addClass("selected");
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
-    var t = type.toLowerCase().replace(".","_");
+    var t = type.slice(0,3);
     gifbot.postMessage("s_"+t, "http://127.0.0.1:3000/upload");
     setTotal();
   });
@@ -347,6 +347,17 @@ jQuery(function() {
     $(".total").text("$"+(num*price));
   }
   setTotal();
+
+  // shamelessly copypasta'd from http://davidwalsh.name/window-iframe
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+  eventer(messageEvent,function(e) {
+    console.log('parent received message!:  ',e.data);
+    $("#product-options").slideDown();
+    $("#gifbot").addClass("done");
+  },false);
   
   jQuery('.single-option-selector').addClass('special-select').customStyle();
   

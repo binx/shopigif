@@ -73,7 +73,7 @@
     <div id="cart-meta">
       <h3 id="cart-subtotal">Subtotal <em>{{ cart.total_price | money }}</em></h3>
       <h3 id="estimated-shipping" style="display:none">+ Estimated shipping <em>{{ 0 | money }}</em></h3>
-      <input type="submit" id="update-cart" name="update" value="Update cart" /> <span class="or">or</span> <input id="checkout-button" class="styled-submit smooth" type="submit" name="checkout" value="Check out" />
+      <input type="submit" id="update-cart" name="update" value="Update cart" /> <span class="or">or</span> <input id="checkout-button" class="styled-submit smooth skew" type="submit" name="checkout" value="Check out" />
       {% if additional_checkout_buttons %}
       <p class="additional-checkout-buttons">
         {{ content_for_additional_checkout_buttons }}
