@@ -355,6 +355,14 @@ input#billing_address_province, input#shipping_address_province {
   margin-bottom:16px;
 }
 
+.form ul.inline li select {
+  width: 160px;
+  border: 1px solid #a9aaaa;
+  font-size: 14px;
+  height: 32px;
+  font-family: {{ settings.headings_font }};
+}
+
 #billing-is-shipping td {
   padding-top:10px;
 }
@@ -368,12 +376,14 @@ input#billing_address_province, input#shipping_address_province {
 }
 
 #billing_address_province_li input, #shipping_address_province input {
-  margin-top:2px;
-  margin-top:-1px\0/;
+  /*margin-top:2px;
+  margin-top:-1px\0/;*/
+  margin-top: -1px;
 }
 
 *+html #billing_address_province_li input, #shipping_address_province input {
   margin-top:-1px;
+  font-size: 14px;
 }
 
 @-moz-document url-prefix() {
@@ -445,7 +455,9 @@ input#commit-button, input#complete-purchase {
   padding:10px 13px;
 }
 
-input#commit-button:hover, input#complete-purchase:hover, #create-account-btn:hover, #discounts-body input[type=submit]:hover {
+/*input#commit-button:hover, */
+/*input#complete-purchase:hover, */
+#create-account-btn:hover, #discounts-body input[type=submit]:hover {
   background-color:{{ settings.global_button_color_hover }};
 }
 
@@ -458,11 +470,21 @@ input#commit-button:hover, input#complete-purchase:hover, #create-account-btn:ho
 *+html #cancel-purchase {  position:relative; top:-11px;}
 
 #cancel-purchase a, #buttons small a {
-  color: #808080;
-  text-decoration:none;
+  color: #a9aaaa;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  border-bottom: 1px solid #a9aaaa;
+  padding-bottom: 1px;
+  font-style: italic;
+  margin-left: 5px;
 }
 
-#cancel-purchase a:hover, #buttons small a:hover { color:{{ settings.global_hover_color }}; }
+#cancel-purchase a:hover, #buttons small a:hover { 
+  color:{{ settings.global_hover_color }}; 
+  border-bottom: 1px solid black;
+}
 
 .group {
   background:transparent;

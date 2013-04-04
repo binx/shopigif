@@ -176,7 +176,7 @@
       "article_cpp": "10",
       "comments_error_message": "Not all the fields were filled in correctly!",
       "show_cart_notes": true,
-      "cart_notes_title": "Additional comments",
+      "cart_notes_title": "Additional Comments:",
       "show_shipping_calculator": true,
       "shipping_calculator_heading": "Shipping Rates Calculator",
       "shipping_calculator_default_country": "United States",

@@ -21,7 +21,7 @@
       {% endif %}
       <tr class="cart-row">
         <td class="cart-item">
-          <a href="{{ item.product.url | within: collections.all }}">  
+          <!-- <a href="{{ item.product.url | within: collections.all }}">   -->
             {% assign option_index = 0 %}
             {% assign found_option = false %}
             {% assign image_index = 0 %}
@@ -44,10 +44,14 @@
               {% endunless %}
             {% endfor %}
             <img src="{{ item.product.images[image_index].src | product_img_url: 'medium' }}" alt="{{ item.title | escape }}" />
-          </a>
+          <!-- </a> -->
         </td>
         <td class="cart-detail">
-          <h2><a href="{{ item.product.url }}">{{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}</a></h2>
+          <h2>
+            <!-- <a href="{{ item.product.url }}"> -->
+              {{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}
+            <!-- </a> -->
+          </h2>
           {% for p in item.properties %}
             {% unless p.last == blank %}
               {{ p.first }}:
