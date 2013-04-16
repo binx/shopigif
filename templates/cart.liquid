@@ -54,12 +54,7 @@
           </h2>
           {% for p in item.properties %}
             {% unless p.last == blank %}
-              {{ p.first }}:
-              {% if p.last contains '/uploads/' %}
-              <a class="lightbox" href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
-              {% else %}
-              {{ p.last }}
-              {% endif %}
+              {{ p.first }}:{{ p.last }}
               <br />
             {% endunless %}
           {% endfor %}
