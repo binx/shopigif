@@ -1,18 +1,18 @@
 <div class="clearfix" id="product-content" itemscope itemtype="http://schema.org/Product">
-  
+
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
-  <iframe id="gifbot" src="http://127.0.0.1:3000/upload"></iframe>
-  
+  <iframe id="gifbot" src="http://127.0.0.1:3000/upload-{{ product.type }}"></iframe>
+
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
   {% if product.available %}
   <form id="product-options" action="/cart/add" method="post" enctype="multipart/form-data">
   {% endif %}
     <!-- {{ product.title | replace: ' ', '_' }}.html"></iframe> -->
-    
+
     <ul id="product-details">
-      
+
       <!-- <li id="product-title">
         <h1 itemprop="name">{{ product.title }}</h1>
         {% if settings.show_vendor %}
@@ -47,10 +47,10 @@
         {% if settings.show_qty %}
         {% include 'snippet-quantity' %}
         {% endif %}
-      </li>     
-      
+      </li>
+
       <li class="half">
-        <div class="sub-header" style="margin-bottom:30px;">Quantity</div> 
+        <div class="sub-header" style="margin-bottom:30px;">Quantity</div>
         <div class="pair">
           <div class="money">{{ product.price | money }}</div>
           <div class="caption">each</div>
@@ -74,7 +74,7 @@
         </div>
       </li> -->
       {% endif %}
-      
+
       <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
         <h2 class="product-type"></h2>
         <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
@@ -91,12 +91,12 @@
           {% endif %}
         </p>
       </li> -->
-      
+
       {% assign hide_default_title = false %}
       {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
         {% assign hide_default_title = true %}
-      {% endif %}       
-        
+      {% endif %}
+
       {% comment %}
       Additional form fields to customize your product.
       Example code below for every type of form fields.
@@ -105,7 +105,7 @@
 
       {% comment %}
       Added hidden field for couch doc id
-      {% endcomment %}      
+      {% endcomment %}
       <input class="text" type="hidden" id="gifbot-doc-id" name="properties[doc-id]" value="" />
 
       {% comment %}
@@ -136,15 +136,15 @@
         </div>
         <div class="property-wrapper">
           <label for="fifth-property">Fifth Property</label>
-          <input class="file" type="file" id="fifth-property" name="properties[Fifth Property]" /> 
+          <input class="file" type="file" id="fifth-property" name="properties[Fifth Property]" />
         </div>
       </li>
       {% endcomment %}
-             
+
       <li id="backorder" class="hidden">
         <p>{{ settings.back_order_msg | replace: '%s', '<span id="selected-variant"></span>' }}</p>
       </li>
-      
+
       {% unless product.available %}
       {% if settings.notify_me_form %}
       <li id="sold-out">
@@ -152,17 +152,17 @@
       </li>
       {% endif %}
       {% endunless %}
-        
+
       <li id="product-add">
         <div id="product-add-wrap">
           <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
           <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
         </div><!-- #product-add-wrap -->
       </li>
-      
+
       <!-- {% if collection %}
         {% if collection.previous_product or collection.next_product %}
-        <li class="accent-text prev-next clearfix">     
+        <li class="accent-text prev-next clearfix">
         {% if collection.previous_product %}
           {% capture prev_url %}{{ collection.previous_product}}#content{% endcapture %}
           <span class="left">{{ '&larr; Previous Product' | link_to: prev_url }}</span>
@@ -174,7 +174,7 @@
         </li>
         {% endif %}
       {% endif %} -->
-      
+
       {% if settings.prod_desc_placement == 'below' %}
       <li id="product-description" class="below">
         <h2>Description</h2>
@@ -183,29 +183,29 @@
         </div><!-- #full_description rte -->
       </li>
       {% endif %}
-      
+
       {% if settings.prod_desc_placement == 'bottom' %}
       <li id="product-share">
         {% include 'snippet-product-share' %}
       </li>
       {% endif %}
-      
+
     </ul><!-- #product-description -->
 
   {% if product.available %}
   </form>
   {% endif %}
-  
+
   <div id="product-photos">
-  
+
   {% if product.images.size == 0 %}
-  
+
     <div id="product-photo-container">
       <img src="{{ '' | product_img_url: 'grande' }}" alt="" />
     </div><!-- #product-photo-container -->
-    
+
   {% else %}
-    
+
     <div id="product-photo-container">
       {% for image in product.images %}
       <a class="gallery" href="{{ image.src | product_img_url: 'original' }}" rel="gallery">
@@ -223,7 +223,7 @@
       {% endfor %}
     </ul>
     {% endif %}
-    
+
   {% endif %}
 
     {% unless settings.prod_desc_placement == 'bottom' %}
@@ -233,7 +233,7 @@
     {% endunless %}
 
   </div><!-- #product-photos -->
-  
+
   {% if settings.prod_desc_placement == 'bottom' %}
   <div id="product-description" class="bottom">
     <h2>Description</h2>
@@ -241,7 +241,7 @@
       {{ product.description }}
     </div><!-- #full_description rte -->
   </div>
-  {% endif %}        
+  {% endif %}
 
 </div><!-- #product-content -->
 
@@ -250,7 +250,7 @@
 
 <script>
 jQuery(function() {
-  
+
   {% assign look_for_image_match = false %}
   {% assign option_index = 0 %}
   {% for option in product.options %}
@@ -263,17 +263,17 @@ jQuery(function() {
     {% endif %}
   {% endfor %}
   Shopify.doNotTriggerClickOnThumb = false;
-  
+
   var selectCallback = function(variant, selector) {
     console.log(variant,selector)
 
     if (variant) {
-      
+
       if (variant.available) {
-        
+
         // Selected a valid variant that is available.
         jQuery('#add').removeClass('disabled').removeAttr('disabled').val('Add to Cart').fadeTo(200,1); // remove unavailable class from add-to-cart button, and re-enable button
-      
+
         // If item is backordered yet can still be ordered, we'll show special message.
         if (variant.inventory_management && variant.inventory_quantity <= 0) {
           jQuery('#selected-variant').html({{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %});
@@ -281,13 +281,13 @@ jQuery(function() {
         } else {
           jQuery('#backorder').fadeTo(200,0).addClass("hidden");
         }
-        
+
       } else {
         // Variant is sold out.
         jQuery('#backorder').fadeTo(200,0).addClass("hidden");
-        jQuery('#add').val('Sold Out').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);        
+        jQuery('#add').val('Sold Out').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);
       }
-      
+
       // Whether the variant is in stock or not, we can update the price and compare at price.
       if ( variant.compare_at_price > variant.price ) {
         jQuery('#product-price').html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<span class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</span>');  // update price field
@@ -297,16 +297,16 @@ jQuery(function() {
         jQuery('#product-price').html('<span class="product-price">'+ shortPrice + '</span>' );  // update price field
         $(".money").text(shortPrice);
       }
-    
+
       {% if settings.show_multiple_currencies %}
       Currency.convertAll(shopCurrency, jQuery('[name=currencies]').val(), 'form[action="/cart/add"] span.money');
       {% endif %}
-        
+
 
     } else {
       // variant doesn't exist.
       jQuery('#backorder').fadeTo(200,0).addClass("hidden");
-      jQuery('#add').val('Unavailable').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);      // set add-to-cart button to unavailable class and disable button 
+      jQuery('#add').val('Unavailable').addClass('disabled').attr('disabled', 'disabled').fadeTo(200,0.5);      // set add-to-cart button to unavailable class and disable button
     }
 
   };
@@ -314,7 +314,7 @@ jQuery(function() {
   new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
 
   var gifbot = document.getElementById("gifbot").contentWindow;
-  
+
   $("#product-variants li:first").addClass("selected");
 
   $("#product-variants li").click(function(){
@@ -366,14 +366,14 @@ jQuery(function() {
     $("#product-options").slideDown();
     $("#gifbot").addClass("done");
   },false);
-  
+
   jQuery('.single-option-selector').addClass('special-select').customStyle();
-  
+
   // Add label if only one product option and it isn't 'Title'.
   {% if product.options.size == 1 and product.options.first != 'Title' %}
     jQuery('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first }}</label>');
   {% endif %}
-  
+
   // Auto-select first available variant on page load.
   {% assign found_one_in_stock = false %}
   {% for variant in product.variants %}
@@ -384,16 +384,16 @@ jQuery(function() {
       {% endfor %}
     {% endif %}
   {% endfor %}
-  
+
   {% if look_for_image_match %}
   // If a Color is selected, show the matching product image.
   jQuery('.single-option-selector:eq({{ option_index }})').bind('change', function() {
     if (!Shopify.doNotTriggerClickOnThumb) {
-      jQuery('#product-photo-thumbs img[alt="' + jQuery(this).val() + '"]:eq(0)').trigger('click');      
+      jQuery('#product-photo-thumbs img[alt="' + jQuery(this).val() + '"]:eq(0)').trigger('click');
     }
     Shopify.doNotTriggerClickOnThumb = false;
     return true;
-  });  
+  });
   // If an image is shown in Main View, auto-select the corresponding Color option.
   jQuery('#product-photo-thumbs img').bind('click', function() {
    var color = jQuery(this).attr('alt');
