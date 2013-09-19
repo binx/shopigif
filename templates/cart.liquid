@@ -21,43 +21,43 @@
       {% endif %}
       <tr class="cart-row">
         <td class="cart-item">
-          <!-- <a href="{{ item.product.url | within: collections.all }}">   -->
-            {% assign option_index = 0 %}
-            {% assign found_option = false %}
-            {% assign image_index = 0 %}
-            {% assign found_image = false %}
-            {% for option in item.product.options %}
-              {% if found_option == false %}
-                {% assign downcased_option = option | downcase %}
-                {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'style' %}
-                  {% assign option_index = forloop.index0 %}
-                  {% assign found_option = true %}
-                {% endif %}
+          {% assign option_index = 0 %}
+          {% assign found_option = false %}
+          {% assign image_index = 0 %}
+          {% assign found_image = false %}
+          {% for option in item.product.options %}
+            {% if found_option == false %}
+              {% assign downcased_option = option | downcase %}
+              {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'style' %}
+                {% assign option_index = forloop.index0 %}
+                {% assign found_option = true %}
               {% endif %}
-            {% endfor %}
-            {% for image in item.product.images %}
-              {% unless found_image %}
-                {% if image.alt == item.variant.options[option_index] %}
-                  {% assign image_index = forloop.index0 %}
-                  {% assign found_image = true %}
-                {% endif %}
-              {% endunless %}
-            {% endfor %}
-
-            {% for p in item.properties %}
-              {% if p.first == 'doc-id' %}
-                <img src="http://127.0.0.1:3000/preview/{{ p.last }}" style="min-height:76px;" />
+            {% endif %}
+          {% endfor %}
+          {% for image in item.product.images %}
+            {% unless found_image %}
+              {% if image.alt == item.variant.options[option_index] %}
+                {% assign image_index = forloop.index0 %}
+                {% assign found_image = true %}
               {% endif %}
-            {% endfor %}
+            {% endunless %}
+          {% endfor %}
 
-          <!-- </a> -->
+          {% for p in item.properties %}
+            {{ p.first }}:{{ p.last }}
+            {% if p.first == 'doc-id' %}
+              {% if item.product.title == 'GIF CHOP' %}
+                <img src="http://127.0.0.1:3000/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
+              {% endif %}
+              {% if item.product.title == 'FLIP FLOP' %}
+                <img src="http://127.0.0.1:3000/flipflop/{{ p.last }}/0/preview.jpg" style="min-height:76px;" />
+                <img src="http://127.0.0.1:3000/flipflop/{{ p.last }}/1/preview.jpg" style="min-height:76px;" />
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         </td>
         <td class="cart-detail">
-          <h2>
-            <!-- <a href="{{ item.product.url }}"> -->
-              {{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}
-            <!-- </a> -->
-          </h2>
+          <h2>{{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}</h2>
           {% if settings.show_vendor %}
           <h3>{{ item.vendor }}</h3>
           {% endif %}
