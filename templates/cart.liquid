@@ -43,7 +43,13 @@
                 {% endif %}
               {% endunless %}
             {% endfor %}
-            <img src="{{ item.product.images[image_index].src | product_img_url: 'medium' }}" alt="{{ item.title | escape }}" />
+
+            {% for p in item.properties %}
+              {% if p.first == 'doc-id' %}
+                <img src="http://127.0.0.1:3000/preview/{{ p.last }}" style="min-height:76px;" />
+              {% endif %}
+            {% endfor %}
+
           <!-- </a> -->
         </td>
         <td class="cart-detail">
@@ -52,12 +58,6 @@
               {{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}
             <!-- </a> -->
           </h2>
-          {% for p in item.properties %}
-            {% unless p.last == blank %}
-              {{ p.first }}:{{ p.last }}
-              <br />
-            {% endunless %}
-          {% endfor %}
           {% if settings.show_vendor %}
           <h3>{{ item.vendor }}</h3>
           {% endif %}
