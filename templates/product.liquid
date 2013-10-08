@@ -369,9 +369,9 @@ jQuery(function() {
 
   eventer(messageEvent,function(e) {
     // save doc id as line item property
-    $("#gifbot-doc-id").value(e.data);
+    $("#gifbot-doc-id").val(e.data);
 
-    $("#product-options").slideDown();
+    $("#product-options").show().slideDown();
     $("#gifbot").addClass("done");
   },false);
 
