@@ -1,9 +1,11 @@
-<div class="clearfix" id="product-content" itemscope itemtype="http://schema.org/Product">
+<div class="clearfix {{ product.type }}" id="product-content" itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
-  <iframe id="gifbot" src="http://127.0.0.1:3000/upload-{{ product.type }}"></iframe>
+  {% if product.type == "gifchop" || product.type == "flipflop" %}
+    <iframe id="gifbot" src="http://127.0.0.1:3000/upload-{{ product.type }}"></iframe>
+  {% endif %}
 
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
   {% if product.available %}
@@ -13,7 +15,37 @@
 
     <ul id="product-details">
 
-      <!-- <li id="product-title">
+      <li id="product-photos">
+
+      {% if product.images.size == 0 %}
+
+        <div id="product-photo-container">
+          <img src="{{ '' | product_img_url: 'grande' }}" alt="" />
+        </div><!-- #product-photo-container -->
+
+      {% else %}
+
+        <div id="product-photo-container">
+          {% for image in product.images %}
+          <a class="gallery" href="{{ image.src | product_img_url: 'original' }}" rel="gallery">
+            <img src="{{ image.src | product_img_url: 'grande' }}" alt="{{ image.alt | escape }}" />
+          </a>
+          {% endfor %}
+        </div><!-- #product-photo-container -->
+
+        {% if product.images.size > 1 %}
+        <ul id="product-photo-thumbs" class="clearfix">
+          {% for image in product.images %}
+          <li class="product-photo-thumb">
+            <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" />
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+      {% endif %}
+
+      <div id="product-title">
         <h1 itemprop="name">{{ product.title }}</h1>
         {% if settings.show_vendor %}
         {% assign product_vendor_handle = product.vendor | handle %}
@@ -24,7 +56,25 @@
         {% endif %}
         <h2 itemprop="brand">{{ product.vendor | link_to: vendor_url }}</h2>
         {% endif %}
-      </li> -->
+      </div>
+
+      {% if settings.prod_desc_placement == 'above' %}
+        <div id="product-description" class="above">
+          {% comment %}<h2>Description</h2>{% endcomment %}
+          <div id="full_description" class="rte" itemprop="description">
+            {{ product.description }}
+          </div>
+        </div>
+      {% endif %}
+
+        {% unless settings.prod_desc_placement == 'bottom' %}
+        <div id="product-share">
+          {% include 'snippet-product-share' %}
+        </div>
+        {% endunless %}
+
+
+      </li><!-- #product-photos -->
 
       <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %} half">
         <div{% if hide_default_title %} class="hidden"{% endif %}>
@@ -66,14 +116,6 @@
           <div class="caption">total</div>
         </div>
       </li>
-      {% if settings.prod_desc_placement == 'above' %}
-      <!-- <li id="product-description" class="above">
-        {% comment %}<h2>Description</h2>{% endcomment %}
-        <div id="full_description" class="rte" itemprop="description">
-          {{ product.description }}
-        </div>
-      </li> -->
-      {% endif %}
 
       <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
         <h2 class="product-type"></h2>
@@ -155,8 +197,10 @@
 
       <li id="product-add">
         <div id="product-add-wrap">
-          <div class="triangle"></div>
-          <a id="go-back" href="{{ shop.url }}{{ product.url }}">Start Over</a>
+          {% if product.type == "gifchop" || product.type == "flipflop" %}  
+            <div class="triangle"></div>
+            <a id="go-back" href="{{ shop.url }}{{ product.url }}">Start Over</a>
+          {% endif %}
           <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
           <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
         </div><!-- #product-add-wrap -->
@@ -197,44 +241,6 @@
   {% if product.available %}
   </form>
   {% endif %}
-
-  <div id="product-photos">
-
-  {% if product.images.size == 0 %}
-
-    <div id="product-photo-container">
-      <img src="{{ '' | product_img_url: 'grande' }}" alt="" />
-    </div><!-- #product-photo-container -->
-
-  {% else %}
-
-    <div id="product-photo-container">
-      {% for image in product.images %}
-      <a class="gallery" href="{{ image.src | product_img_url: 'original' }}" rel="gallery">
-        <img src="{{ image.src | product_img_url: 'grande' }}" alt="{{ image.alt | escape }}" />
-      </a>
-      {% endfor %}
-    </div><!-- #product-photo-container -->
-
-    {% if product.images.size > 1 %}
-    <ul id="product-photo-thumbs" class="clearfix">
-      {% for image in product.images %}
-      <li class="product-photo-thumb">
-        <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}" />
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-
-  {% endif %}
-
-    {% unless settings.prod_desc_placement == 'bottom' %}
-    <div id="product-share">
-      {% include 'snippet-product-share' %}
-    </div>
-    {% endunless %}
-
-  </div><!-- #product-photos -->
 
   {% if settings.prod_desc_placement == 'bottom' %}
   <div id="product-description" class="bottom">
