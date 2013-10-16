@@ -1,7 +1,44 @@
 {% paginate collection.products by settings.collection_ppp %}
 
-<ul class="clearfix" id="collection-header">
-  <li id="collection-title"><h1 class="page-title">{{ collection.title }}</h1></li>
+<h1 class="page-title">
+    {{ collection.title }}
+    {% if current_tags %} by <span class="highlight">{{ current_tags }}</span> {% endif %}
+</h1>
+{% if current_tags %}
+{% else %}
+<span>Filter By:</span>
+<ul class="subnav clearfix artist-tags">
+  <!-- <li>
+    {% if collection.handle %}
+    {% comment %}Good for /collections/all collection and regular collections{% endcomment %}
+    <a href="/collections/{{ collection.handle }}">All</a>
+    {% comment %}Good for automatic type collections{% endcomment %}
+    {% elsif collection.products.first.type == collection.title %}
+    <a href="{{ collection.title | url_for_type }}">All</a>
+    {% comment %}Good for automatic vendor collections{% endcomment %}
+    {% elsif collection.products.first.vendor == collection.title %}
+    <a href="{{ collection.title | url_for_vendor }}">All</a>
+    {% endif %}
+  </li>  -->
+  {% for tag in collection.all_tags %}
+  {% if current_tags contains tag %}
+  <li class="active">
+    {{ tag | link_to_remove_tag: tag }}
+  </li>
+  {% else %}
+  <li>
+    {{ tag | link_to_tag: tag }}
+  </li>
+  {% endif %}
+  {% endfor %}  
+</ul>
+{% endif %}
+
+<!-- <ul class="clearfix" id="collection-header">
+  <li id="collection-title"><h1 class="page-title">
+    {{ collection.title }}
+    {% if current_tags %} by <span class="highlight">{{ current_tags }}</span> {% endif %}
+  </h1></li>
   {% if settings.show_bbt and collection.all_tags.size > 0 %}
   <li class="clearfix filter">
     <p>{{ settings.bbt_label }}</p>
@@ -17,7 +54,7 @@
     </select>
   </li>
   {% endif %}
-</ul>
+</ul> -->
 
 {% if collection.description.size > 0 %}
 <div id="collection-description" class="rte">
@@ -31,12 +68,12 @@
 
 {% else %}
   
-  <ul id="coll-product-list" class="clearfix {{ collection.title }}" style="margin: 20px 0 70px -40px;">
+  <ul id="coll-product-list" class="clearfix {{ collection.title }}">
     {% for product in collection.products %}
       {% if settings.products_per_row == '3' %}
         {% include 'snippet-product-item' with 'three' %}
       {% else %}
-        {% include 'snippet-product-item' with 'two' %}
+        {% include 'snippet-product-item' with 'four' %}
       {% endif %}
     {% endfor %}
   </ul>

@@ -240,6 +240,15 @@
                 {% include 'snippet-product-item' with 'two' %}
               {% endfor %}
             </ul>
+
+            <div class="header-text">Check out these artist gifs:</div>
+
+            <ul class="clearfix{% if shop.products_count == 0 %} default{% endif %}" id="fp-product-list">
+              {% assign collection = collections[settings.artist_list_collection] %}
+              {% for product in collection.products limit: settings.artist_list_limit %}
+                {% include 'snippet-product-item' with 'three' %}
+              {% endfor %}
+            </ul>
             
           {% endif %}
             

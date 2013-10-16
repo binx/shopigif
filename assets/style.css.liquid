@@ -407,13 +407,14 @@ margin:0 auto;
   float:left;
   width:191px;
   margin: 0 0 36px 40px;
+  position: relative;
 }
 
 .two-per-row {
   width: 422px;
   position: relative;
 }
-.Artist .two-per-row {
+.artist .two-per-row {
   width: 100%;
 }
 
@@ -441,7 +442,7 @@ margin:0 auto;
   text-align: center;
   top: 45%;
 }
-.Artist .two-per-row .coll-prod-caption {
+.artist .two-per-row .coll-prod-caption {
   left: 330px;
   width: 500px;
   top: 0px;
@@ -490,7 +491,7 @@ margin:0 auto;
   width:100%;
   height:{{ 268.0 | divided_by: settings.product_img_w_to_h_ratio }}px;
 }
-.Artist .two-per-row .coll-image-wrap {
+.artist .two-per-row .coll-image-wrap {
   width: 300px;
   height: 300px;
 }
@@ -582,7 +583,10 @@ margin:0 auto;
   color: white;
   text-transform: uppercase;
 }
-.Artist .two-per-row .coll-prod-title {
+.three-per-row .coll-prod-title {
+  font-size: 30px;
+}
+.artist .two-per-row .coll-prod-title {
   color: black;
   font-size: 40px;
   line-height: 50px;
@@ -915,6 +919,9 @@ p.highlight {
   margin:0 0 42px;
   font-family:{{ settings.headings_font }};
   -webkit-font-smoothing: antialiased;
+}
+.page-title .highlight {
+  color: #ff9900;
 }
 
 .page-title.full-width {
@@ -2415,8 +2422,10 @@ a.slide-link {
   font-family:{{ settings.headings_font }};
 }
 
-#collection-title h1 {
+h1.page-title {
   margin:0;
+  text-transform: uppercase;
+  font-style: italic;
 }
 
 .filter {
@@ -2466,6 +2475,27 @@ a.slide-link {
   padding:0;
   list-style-type:none;
 }
+#coll-product-list {
+  margin: 50px 0 70px -40px;
+}
+.artist-tags {
+  list-style-type: none;
+  padding: 0;
+  display: inline-block;
+}
+.artist-tags li {
+  display: inline-block;
+  background: #808080;
+  padding: 2px 5px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+.artist-tags li:hover {
+  background: #ff9900;
+}
+.artist-tags a {
+  color: white;
+}
 
 .lt-ie8 #coll-product-list {
   padding-bottom:40px;
@@ -2477,7 +2507,7 @@ a.slide-link {
 #product-options {
   display: none;
 }
-.Artist #product-options {
+.artist #product-options {
   display: block;
 }
 
@@ -2584,7 +2614,7 @@ a.slide-link {
   float: left; 
   display: none;
 }
-.Artist #product-title { display: block; }
+.artist #product-title { display: block; }
 
 #product-title h1 {
   font-size:35px;
@@ -2696,7 +2726,7 @@ a.slide-link {
   height: 45px;
 }
 
-.Artist #product-variants li:nth-child(1) .compare {
+.artist #product-variants li:nth-child(1) .compare {
   width: 80px;
   height: 80px;
 }
@@ -2872,7 +2902,7 @@ a.slide-link {
   display: none;
   margin: 50px 0;
 }
-.Artist #product-photos {
+.artist #product-photos {
   display: block;
 }
 
@@ -2900,7 +2930,7 @@ a.slide-link {
   left:0;
   top:0;
 }
-.Artist #product-photo-container img {
+.artist #product-photo-container img {
   display: block;
 }
 

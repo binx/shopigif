@@ -34,7 +34,7 @@
       <a href="{{ product.url }}" class="coll-prod-title">
         {{ product.title }}
       </a>
-      <p>{{ product.description }}</p>
+      {% if snippet-product-item == 'two' %}<p>{{ product.description }}</p>{% endif %}
       <!-- {% if product.compare_at_price > product.price %}
       <p class="coll-prod-price on-sale accent-text">
         {{ product.price | money }} 
