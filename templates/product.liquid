@@ -321,7 +321,8 @@ jQuery(function() {
 
   new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback });
 
-  var gifbot = document.getElementById("gifbot").contentWindow;
+  if (document.getElementById("gifbot"))
+    var gifbot = document.getElementById("gifbot").contentWindow;
 
   $("#product-variants li:first").addClass("selected");
 
