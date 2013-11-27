@@ -157,7 +157,7 @@
       "slide_6_caption": "",
       "slide_6_link_title": "",
       "slide_6_link_url": "",
-      "products_per_row": "4",
+      "products_per_row": "3",
       "collection_ppp": "8",
       "show_bbt": true,
       "bbt_label": "Browse by tag",
@@ -169,7 +169,7 @@
       "notify_me_form": false,
       "show_related_products": false,
       "related_prod_title": "Similar items",
-      "show_page_blog": true,
+      "show_page_blog": false,
       "page_blog_label": "From our blog",
       "page_blog": "news",
       "page_blog_limit": "4",
@@ -226,7 +226,11 @@
       "show_multiple_currencies": false,
       "currency_format": "money_format",
       "supported_currencies": "CAD USD",
-      "customer_layout": "theme"
+      "customer_layout": "theme",
+      "mr. div":{
+            "link":"http://mrdiv.tumblr.com",
+            "text":"ok"
+      }
     }
   }
 }

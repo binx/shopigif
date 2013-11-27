@@ -5,6 +5,10 @@
     {% if current_tags %} by <span class="highlight">{{ current_tags }}</span> {% endif %}
 </h1>
 {% if current_tags %}
+  {% for tag in current_tags %} 
+    {{ settings[tag].link }}
+    {{ settings[tag].text }}
+  {% endfor %}
 {% else %}
 <span>Filter By:</span>
 <ul class="subnav clearfix artist-tags">

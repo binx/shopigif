@@ -44,7 +44,6 @@
           {% endfor %}
 
           {% for p in item.properties %}
-            {{ p.first }}:{{ p.last }}
             {% if p.first == 'doc-id' %}
               {% if item.product.title == 'GIF CHOP' %}
                 <img src="http://127.0.0.1:3000/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
@@ -104,7 +103,7 @@
 
 {% include 'snippet-shipping-rates-calculator' %}
 
-<div id="breadcrumbs" class="accent-text">
+<!-- <div id="breadcrumbs" class="accent-text">
   <span><a id="continue-shopping" href="/collections/{{ coll_handle }}">&larr; Continue Shopping</a></span>
-</div>
+</div> -->
 {% endunless %}

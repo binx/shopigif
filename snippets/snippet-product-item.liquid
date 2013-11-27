@@ -32,7 +32,13 @@
     {% endif %}    
     <div class="coll-prod-meta {% unless settings.show_buy_medallion %}no-medallion{% endunless %}">
       <a href="{{ product.url }}" class="coll-prod-title">
+        {% if current_tags %}
         {{ product.title }}
+        {% else %}
+        {% for tag in product.tags %} 
+          {{ tag }}
+        {% endfor %}
+        {% endif %}
       </a>
       {% if snippet-product-item == 'two' %}<p>{{ product.description }}</p>{% endif %}
       <!-- {% if product.compare_at_price > product.price %}

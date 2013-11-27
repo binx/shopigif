@@ -3,7 +3,6 @@
   {% include 'snippet-default-slideshow-message' %}
 
 {% else %}
-    <div id="video" style="width: 100%; height: 400px; background-color: #999;"></div>
     {% if settings.show_slideshow %}
     <div id="slideshow">
 
@@ -232,25 +231,44 @@
             
           {% else %}
 
-            <div class="header-text">Our pops come in two flavors:</div>
+          <a class="index-wrapper gif-hover" href="/products/gifchop">
+            <div style="background-image:url({{ 'banner-dvdp.gif' | asset_url }});" class="artist-gif"></div>
+            <div style="background-image:url({{ 'index_card.jpg' | asset_url }});" class="index-image"></div>
+            <div class="caption">
+              <h2>Print Screen</h2>
+              <p>Print gifs and stuff!</p>
+            </div>
+          </a>
+          <div class="index-wrapper gif-hover">
+            <div style="background-image:url({{ '89a-gif.gif' | asset_url }});" class="artist-gif gifgif"></div>
+            <div style="background-image:url({{ 'index_artists.jpg' | asset_url }});" class="index-image"></div>
+            <div class="caption">
+              <h2>Support Artists</h2>
+              <p>Because your life needs more gif art</p>
+            </div>
+          </div>
+          <a class="index-wrapper" href="/pages/how-it-works">
+            <div style="background-image:url({{ 'index_how.jpg' | asset_url }});" class="index-image"></div>
+            <div class="caption">
+              <h2>How It Works</h2>
+              <p>Learn more about the lenticular printing process</p>
+            </div>
+          </a>
+          <div class="index-wrapper">
+            <div style="background-image:url({{ 'index_more.jpg' | asset_url }});" class="index-image"></div>
+            <div class="caption">
+              <h2>Business Time</h2>
+              <p>Learn more about our business cards and wedding invitation sets</p>
+            </div>
+          </div>
+
+            <!-- <div class="header-text">Our pops come in two flavors:</div> -->
       
-            <ul class="clearfix{% if shop.products_count == 0 %} default{% endif %}" id="fp-product-list">
-              {% assign collection = collections[settings.product_list_collection] %}
-              {% for product in collection.products limit: settings.product_list_limit %}      
-                {% include 'snippet-product-item' with 'two' %}
-              {% endfor %}
-            </ul>
+            
 
-            <div class="header-text">Check out the latest artist prints:</div>
+            <!-- <div class="header-text">Check out the latest artist prints:</div> -->
 
-            <ul class="clearfix{% if shop.products_count == 0 %} default{% endif %}" id="fp-product-list">
-              {% assign collection = collections[settings.artist_list_collection] %}
-              {% for product in collection.products limit: settings.artist_list_limit %}
-                {% include 'snippet-product-item' with 'three' %}
-              {% endfor %}
-            </ul>
-
-            <a href="/collections/artists" class="header-text">Or see all prints!</a>
+            <!-- <a href="/collections/artists" class="header-text">Or see all prints!</a> -->
             
           {% endif %}
             
@@ -293,20 +311,13 @@
       </div>
     </div><!-- #welcome-text -->
     {% endif %}
-      
+    
+
   </div><!-- #products-column -->
   {% endif %}
+
   
 </div><!-- #columns-wrap -->
-
-<div id="how-it-works" class="clearfix">
-  <div class="header-text">How gifpop works:</div>
-  <ul>
-    <li>Upload Images</li>
-    <li>Choose their layout</li>
-    <li>We print a badass card for you!</li>
-  </ul>
-</div>
 
 <script>
 
