@@ -8,24 +8,24 @@
 
       <div id="slideshow-container">
         <ul id="slides">
-          
+
         {% comment %}
         {% raw %}
-        
+
         To add slides to your home page slideshow, you need to do 2 things:
-        
-        1.  Add settings to your config/settings.html file for each additional slide that you want to add. 
-            Copy a block of code for a slide, replace any instance of the number for that slide 
-            with the number of the next slide that you want to add. For example, if you're adding a 7th slide, 
-            you would replace all instances of '6' with '7'. Repeat for each added slide. Then, save your 
+
+        1.  Add settings to your config/settings.html file for each additional slide that you want to add.
+            Copy a block of code for a slide, replace any instance of the number for that slide
+            with the number of the next slide that you want to add. For example, if you're adding a 7th slide,
+            you would replace all instances of '6' with '7'. Repeat for each added slide. Then, save your
             config/settings.html file and come back here.
         2.  Change the '6' in {% for i in (1..6) %} right below to the new total of slides you have.
 
-        {% endraw %}        
+        {% endraw %}
         {% endcomment %}
-          
+
         {% for i in (1..6) %}
-        
+
           {% capture slide %}slide_{{ i }}{% endcapture %}
           {% capture slide_img %}slide_{{ i }}.jpg{% endcapture %}
           {% capture slide_media_type %}slide_{{ i }}_media_type{% endcapture %}
@@ -64,7 +64,7 @@
             {% endif %}
 
           {% endif %}
-          
+
         {% endfor %}
 
         </ul>
@@ -82,8 +82,8 @@
 <div id="product-slider">
 
   <h2 class="smooth clearfix">{{ settings.mini_slider_title }}</h2>
-  
-  
+
+
   <a class="mini-slider-controls" id="mini-slider-prev" href=""></a>
   <a class="mini-slider-controls" id="mini-slider-next" href=""></a>
 
@@ -113,7 +113,7 @@
     {% if settings.show_blog %}
     <li class="widget" id="fp-blog-container">
       <h2 class="smooth widget-title" id="fp-blog-title">
-        {{ settings.fp_blog_title }} 
+        {{ settings.fp_blog_title }}
         {% if settings.social_rss.size > 0 %}
           <a id="blog-share-rss" class="blog-share ir" href="/blogs/{{ settings.fp_blog }}.atom">RSS</a>
         {% endif %}
@@ -128,8 +128,8 @@
               {% if article.excerpt.size > 0 %}
                 {{ article.excerpt }}
               {% else %}
-                <p>{{ article.content | strip_html | truncatewords: 50 }}</p>                
-              {% endif %}              
+                <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
+              {% endif %}
             </div><!-- .fp-article-content -->
             <a class="fp-read-more accent-text" href="{{ article.url }}">{{ settings.fp_blog_rm_label }} →</a>
           </li>
@@ -207,28 +207,28 @@
 
   {% if settings.show_product_list or settings.show_collection_list or settings.show_welcome_text %}
   <div id="products-column"{% if full_width %} class="full-width"{% endif %}>
-    
+
     {% if settings.show_product_list and settings.product_list_collection != '' and collections[settings.product_list_collection].handle == settings.product_list_collection %}
-    
+
     <!-- <div id="products-column-header" class="clearfix">
       <h2>{{ settings.product_list_title }}</h2>
       {% unless settings.hide_view_collection_link %}
         <a class="accent-text" href="/collections/{{ settings.product_list_collection }}">View collection →</a>
       {% endunless %}
     </div> -->
-      
+
       {% if shop.products_count == 0 %}
-      
+
         {% include 'snippet-default-products' %}
-      
+
       {% else %}
-      
+
           {% if collections.[settings.product_list_collection].products_count == 0 %}
 
             <div class="rte">
               <p>It looks like the collection that you've selected is empty. Add products to your collection by clicking <a href="/admin/custom_collections">here</a>.</p>
             </div><!-- .rte -->
-            
+
           {% else %}
 
           <a class="index-wrapper gif-hover" href="/products/gifchop">
@@ -269,23 +269,22 @@
             <!-- <div class="header-text">Check out the latest artist prints:</div> -->
 
             <!-- <a href="/collections/artists" class="header-text">Or see all prints!</a> -->
-            
           {% endif %}
-            
+
        {% endif %}
-       
+
      {% endif %}
-     
+
      {% if settings.show_collection_list and settings.collection_list_ll and linklists[settings.collection_list_ll].links.size > 0 %}
      <div id="products-column-header" class="clearfix">
        <h2>{{ settings.collection_list_title }}</h2>
          <a class="accent-text" href="{{ shop.url }}/collections">View all collections →</a>
      </div><!-- #products-column-header -->
-      
+
      {% assign count = 0 %}
 
      <ul id="collection-list" class="clearfix">
-     {% for link in linklists[settings.collection_list_ll].links %}    
+     {% for link in linklists[settings.collection_list_ll].links %}
        {% if link.type == 'collection_link' %}
          {% assign collection = link.object %}
          {% include 'snippet-collection-item' with 'four' %}
@@ -293,16 +292,16 @@
        {% endif %}
      {% endfor %}
      </ul>
-     
+
      {% if count == 0 %}
      <div class="rte">
         <p>There are no collections in your <strong>{{ linklists[settings.collection_list_ll].title }}</strong> link list.</p>
         <p>Either add collections to your <strong>{{ linklists[settings.collection_list_ll].title }}</strong> link list by browsing to your <a href="/admin/links">Navigation page</a>, or choose a different link list in your <a href="/admin/themes/current/settings">theme settings</a> in the <strong>Home > Module: Collection List</strong> section.</p>
      </div>
      {% endif %}
-            
+
     {% endif %}
-     
+
     {% if settings.show_welcome_text %}
     <div id="welcome-text">
       <h2 class="smooth widget-title" id="fp-welcome-title">{{ pages[settings.welcome_text_page].title }}</h2>
@@ -311,14 +310,11 @@
       </div>
     </div><!-- #welcome-text -->
     {% endif %}
-    
 
   </div><!-- #products-column -->
   {% endif %}
-
   
 </div><!-- #columns-wrap -->
-
 <script>
 
 /* Module: Browse */
