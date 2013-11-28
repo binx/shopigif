@@ -46,10 +46,10 @@
           {% for p in item.properties %}
             {% if p.first == 'doc-id' %}
               {% if item.product.title == 'GIF CHOP' %}
-                <img src="http://127.0.0.1:3000/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
+                <img src="http://gifbot.gifpop.io/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
               {% endif %}
               {% if item.product.title == 'FLIP FLOP' %}
-                <img src="http://127.0.0.1:3000/flipflop/{{ p.last }}/preview.gif" style="min-height:76px;" />
+                <img src="http://gifbot.gifpop.io/flipflop/{{ p.last }}/preview.gif" style="min-height:76px;" />
               {% endif %}
             {% endif %}
           {% endfor %}

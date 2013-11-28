@@ -4,7 +4,7 @@
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
   {% if product.type == "gifchop" or product.type == "flipflop" %}
-    <iframe id="gifbot" src="http://127.0.0.1:3000/upload-{{ product.type }}"></iframe>
+    <iframe id="gifbot" src="http://gifbot.gifpop.io/upload-{{ product.type }}"></iframe>
   {% endif %}
 
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
@@ -332,7 +332,7 @@ jQuery(function() {
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
     var t = type.slice(0,3);
-    gifbot.postMessage("s_"+t, "http://127.0.0.1:3000/upload");
+    gifbot.postMessage("s_"+t, "http://gifbot.gifpop.io/upload");
     setTotal();
   });
 
