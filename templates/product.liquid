@@ -343,7 +343,7 @@ jQuery(function() {
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
     var t = type.slice(0,3);
-    gifbot.postMessage("s_"+t, "http://127.0.0.1:3000/upload");
+    gifbot.postMessage("s_"+t, "http://gifbot.gifpop.io/upload");
     setTotal();
   });
 
