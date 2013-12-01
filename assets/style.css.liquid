@@ -2658,6 +2658,7 @@ h1.page-title {
 #product-details .half {
   width: 442px;
   float: left;
+  position: relative;
   /*border-bottom:1px solid {{ settings.secondary_border }} */
 }
 
@@ -2791,6 +2792,24 @@ h1.page-title {
 .artist #product-variants li:nth-child(1) .compare {
   width: 80px;
   height: 80px;
+}
+
+.shappify_qb_grid {
+  margin-top: 10px;
+  color: #808080;
+}
+.shappify_qb_grid tbody tr:first-child {
+  display: none;
+}
+.shappify_qb_grid tbody tr:nth-child(odd) {
+  background-color: #eee;
+}
+.shappify_qb_grid thead {
+  display: none;
+}
+.shappify_qb_grid td {
+  border: 1px solid #ddd;
+  padding: 1px 23px;
 }
 
 #product-details select {
