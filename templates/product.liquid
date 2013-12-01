@@ -90,7 +90,7 @@
 
       </li><!-- #product-photos -->
 
-      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %} half">
+      <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %} left-half">
         <div{% if hide_default_title %} class="hidden"{% endif %}>
           <div class="sub-header">Size</div>
           <ul>
@@ -115,14 +115,14 @@
         {% endif %}
       </li>
 
-      <li class="half">
+      <li class="right-half">
         <div class="sub-header" style="margin-bottom:30px;">Quantity</div>
         <div class="pair">
           <div class="money">{{ product.price | money }}</div>
           <div class="caption">each</div>
         </div>
         <div class="arith" style="font-size: 30px; margin-right:4px;">&#x2715;</div>
-        <div class="pair" style="margin-right:10px;">
+        <div class="pair" style="margin-right:0px;">
           <input min="1" max="99" type="number" id="quantity" name="quantity" value="1" />
           <div class="caption" style="margin-left: -10px">pop</div>
         </div>
@@ -131,7 +131,7 @@
           <div class="total">{{ product.price | money }}</div>
           <div class="caption">total</div>
         </div> -->
-        <div id="shappify-qty-msg" style="display:none;"></div>
+        <div id="shappify-qty"><table class="shappify_qb_grid">  <thead>   <tr>    <th>Qty</th>    <th>Discount</th>   </tr>  </thead>  <tbody>     <tr>    <td>Buy 1</td>    <td>0% Off</td>   </tr>     <tr>    <td>Buy 2</td>    <td>10% Off</td>   </tr>     <tr>    <td>Buy 5</td>    <td>15% Off</td>   </tr>     <tr>    <td>Buy 10</td>    <td>25% Off</td>   </tr>     <tr>    <td>Buy 50</td>    <td>50% Off</td>   </tr>    </tbody>  </table></div>
       </li>
 
       <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
@@ -289,6 +289,9 @@ jQuery(function() {
   {% endfor %}
   Shopify.doNotTriggerClickOnThumb = false;
 
+  var price = 0;
+  var quanInput = $("#quantity");
+
   var selectCallback = function(variant, selector) {
     console.log(variant,selector)
 
@@ -320,7 +323,9 @@ jQuery(function() {
         jQuery("#product-prices .product-type").text(variant.title);
         var shortPrice = Shopify.formatMoney(variant.price, "{{ shop.money_format }}").slice(0,-3);
         jQuery('#product-price').html('<span class="product-price">'+ shortPrice + '</span>' );  // update price field
-        $(".money").text(shortPrice);
+        // $(".money").text(shortPrice);
+        price = shortPrice;
+        setPrice(price);
       }
 
       {% if settings.show_multiple_currencies %}
@@ -350,35 +355,51 @@ jQuery(function() {
     $("#product-select-option-0").val(type).change();
     var t = type.slice(0,3);
     gifbot.postMessage("s_"+t, "http://cdn.gifpop.io/upload");
-    setTotal();
+    // setTotal();
   });
 
-  var quantity = $("#quantity");
-
-  quantity.keyup(function(){
+  quanInput.keyup(function(){
     if ($(this).val() > 99)
       $(this).val(99);
-    setQuantityWidth(quantity);
+    setQuantityWidth(quanInput);    
+    setPrice(price);
   });
-  quantity.click(function(){
-    setQuantityWidth(quantity);
+  quanInput.click(function(){
+    setQuantityWidth(quanInput);
+    setPrice(price);
   });
 
   function setQuantityWidth(q) {
-    var num = q.val();
+    var num = $(q).val();
     q.css("width",(1+Math.floor(Math.log(num)/Math.log(10)))*30 + 20 + "px");
     if (num > 1)
       q.parent().find(".caption").text("pops");
     else
       q.parent().find(".caption").text("pop");
-    setTotal();
+    // setTotal();
   }
   function setTotal() {
     var num = quantity.val();
     var price = $(".money").text().substring(1);
     $(".total").text("$"+(num*price));
   }
-  setTotal();
+  function setPrice(price) {
+    var num = $(quanInput).val(),
+      returnPrice;
+    price = Number(price.substring(1,price.length));
+    if (num > 1 && num < 5) {
+      returnPrice = price*.9;
+    } else if (num >= 5 && num < 10) {
+      returnPrice = price*.85;
+    } else if (num >= 10 && num < 50) {
+      returnPrice = price*.75;
+    } else if (num >= 50) {
+      returnPrice = price*.50;
+    } else
+      returnPrice = price;
+    $(".money").text("$"+returnPrice.toFixed(2));
+  }
+  // setTotal();
 
   // shamelessly copypasta'd from http://davidwalsh.name/window-iframe
   var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";

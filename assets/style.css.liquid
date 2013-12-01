@@ -2656,11 +2656,15 @@ h1.page-title {
 #product-details .half {
   width: 100%;
 }
-#product-details .half {
-  width: 442px;
+#product-details .left-half {
+  width: 380px;
   float: left;
   position: relative;
-  /*border-bottom:1px solid {{ settings.secondary_border }} */
+}
+#product-details .right-half {
+  width: 500px;
+  float: left;
+  position: relative;
 }
 
 #product-details li:last-child { border-bottom:0; }
@@ -2753,17 +2757,17 @@ h1.page-title {
   background-color: #808080;
 }
 #product-variants li:nth-child(1) {
-  width: 82px;
+  width: 75px;
 }
 #product-variants li:nth-child(2) {
-  width: 120px;
+  width: 99px;
   position: relative;
 }
 #product-variants li:nth-child(3) {
   width: 105px;
 }
 #product-variants li:nth-child(4) {
-  width: 75px;
+  width: 65px;
 }
 /* flip postcard */
 #product-variants li:nth-child(1) .compare {
@@ -2794,10 +2798,13 @@ h1.page-title {
   width: 80px;
   height: 80px;
 }
-
+#shappify-qty {
+  display: inline-block;
+  float: right;
+}
 .shappify_qb_grid {
-  margin-top: 10px;
   color: #808080;
+  float: right;
 }
 .shappify_qb_grid tbody tr:first-child {
   display: none;
@@ -2810,7 +2817,7 @@ h1.page-title {
 }
 .shappify_qb_grid td {
   border: 1px solid #ddd;
-  padding: 1px 23px;
+  padding: 1px 18px;
 }
 
 #product-details select {
