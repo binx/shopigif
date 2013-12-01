@@ -13,7 +13,7 @@
   <title>
     {% if template == 'index' %} {% if settings.fp_title.size > 0 %} {{ settings.fp_title }} {% else %} {{ shop.name }} {% endif %} {% elsif template == '404' %} {{ settings.404_title }} {% else %} {{ page_title }} &ndash; {{ shop.name }} {% endif %}
   </title>
-  
+
   {% assign maxmeta = 155 %}
   {% if template contains 'product' %}
   <meta name="description" content="{{ product.description | strip_html | strip_newlines | truncate: maxmeta | escape }}" />
@@ -24,20 +24,20 @@
   {% elsif template == 'index' and shop.description != '' %}
   <meta name="description" content="{{ shop.description | strip_html | strip_newlines | truncate: maxmeta | escape }}" />
   {% endif %}
-  
+
   <link rel="canonical" href="{{ canonical_url }}" />
-  
+
   {% include 'snippet-fb-open-graph-tags' %}
 
   {{ content_for_header }}
 
   {{ 'style.css' | asset_url | stylesheet_tag }}
-  
+
   {% if settings.logo_font contains 'Google' %}
   {% assign logo_font_parts = settings.logo_font | split: '_' %}
   <link href='http://fonts.googleapis.com/css?family={{ logo_font_parts[1] }}' rel='stylesheet' type='text/css'>
   {% endif %}
-  
+
   <!--[if lt IE 9]>
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
   {{ 'dd_roundies.js' | asset_url | script_tag }}
@@ -61,7 +61,7 @@
   var twitterID = '{{ settings.twitter_username }}',
       slideshow = {{ settings.show_slideshow }},
       slideshow_auto = {{ settings.slideshow_auto }},
-      slideshow_speed = {{ settings.rotate_freq }}, 
+      slideshow_speed = {{ settings.rotate_freq }},
       product_image_w_to_h_ratio = {{ settings.product_img_w_to_h_ratio }},
       shop_url = '{{ shop.url }}';
   </script>
@@ -83,7 +83,7 @@
     <header id="header" class="clearfix{% if settings.use_logo %} use-logo{% endif %}{% if settings.show_multiple_currencies %} currencies{% endif %}{% if settings.force_wide_view %} wide{% endif %}">
 
       <div id="cart-summary" class="accent-text">
-        
+
         {% if shop.customer_accounts_enabled %}
           {% if customer %}
             <p class="cart-elem" id="cart-login">Logged in as <a href="/account">{{ customer.first_name }}</a> · {{ "Logout" | customer_logout_link }}</p>
@@ -91,26 +91,26 @@
             <p class="cart-elem" id="cart-login"> {{ 'Log in' | customer_login_link }}{% if shop.customer_accounts_optional %} or {{ 'Create an account' | customer_register_link }}{% endif %}</p>
           {% endif %}
         {% endif %}
-        
+
         {% if settings.show_multiple_currencies %}
           {% include 'snippet-currency-picker' %}
         {% endif %}
-        
+
         <p class="cart-elem" id="cart-count">
-          <a class="no-underline" href="/cart">{{ cart.item_count}} {{ cart.item_count | pluralize: 'item', 'items' }}</a> · 
+          <a class="no-underline" href="/cart">{{ cart.item_count}} {{ cart.item_count | pluralize: 'item', 'items' }}</a> ·
           <a href="/cart">Check out</a>
         </p>
-        
+
         <form action="/search" method="get" id="search-form" role="search">{% if settings.search_products_only %}
             <input type="hidden" name="type" value="product" />{% endif %}
             <input name="q" type="text" id="search-field" placeholder="Search store..." class="hint" />
             <input type="submit" value="" name="submit" id="search-submit" />
         </form>
-        
+
         <!-- <a href="/cart" class="cart-elem smooth roundify-total round" id="cart-total">
           <span id="cart-price">{{ cart.total_price | money }}</span>
         </a> -->
-          
+
       </div><!-- #cart-summary -->
 
       {% if settings.use_logo %}
@@ -123,9 +123,9 @@
 
       <hr class="title" />
       <div class="title-text header-text">Give the Gift of GIF</div>
-      
-        
-      <nav role="navigation">  
+
+
+      <nav role="navigation">
         <ul id="nav">
           {% for link in linklists.main-menu.links %}
           {% assign has_drop_down = false %}
@@ -144,7 +144,7 @@
                   {% assign child_list_handle = temp %}
                 {% endif %}
               {% endunless %}
-            {% endfor %}  
+            {% endfor %}
           {% else %}
             {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
               {% assign has_drop_down = true %}
@@ -168,7 +168,7 @@
           {% endfor %}
         </ul>
       </nav>
-      
+
       {% if settings.use_logo and template == 'index' %}
       <h1 class="hidden">{{ shop.name }}</h1>
       {% endif %}
@@ -187,13 +187,13 @@
       {% endif %}
 
     </div><!-- #content -->
-    
-    {% unless settings.show_about_module == false and settings.show_contact_module == false and settings.show_twitter_module == false and settings.show_mailing_list_module == false %}    
+
+    {% unless settings.show_about_module == false and settings.show_contact_module == false and settings.show_twitter_module == false and settings.show_mailing_list_module == false %}
     {% assign width = '' %}
     {% unless settings.show_about_module and settings.show_contact_module and settings.show_twitter_module and settings.twitter_username.size >= 0 and settings.show_mailing_list_module %}
     {% assign width = 'one-third' %}
     {% endunless %}
-      
+
     <footer id="footer" class="{% if settings.show_twitter_module and settings.twitter_username.size > 0 %}has-twitter{% endif %}">
 
       <ul class="clearfix" id="footer-modules">
@@ -207,14 +207,14 @@
           </div>
         </li>
         <li class="ft-module {{ width }}">
-          {% if settings.social_tumblr.size > 0 %}<a id="ft-share-tumblr" class="ft-share ir" href="{{ settings.social_tumblr }}">Tumblr</a>{% endif %}
-          {% if settings.social_instagram.size > 0 %}<a id="ft-share-instagram" class="ft-share ir" href="{{ settings.social_instagram }}">Instagram</a>{% endif %}          
-          {% if settings.social_pinterest.size > 0 %}<a id="ft-share-pinterest" class="ft-share ir" href="{{ settings.social_pinterest }}">Pinterest</a>{% endif %}
-          {% if settings.social_youtube.size > 0 %}<a id="ft-share-youtube" class="ft-share ir" href="{{ settings.social_youtube }}">YouTube</a>{% endif %}
-          {% if settings.social_vimeo.size > 0 %}<a id="ft-share-vimeo" class="ft-share ir" href="{{ settings.social_vimeo }}">Vimeo</a>{% endif %}
-          {% if settings.social_rss.size > 0 %}<a id="ft-share-rss" class="ft-share ir" href="/blogs/{{ settings.social_rss }}.atom">RSS</a>{% endif %}
-          {% if settings.social_facebook.size > 0 %}<a id="ft-share-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
-          {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ft-share-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
+          {% if settings.social_tumblr.size > 0 %}<a id="ps-tumblr" class="ft-share ir" href="{{ settings.social_tumblr }}">Tumblr</a>{% endif %}
+          {% if settings.social_instagram.size > 0 %}<a id="ps-instagram" class="ft-share ir" href="{{ settings.social_instagram }}">Instagram</a>{% endif %}
+          {% if settings.social_pinterest.size > 0 %}<a id="ps-pinterest" class="ft-share ir" href="{{ settings.social_pinterest }}">Pinterest</a>{% endif %}
+          {% if settings.social_youtube.size > 0 %}<a id="ps-youtube" class="ft-share ir" href="{{ settings.social_youtube }}">YouTube</a>{% endif %}
+          {% if settings.social_vimeo.size > 0 %}<a id="ps-vimeo" class="ft-share ir" href="{{ settings.social_vimeo }}">Vimeo</a>{% endif %}
+          {% if settings.social_rss.size > 0 %}<a id="ps-rss" class="ft-share ir" href="/blogs/{{ settings.social_rss }}.atom">RSS</a>{% endif %}
+          {% if settings.social_facebook.size > 0 %}<a id="ps-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
+          {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ps-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
         </li>
         {% endif %}
 
@@ -240,7 +240,7 @@
           <h3>{{ settings.contact_twitter_title }}</h3>
           <div class="clearfix tweet-area accent-text">
             <span class="twitter-niblet"></span>
-          </div><!-- #tweet-area --> 
+          </div><!-- #tweet-area -->
 
           <div class="twitter-meta">
             <a class="twitter-avatar" href="http://www.twitter.com/{{ settings.twitter_username }}"></a><!-- #twitter-avatar -->
@@ -260,7 +260,7 @@
               <input type="submit" class="btn styled-submit" value="Sign Up" name="subscribe" id="email-submit" />
             </form>
             {% else %}
-            {% form 'customer' %}        
+            {% form 'customer' %}
             {% if form.posted_successfully? %}
             <p class="success feedback accent-text">Thank you for signing up!</p>
             {% endif %}
@@ -270,7 +270,7 @@
             {{ field }} {{ form.errors.messages[field] }}
             {% endfor %}
             </p>
-            {% endif %}       
+            {% endif %}
             <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter" />
             <input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Subscriber" />
             <input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Newsletter" />
@@ -279,7 +279,7 @@
             {% if form.posted_successfully? or form.errors %}
             <script>window.location.hash = '#mailing-list-module';</script>
             {% endif %}
-            {% endform %} 
+            {% endform %}
             {% endif %}
           </li>
          {% endif %}
@@ -291,7 +291,7 @@
     </div><!-- #container -->
 
     <div id="sub-footer" class="clearfix">
-      
+
       <div class="footer-left-content">
         <!-- {% if linklists.footer.links.size > 0 %}
         <div class="footer-nav accent-text" role="navigation">
@@ -302,10 +302,10 @@
         {% endif %} -->
         <p id="shopify-attr" class="accent-text" role="contentinfo">Copyright &copy; {{ "now" | date: "%Y" }} {{ shop.name }}. <!-- {{ powered_by_link }}. --></p>
       </div> <!-- #footer-left-content -->
-      
+
       {% if settings.show_payment_options %}
-      <ul id="payment-options" class="clearfix">  
-        {% if settings.show_dankort %}<li class="payment-option" id="pay-dankort">Dankort</li>{% endif %} 
+      <ul id="payment-options" class="clearfix">
+        {% if settings.show_dankort %}<li class="payment-option" id="pay-dankort">Dankort</li>{% endif %}
         {% if settings.show_google_wallet %}<li class="payment-option" id="pay-google">Google Wallet</li>{% endif %}
         {% if settings.show_discover %}<li class="payment-option" id="pay-discover">Discover</li>{% endif %}
         {% if settings.show_paypal %}<li class="payment-option" id="pay-paypal">PayPal</li>{% endif %}
@@ -313,10 +313,10 @@
         {% if settings.show_maestro %}<li class="payment-option" id="pay-maestro">Maestro</li>{% endif %}
         {% if settings.show_cirrus %}<li class="payment-option" id="pay-cirrus">Cirrus</li>{% endif %}
         {% if settings.show_mastercard %}<li class="payment-option" id="pay-mastercard">Mastercard</li>{% endif %}
-        {% if settings.show_visa %}<li class="payment-option" id="pay-visa">Visa</li>{% endif %}      
+        {% if settings.show_visa %}<li class="payment-option" id="pay-visa">Visa</li>{% endif %}
       </ul>
       {% endif %}
-      
+
     </div><!-- #sub-footer -->
 
     {{ 'jquery.colorbox-min.js' | asset_url | script_tag }}
