@@ -1,3 +1,4 @@
+{% include 'shappify-qb-no-select' %}
 <div class="clearfix {{ product.type }}" id="product-content" itemscope itemtype="http://schema.org/Product">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}" />
@@ -92,11 +93,13 @@
           <div class="sub-header">Size</div>
           <ul>
             {% for variant in product.variants %}
+            {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
               <li class="{{ variant.id }}">
                 <div class="compare {{ variant.id }}"></div>
                 <div class="type">{{ variant.title }}</div>
                 <!-- <div class="price">{{ variant.price | money }}</div> -->
               </li>
+            {% endif %}
             {% endfor %}
           </ul>
           <select id="product-select" name="id" class="hidden" style="display: none;">
@@ -127,6 +130,7 @@
           <div class="caption">total</div>
         </div>
       </li>
+      <div id="shappify-qty-msg" style="display:none;"></div>
 
       <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
         <h2 class="product-type"></h2>
@@ -146,7 +150,7 @@
       </li> -->
 
       {% assign hide_default_title = false %}
-      {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+      {% if shappify_qb_options_count == 1 and product.variants.first.title contains 'Default' %}
         {% assign hide_default_title = true %}
       {% endif %}
 
