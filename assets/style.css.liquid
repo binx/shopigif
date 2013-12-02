@@ -1379,7 +1379,13 @@ hr.title {
   *display: inline;
   float:none;
   margin-bottom:20px;
-  padding: 0 50px;
+  padding: 0 40px;
+}
+.nav-item:first-child {
+  padding-left: 0;
+}
+.nav-item:last-child {
+  padding-right: 0;
 }
 
 /* Sub Navigation */
@@ -2706,6 +2712,7 @@ h1.page-title {
   margin:0 0 10px 0;
   line-height:40px;
   font-family:{{ settings.headings_font }};
+  text-transform: uppercase;
 }
 
 #product-title h2 {
