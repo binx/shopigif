@@ -354,7 +354,7 @@ jQuery(function() {
   quanInput.keyup(function(){
     if ($(this).val() > 99)
       $(this).val(99);
-    setQuantityWidth(quanInput);    
+    setQuantityWidth(quanInput);
     setPrice(price);
   });
   quanInput.click(function(){
@@ -405,18 +405,22 @@ jQuery(function() {
   var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
   eventer(messageEvent,function(e) {
-    // save doc id as line item property
     if (e.data == "gotoflipflop") {
       window.location.href = "/products/flipflop";
       return;
     }
 
-    $("#gifbot-doc-id").val(e.data);
+    // save doc id as line item property
+    var type = e.data.split("|")[0];
+    if (type == 'doc_id') {
+      var doc = e.data.split("|").pop();
+      $("#gifbot-doc-id").val(doc);
 
-    $("#exp-text").hide();
+      $("#exp-text").hide();
 
-    $("#product-options").show().slideDown();
-    $("#gifbot").addClass("done");
+      $("#product-options").show().slideDown();
+      $("#gifbot").addClass("done");
+    }
   },false);
 
   jQuery('.single-option-selector').addClass('special-select').customStyle();
