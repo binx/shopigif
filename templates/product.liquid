@@ -410,12 +410,13 @@ jQuery(function() {
       window.location.href = "/products/flipflop";
       return;
     }
+    console.log(e.data)
 
     $("#gifbot-doc-id").val(e.data);
 
     $("#exp-text").hide();
 
-    $("#product-options").show().slideDown();
+    // $("#product-options").show().slideDown();
     $("#gifbot").addClass("done");
   },false);
 

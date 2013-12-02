@@ -46,6 +46,7 @@
 
           {% for p in item.properties %}
             {% if p.first == 'doc-id' %}
+              <p>{{item.properties.doc-id}}</p>
               {% if item.product.title == 'GIF CHOP' %}
                 <img src="http://gifbot.gifpop.io/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
               {% elsif item.product.title == 'FLIP FLOP' %}
