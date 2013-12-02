@@ -6,7 +6,7 @@
 
   {% if product.type == "gifchop" %}
     <iframe id="gifbot" src="http://cdn.gifpop.io/static/upload-gifchop.html"></iframe>
-  {% else if product.type == "flipflop" %}
+  {% elsif product.type == "flipflop" %}
     <iframe id="gifbot" src="http://cdn.gifpop.io/static/upload-flipflop1.html"></iframe>
   {% endif %}
 
@@ -80,12 +80,6 @@
           </div>
         </div>
       {% endif %}
-
-        {% unless settings.prod_desc_placement == 'bottom' %}
-        <div id="product-share">
-          {% include 'snippet-product-share' %}
-        </div>
-        {% endunless %}
 
 
       </li><!-- #product-photos -->
@@ -247,11 +241,9 @@
       </li>
       {% endif %}
 
-      {% if settings.prod_desc_placement == 'bottom' %}
       <li id="product-share">
         {% include 'snippet-product-share' %}
       </li>
-      {% endif %}
 
     </ul><!-- #product-description -->
 
@@ -291,6 +283,7 @@ jQuery(function() {
 
   var price = 0;
   var quanInput = $("#quantity");
+  var artist = $("#product-content").hasClass("artist");
 
   var selectCallback = function(variant, selector) {
     console.log(variant,selector)
@@ -383,7 +376,12 @@ jQuery(function() {
     var price = $(".money").text().substring(1);
     $(".total").text("$"+(num*price));
   }
+
   function setPrice(price) {
+    if (artist) {
+      $(".money").text(price);
+      return;
+    }
     var num = $(quanInput).val(),
       returnPrice;
     price = Number(price.substring(1,price.length));

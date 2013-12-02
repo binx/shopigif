@@ -48,15 +48,16 @@
             {% if p.first == 'doc-id' %}
               {% if item.product.title == 'GIF CHOP' %}
                 <img src="http://gifbot.gifpop.io/gifchop/{{ p.last }}/preview.gif" style="min-height:76px;" />
-              {% endif %}
-              {% if item.product.title == 'FLIP FLOP' %}
+              {% elsif item.product.title == 'FLIP FLOP' %}
                 <img src="http://gifbot.gifpop.io/flipflop/{{ p.last }}/preview.gif" style="min-height:76px;" />
+              {% else %}
+                <img src="{{ item.product.featured_image | product_img_url: 'large' }}">
               {% endif %}
             {% endif %}
           {% endfor %}
         </td>
         <td class="cart-detail">
-          <h2>{{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains 'Default' %} - {{ item.variant.title }}{% endunless %}{% endif %}</h2>
+          <h2>{{ item.title }}{% if item.product.variants.size == 1 %}{% unless item.variant.title contains '10x10"' %} - {{ item.variant.title }}{% endunless %}{% endif %}</h2>
           {% if settings.show_vendor %}
           <h3>{{ item.vendor }}</h3>
           {% endif %}
