@@ -227,10 +227,7 @@
       "currency_format": "money_format",
       "supported_currencies": "CAD USD",
       "customer_layout": "theme",
-      "mr. div":{
-            "link":"http://mrdiv.tumblr.com",
-            "text":"ok"
-      }
+      "mr. div":{}
     }
   }
 }

@@ -838,6 +838,11 @@ select {
   max-width:100%;
 }
 
+#how-it-works .rte img {
+  display: block;
+  margin: 0 auto;
+}
+
 .rte table {
   width:100%;
   font-size:13px;
@@ -915,15 +920,22 @@ p.highlight {
   width:884px;
   /*margin-top:52px;*/
 }
+.page-container.narrow {
+  width: 600px;
+  margin: 0 auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 .page-title {
-  max-width:560px;
+  /*max-width:560px;*/
+  text-align: center;
   color:{{ settings.global_heading_font_color }};
   font-size:35px;
   line-height:35px;
   margin:0 0 42px;
   font-family:{{ settings.headings_font }};
-  -webkit-font-smoothing: antialiased;
+  font-weight: 200;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 .page-title .highlight {
   color: #ff9900;
@@ -931,6 +943,15 @@ p.highlight {
 
 .page-title.full-width {
   max-width:inherit;
+}
+/* under page-title */
+.subtitle {
+
+  width: 100%;
+  color: #a9aaaa;
+  margin-top: 5px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 /* SNIPPET: Sidebar */
@@ -1379,7 +1400,13 @@ hr.title {
   *display: inline;
   float:none;
   margin-bottom:20px;
-  padding: 0 33px;
+  padding: 0 40px;
+}
+.nav-item:first-child {
+  padding-left: 0;
+}
+.nav-item:last-child {
+  padding-right: 0;
 }
 
 /* Sub Navigation */
@@ -2706,6 +2733,7 @@ h1.page-title {
   margin:0 0 10px 0;
   line-height:40px;
   font-family:{{ settings.headings_font }};
+  text-transform: uppercase;
 }
 
 #product-title h2 {
@@ -3116,6 +3144,7 @@ h1.page-title {
 }
 
 .full-width .page-title { max-width:inherit; }
+
 
 /* TEMPLATE: Blog */
 /* ==================================== */
