@@ -5,11 +5,12 @@
     {% if current_tags %} by <span class="highlight">{{ current_tags }}</span> {% endif %}
 </h1>
 {% if current_tags %}
-  {% for tag in current_tags %} 
+  {% for tag in current_tags %}
     {{ settings[tag].link }}
     {{ settings[tag].text }}
   {% endfor %}
 {% else %}
+<div class="subtitle">Emerging Artists, Limited Edition Runs</div>
 <span style="display:none;">Filter By:</span>
 <ul class="subnav clearfix artist-tags" style="display:none;">
   <!-- <li>
@@ -34,7 +35,7 @@
     {{ tag | link_to_tag: tag }}
   </li>
   {% endif %}
-  {% endfor %}  
+  {% endfor %}
 </ul>
 {% endif %}
 
@@ -64,14 +65,14 @@
 <div id="collection-description" class="rte">
   {{ collection.description }}
 </div>
-{% endif %} 
+{% endif %}
 
 {% if shop.products_count == 0 %}
 
   {% include 'snippet-default-products' %}
 
 {% else %}
-  
+
   <ul id="coll-product-list" class="clearfix {{ collection.title }}">
     {% for product in collection.products %}
       {% if settings.products_per_row == '3' %}
@@ -81,7 +82,7 @@
       {% endif %}
     {% endfor %}
   </ul>
-  
+
 {% endif %}
 
 {% include 'snippet-pagination' %}
@@ -95,7 +96,7 @@
   var collFilters = jQuery('.coll-filter');
   collFilters.change(function() {
     var newTags = [];
-    collFilters.each(function() { 
+    collFilters.each(function() {
       if (jQuery(this).val()) {
         newTags.push(jQuery(this).val());
       }
@@ -103,7 +104,7 @@
     if (newTags.length) {
       var query = newTags.join('+');
       window.location.href = jQuery('{{ '0my-tag0' | link_to_tag: '0my-tag0' }}').attr('href').replace('0my-tag0', query);
-    } 
+    }
     else {
       {% if collection.handle %}
       window.location.href = '/collections/{{ collection.handle }}';

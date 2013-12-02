@@ -86,7 +86,7 @@ var   THE_BODY              = $('body'),
       HAS_TWITTER           = (FOOTER.hasClass('has-twitter')) ? true : false,
       IS_IE                 = ($.browser.msie) ? true : false,
       PRODUCT_IMAGE_W_TO_H_RATIO = product_image_w_to_h_ratio || 1,
-      THREE_PER_ROW_W       = 268,
+      THREE_PER_ROW_W       = 288,
       FOUR_PER_ROW_W        = 191,
       THREE_PER_ROW_H       = parseInt(THREE_PER_ROW_W/PRODUCT_IMAGE_W_TO_H_RATIO,  10),
       FOUR_PER_ROW_H        = parseInt(FOUR_PER_ROW_W/PRODUCT_IMAGE_W_TO_H_RATIO,   10);
@@ -107,12 +107,12 @@ var loadImages = function(elems, ch) {
             var i_w = $(this).width();  // image width
             var i_h = $(this).height(); // image height
             var c_h = ch;               // container height
-            var v_o = (c_h - i_h) / 2;  // vertical offset            
+            var v_o = (c_h - i_h) / 2;  // vertical offset
             if ( i_h > c_h ) {
                 $(this).css('height',ch).css('width','auto');
             } else {
                 $(this).css('margin-top',v_o);
-            }   
+            }
             $(this).fadeTo(200,1); // reveals image with a 200 ms-lomg fade-in.
         });
     });
@@ -147,7 +147,7 @@ if (char_count >= 9) { char_elem.css('font-size', '11px').css('opacity',1) }
 /* Format Navigation */
 /* Will the nav bar be on the right of the logo or site title,
    or will it be below and full width */
-   
+
 var logo_title = $('#logo,#title');
 var nav_width = 0;
 var max_nav_width = 592;
@@ -208,7 +208,7 @@ else {
         if ((nav_width + title_width) >= site_width) {
             HEADER.addClass('wide');
         }
-        hidden_header_items.css('visibility','visible');    
+        hidden_header_items.css('visibility','visible');
     }
 }
 
@@ -254,7 +254,7 @@ function parseDate(str) {
     return new Date(Date.parse(v[1]+" "+v[2]+", "+year+" "+time+" UTC"));
 }
 
-/* Grab Twitter Feed */ 
+/* Grab Twitter Feed */
 function init_twitter() {
 
     $.getJSON('https://api.twitter.com/1/statuses/user_timeline.json?screen_name='+ twitterID +'&count=1&callback=?&include_rts=true', function(data){
@@ -268,12 +268,12 @@ function init_twitter() {
         var timestamp = $('<a class="timestamp accent-text" href="' + permalink + '" time="' + tweet.created_at + '" target="_blank">' + timeago + '</a>');
         var user = $('<a href="http://www.twitter.com/'+ twitterID +'" class="twitter-name">'+ fullname +'</a>');
         var twitter_avatar = $('<img src="'+ tweet.user.profile_image_url_https +'">');
-        
+
         output.appendTo('.tweet-area');
         user.appendTo('.twitter-names');
         timestamp.appendTo('.twitter-names');
         twitter_avatar.appendTo('.twitter-avatar');
-        
+
     });
 }
 
@@ -297,7 +297,7 @@ if (IS_INDEX) {
         var main_slider_width = slide_count * container_width;
 
         main_slider.css('width', main_slider_width);
-        
+
         if (slide_count > 1) {
             for (i=1;i<=slide_count;i++) {
                 $('<li>', {
@@ -370,14 +370,14 @@ if (IS_INDEX) {
             .height(newHeight)
             .width(newHeight * aspect_ratio);
         });
-            
+
     } // END of if (slideshow)
 
     /* Product Slider */
 
     /*
-    Pay careful attention to the difference between "mini_slider" 
-    which is the entire slider, and "mini_slide" which denotes 
+    Pay careful attention to the difference between "mini_slider"
+    which is the entire slider, and "mini_slide" which denotes
     an individual slide
     */
 
@@ -433,11 +433,11 @@ if (IS_INDEX) {
 
         }
     }
-    
+
     if ( mini_slide_count <= 3 ) {
         $('#mini-slider-next').hide();
     }
-    
+
     /* Auto hide prev */
     $('#mini-slider-prev').hide();
 
@@ -469,7 +469,7 @@ if (IS_INDEX) {
     });
 
     // TAKING OUT HEIGHT FOR INDEX PRODUCTS
-    
+
     // $('#fp-product-list li').css('height',golden_height);
 
 } // END of IS_INDEX
@@ -535,7 +535,7 @@ if (IS_PRODUCT) {
         maxHeight:"95%",
         scalePhotos:true} );
 
-    var product_container = $('#product-photo-container');      
+    var product_container = $('#product-photo-container');
 
     // Initialize first photo
     product_container.find('img:first').imagesLoaded(function(){
@@ -566,11 +566,11 @@ if (IS_PRODUCT) {
             });
         });
 
-    }); 
+    });
 
 } // END of IS_PRODUCT
 
-                    
+
 /* Placeholder JS */
 /*==========================*/
 
@@ -589,7 +589,7 @@ $('[placeholder]').focus(function() {
     if ($(this).val() === '') {
         $(this).val($(this).attr('placeholder')).addClass('hint');
     }
-});                    
+});
 
 /* Form validation JS */
 /*==========================*/
@@ -607,9 +607,9 @@ $('form :submit').click(function() {
 
 /* Cart.liquid */
 /*==========================*/
-                    
+
 if (IS_CART) {
-    
+
     /* This auto-saves cart attribute and cart note.
        This will save quantity edits too.
        See this: http://wiki.shopify.com/Ask_customer_for_additional_information#My_clients_fill_up_the_cart_attributes.2C_but_they_are_not_saved._When_they_leave_the_cart_page_and_come_back.2C_the_boxes_previously_filled-up_are_empty._How_can_I_fix_this.3F */
@@ -637,7 +637,7 @@ if (IS_IE) {
 /*==========================*/
 
 if (HAS_CURRENCIES) {
-    
+
     $('#currency-picker-toggle a').click(function() {
         $('#currency-picker-toggle').hide();
         $('#currencies-picker').fadeIn();
@@ -685,7 +685,7 @@ $('.share-stats').each(function(){
             stats += facebookCount + times + 'on Facebook';
         }
         wrapper.html(stats);
-    });  
+    });
 });
 
 /* Lightbox ALL THE THINGS (images) in RTE-generated content */
@@ -726,11 +726,11 @@ $('a').smoothScroll();
 /* Follow along table of content */
 /* http://css-tricks.com/scrollfollow-sidebar */
 
-var $sidebar   = $(".follow-along"), 
+var $sidebar   = $(".follow-along"),
     $window    = $(window),
     offset     = $sidebar.offset(),
     topPadding = 15;
-    
+
     if ($sidebar.length) {
         $window.scroll(function() {
             if ($window.scrollTop() > offset.top) {
@@ -742,9 +742,9 @@ var $sidebar   = $(".follow-along"),
                     marginTop: 0
                 });
             }
-        });    
+        });
     }
-    
+
 /* Open all external + PDF download links in a new browser tab */
 
 $('a[href^="http"]')

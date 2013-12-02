@@ -2,14 +2,14 @@
 
 <li class="{{ snippet-product-item }}-per-row clearfix{% unless product.available %} sold-out{% endunless %}">
 
-  <div class="coll-image-wrap">  
+  <div class="coll-image-wrap">
     {% if product.available == false %}
       {% if settings.show_sold_out_rondel %}
       <a class="sold-out-overlay{% if snippet-product-item == 'three' %} large{% endif %}" href="{{ product.url | within: collection }}">
         <span><em>{{ settings.sold_out_rondel_text }}</em></span>
       </a>
       {% endif %}
-    {% elsif product.compare_at_price > product.price and settings.show_sale_rondel %}  
+    {% elsif product.compare_at_price > product.price and settings.show_sale_rondel %}
       <a class="sale-overlay{% if snippet-product-item == 'three' %} large{% endif %}" href="{{ product.url | within: collection }}">
         <span><em>{{ settings.sale_rondel_text }}</em></span>
       </a>
@@ -23,19 +23,19 @@
       {% endif %}
     </a>
   </div><!-- .coll-image-wrap -->
-  
+
   <div class="coll-prod-caption">
     {% if settings.show_buy_medallion %}
     <a class="coll-prod-buy styled-small-button{% unless product.available %} disabled{% endunless %}" href="{{ product.url | within: collection }}">
       {% if product.available or settings.sold_out_rondel_text.size == 0 %}{{ settings.buy_medallion_text }}{% else %}{{ settings.sold_out_rondel_text }}{% endif %}
     </a>
-    {% endif %}    
+    {% endif %}
     <div class="coll-prod-meta {% unless settings.show_buy_medallion %}no-medallion{% endunless %}">
       <a href="{{ product.url }}" class="coll-prod-title">
         {% if current_tags %}
         {{ product.title }}
         {% else %}
-        {% for tag in product.tags %} 
+        {% for tag in product.tags %}
           {{ tag }}
         {% endfor %}
         {% endif %}
@@ -43,7 +43,7 @@
       {% if snippet-product-item == 'two' %}<p>{{ product.description }}</p>{% endif %}
       <!-- {% if product.compare_at_price > product.price %}
       <p class="coll-prod-price on-sale accent-text">
-        {{ product.price | money }} 
+        {{ product.price | money }}
         <em class="compare-at-price">{{ product.compare_at_price | money }}</em>
       </p>
       {% else %}
@@ -55,5 +55,5 @@
     </div><!-- .coll-prod-meta -->
 
   </div><!-- .coll-prod-caption -->
-  
+
 </li>
