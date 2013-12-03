@@ -415,9 +415,9 @@ jQuery(function() {
     if (type == 'doc_id') {
       var doc = e.data.split("|").pop();
       $("#gifbot-doc-id").val(doc);
-
+    }
+    else if (type == 'save_frames') {
       $("#exp-text").hide();
-
       $("#product-options").show().slideDown();
       $("#gifbot").addClass("done");
     }

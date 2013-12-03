@@ -10,7 +10,7 @@
     {{ settings[tag].text }}
   {% endfor %}
 {% else %}
-<div class="subtitle">Emerging Artists, Limited Edition Runs</div>
+<div class="subtitle">Limited Edition Runs Supporting Artists</div>
 <span style="display:none;">Filter By:</span>
 <ul class="subnav clearfix artist-tags" style="display:none;">
   <!-- <li>
@@ -83,6 +83,16 @@
     {% endfor %}
   </ul>
 
+  <div id="exp-text">
+    <h2>ART FOR ALL</h2>
+    <p>We think the work these amazing artists are doing </p>
+    <h2>SUPPORTING ARTISTS IN AN EMERGING MEDIUM</h2>
+    <p>We're currently printing up to ten frames on a single card. Because there is always a little ghosting on lenticular cards as you go up to high frame counts, we're currently limiting the Gifpop creation process to ten sequential frames. Gifs that are very blurry or have lots of sudden camera movements will be less clear than ones with smooth, clear motion.</p>
+    <h2>RESOLUTION</h2>
+    <p>We know gifs aren't always the highest resolution, and so are printing small cards to start with. If you'd like to print at a high resolution, feel free to use our two image flip uploader to send us hi-res assets!</p>
+    <h2>ARTISTS</h2>
+    <p>We work with our artists directly to do test prints at print resolution. If you're an artist and want to get in touch, say hi at artists@gifpop.io!</p>
+  </div>
 {% endif %}
 
 {% include 'snippet-pagination' %}
