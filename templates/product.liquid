@@ -293,7 +293,6 @@ jQuery(function() {
   var artist = $("#product-content").hasClass("artist");
 
   var selectCallback = function(variant, selector) {
-    console.log(variant,selector)
 
     if (variant) {
 
@@ -333,7 +332,6 @@ jQuery(function() {
         jQuery("#product-prices .product-type").text(variant.title);
         var shortPrice = Shopify.formatMoney(variant.price, "{{ shop.money_format }}").slice(0,-3);
         jQuery('#product-price').html('<span class="product-price">'+ shortPrice + '</span>' );  // update price field
-        console.log(variant.title)
         // $(".money").text(shortPrice);
         price = shortPrice;
         setPrice(price);
@@ -398,7 +396,6 @@ jQuery(function() {
 
   function setPrice(price) {
     if (artist) {
-      console.log(price)
       $(".money").text(price);
       return;
     }
@@ -429,12 +426,13 @@ jQuery(function() {
       window.location.href = "/products/flipflop";
       return;
     }
+    console.log(e.data)
     // save doc id as line item property
     var type = e.data.split("|")[0];
     if (type == 'doc_id') {
       var doc = e.data.split("|").pop();
       $("#gifbot-doc-id").val(doc);
-
+    } else if (type == 'save_frames') {
       $("#exp-text").hide();
 
       $("#product-options").show().slideDown();
