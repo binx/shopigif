@@ -13,14 +13,18 @@
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
   {% if product.available %}
   <div id="exp-text">
-    <h2>WHAT MAKES A GOOD GIFPOP?</h2>
-    <p>Lenticular printing is an awesome process, and we're pushing it to the limit by printing up to 10 frames on a single card. That said, not all gifs were created equally, and some animations will work better than others.</p>
-    <h2>FRAMES / GHOSTING</h2>
-    <p>We're currently printing up to ten frames on a single card. Because there is always a little ghosting on lenticular cards as you go up to high frame counts, we're currently limiting the Gifpop creation process to ten sequential frames. Gifs that are very blurry or have lots of sudden camera movements will be less clear than ones with smooth, clear motion.</p>
-    <h2>RESOLUTION</h2>
-    <p>We know gifs aren't always the highest resolution, and so are printing small cards to start with. If you'd like to print at a high resolution, feel free to use our two image flip uploader to send us hi-res assets!</p>
-    <h2>ARTISTS</h2>
-    <p>We work with our artists directly to do test prints at print resolution. If you're an artist and want to get in touch, say hi at artists@gifpop.io!</p>
+    <div class="exp-text-half">
+      <h2>WHAT MAKES A GOOD GIFPOP?</h2>
+      <p>Lenticular printing is an awesome process, and we're pushing it to the limit by printing many frames on a single card. That said, not all gifs were created equally, and some animations will work better than others.</p>
+      <h2>FRAMES / GHOSTING</h2>
+      <p>We're currently printing up to ten frames on a single card. Because there is always a little ghosting on lenticular cards as you go up to high frame counts, we're currently limiting the Gifpop creation process to ten sequential frames. Gifs that are very blurry or have lots of sudden camera movements will be less clear than ones with smooth, clear motion.</p>
+    </div>
+    <div class="exp-text-half">
+      <h2>RESOLUTION</h2>
+      <p>We know gifs aren't always the highest resolution, and so are printing small cards to start with. If you'd like to print at a high resolution, feel free to use our two image flip uploader to send us hi-res assets!</p>
+      <h2>ARTISTS</h2>
+      <p>We work with our artists directly to do test prints at print resolution, and most of our profits go straight back to the artists. If you're an artist and want to get in touch, say hi at <a href="mailto:artists@gifpop.io"><b>artists@gifpop.io</b></a>!</p>
+    </div>
   </div>
 
   <form id="product-options" action="/cart/add" method="post" enctype="multipart/form-data">
