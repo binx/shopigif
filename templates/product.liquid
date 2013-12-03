@@ -59,6 +59,9 @@
 
       {% endif %}
 
+
+      </li><!-- #product-photos -->
+
       <div id="product-title">
         <h1 itemprop="name">{{ product.title }}</h1>
         {% if settings.show_vendor %}
@@ -80,9 +83,6 @@
           </div>
         </div>
       {% endif %}
-
-
-      </li><!-- #product-photos -->
 
       <li id="product-variants" class="clearfix{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %} left-half">
         <div{% if hide_default_title %} class="hidden"{% endif %}>
@@ -115,10 +115,17 @@
           <div class="money">{{ product.price | money }}</div>
           <div class="caption">each</div>
         </div>
+        {% unless product.type == "artist" %}
         <div class="arith" style="font-size: 30px; margin-right:4px;">&#x2715;</div>
         <div class="pair" style="margin-right:0px;">
           <input min="1" max="99" type="number" id="quantity" name="quantity" value="1" />
           <div class="caption" style="margin-left: -10px">pop</div>
+        </div>
+        {% endunless %}
+        <div id="variant-inventory">
+        {% if product.variants.second.inventory_management == "shopify" and product.variants.second.inventory_quantity > 0 %}
+        We currently have {{ product.variants.second.inventory_quantity }} in stock.
+        {% endif %}
         </div>
         <!-- <div class="arith" style="margin-right: 10px;">&#x3d;</div>
         <div class="pair" style="margin-right:0px;">
@@ -290,6 +297,16 @@ jQuery(function() {
 
     if (variant) {
 
+      if (variant.inventory_management == "shopify") {
+        if (variant.inventory_quantity > 0) {
+          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 20');
+        } else {
+          jQuery('#variant-inventory').text("sold out");
+        }
+      } else {
+        jQuery('#variant-inventory').text("");
+      }
+
       if (variant.available) {
 
         // Selected a valid variant that is available.
@@ -316,6 +333,7 @@ jQuery(function() {
         jQuery("#product-prices .product-type").text(variant.title);
         var shortPrice = Shopify.formatMoney(variant.price, "{{ shop.money_format }}").slice(0,-3);
         jQuery('#product-price').html('<span class="product-price">'+ shortPrice + '</span>' );  // update price field
+        console.log(variant.title)
         // $(".money").text(shortPrice);
         price = shortPrice;
         setPrice(price);
@@ -346,6 +364,7 @@ jQuery(function() {
     $(this).addClass("selected");
     var type = $(this).find(".type").text();
     $("#product-select-option-0").val(type).change();
+    if (artist) return;
     var t = type.slice(0,3);
     gifbot.postMessage("s_"+t, "http://cdn.gifpop.io/upload");
     // setTotal();
@@ -379,6 +398,7 @@ jQuery(function() {
 
   function setPrice(price) {
     if (artist) {
+      console.log(price)
       $(".money").text(price);
       return;
     }
@@ -409,8 +429,6 @@ jQuery(function() {
       window.location.href = "/products/flipflop";
       return;
     }
-    console.log(e.data)
-
     // save doc id as line item property
     var type = e.data.split("|")[0];
     if (type == 'doc_id') {
