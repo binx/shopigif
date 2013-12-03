@@ -190,7 +190,7 @@
       "404_title": "404 Page Not Found",
       "404_tagline": "The page you requested does not exist. Click <a href=\"/collections/all\">here</a> to continue shopping.",
       "show_about_module": true,
-      "about_module_title": "About:",
+      "about_module_title": "",
       "about_module_text": "",
       "social_facebook": "http://www.facebook.com/gifpop",
       "social_tumblr": "http://blog.gifpop.io",
