@@ -188,6 +188,10 @@ h1 span.subtitle {
   display: none;
 }
 
+#thumbs img {
+  display: none;
+}
+
 #thumbs h3 {
   color: #000;
   font-size:16px;
@@ -428,12 +432,9 @@ input#billing_address_province, input#shipping_address_province {
 
 input#commit-button, input#complete-purchase, #create-account-btn, #discounts-body input[type=submit] {
   padding:11px 13px;
-  background-color:{{ settings.global_button_color }};
+  background-color: #ff9900;
   color:{{ settings.global_button_font_color }};
   font-weight:700;
-  -webkit-border-radius:4px;
-  -moz-border-radius:4px;
-  border-radius:4px;
   border:none;
   outline:none;
   font-size:14px;
@@ -624,9 +625,10 @@ color: {{ settings.global_heading_font_color }};
 }
 
 .slim #thumbs td {
-  width:70px;
-  float:left;
-  margin-right:17px;
+  width: 90%;
+  float: left;
+  margin-right: 7px;
+  padding-bottom: 20px;
 }
 
 .slim #overview h2 {
