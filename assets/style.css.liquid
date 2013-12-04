@@ -2326,7 +2326,7 @@ a.slide-link {
   margin: 10px 0 0;
   max-width: 400px;
 }
-.index-wrapper:nth-child(even) .caption {
+.index-wrapper:nth-child(odd) .caption {
   text-align: right;
   left: auto;
   right: 30px;
@@ -2817,6 +2817,7 @@ h1.page-title {
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 1px;
+  position: relative;
 }
 .artist #product-variants li {
   letter-spacing: 0;
@@ -2893,6 +2894,77 @@ h1.page-title {
   width: 28px;
   height: 28px;
 }
+#product-variants .size {
+  position: absolute;
+  background-image:url('{{ 'sizes_sprite.png' | asset_url }}');
+  width: 60px;
+  height: 12px;
+  display: none;
+}
+.artist #product-variants .size {
+  display: none !important;
+}
+#product-variants li:hover .size,
+#product-variants li.selected .size {
+  display: block;
+}
+#product-variants li:nth-child(1) .size {
+  bottom: 82px;
+  left: 4px;
+}
+#product-variants li:nth-child(1):hover .size {
+  background-position: -60px 0px;
+}
+#product-variants li.selected:nth-child(1) .size,
+#product-variants li.selected:nth-child(1):hover .size {
+  background-position: 0 0px;
+}
+#product-variants li:nth-child(2) .size {
+  bottom: 102px;
+  left: 25px;
+}
+#product-variants li:nth-child(2):hover .size {
+  background-position: -60px -15px;
+}
+#product-variants li.selected:nth-child(2) .size,
+#product-variants li.selected:nth-child(2):hover .size {
+  background-position: 0 -15px;
+}
+#product-variants li:nth-child(3) .size {
+  bottom: 124px;
+  left: 13px;
+}
+#product-variants li:nth-child(3):hover .size {
+  background-position: -60px -29px;
+}
+#product-variants li.selected:nth-child(3) .size,
+#product-variants li.selected:nth-child(3):hover .size {
+  background-position: 0 -29px;
+}
+#product-variants li:nth-child(4) .size {
+  bottom: 124px;
+  left: 32px;
+}
+#product-variants li:nth-child(4):hover .size {
+  background-position: -60px -43px;
+}
+#product-variants li.selected:nth-child(4) .size,
+#product-variants li.selected:nth-child(4):hover .size {
+  background-position: 0 -43px;
+}
+#product-variants li:nth-child(5) .size {
+  bottom: 90px;
+  left: 0px;
+}
+#product-variants li:nth-child(5):hover .size {
+  background-position: -60px -57px;
+}
+#product-variants li.selected:nth-child(5) .size,
+#product-variants li.selected:nth-child(5):hover .size {
+  background-position: 0 -57px;
+}
+
+
 .artist #shappify-qty {
   display: none;
 }
@@ -3004,6 +3076,7 @@ h1.page-title {
 }
 .artist .pair {
   margin-right: 0;
+  float: right;
 }
 .money, .total {
   font-size: 48px;
@@ -3035,6 +3108,11 @@ h1.page-title {
   text-transform: uppercase;
   color: #a9aaaa;
   font-size: 14px;
+  clear: both;
+  display: none;
+}
+.artist #variant-inventory {
+  display: block;
 }
 
 #product-add { padding:18px 0 10px; }
