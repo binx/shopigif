@@ -23,6 +23,10 @@
   <meta name="description" content="{{ article.content | strip_html | strip_newlines | truncate: maxmeta | escape }}" />
   {% elsif template == 'index' and shop.description != '' %}
   <meta name="description" content="{{ shop.description | strip_html | strip_newlines | truncate: maxmeta | escape }}" />
+  <meta property="og:title" content="Gifpop! Give the Gift of Gif"/>
+  <meta property="og:image" content="http://cdn.gifpop.io/static/images/splash/kickstarter_project_image_gifpop.jpg" />
+  <meta property="og:image" content="http://cdn.gifpop.io/static/images/splash/gifpop_recurse_slow.gif" />
+  <meta property="og:description" content="Gifpop lets you make custom gif cards with the magic of lenticular printing." />
   {% endif %}
 
   <link rel="canonical" href="{{ canonical_url }}" />
