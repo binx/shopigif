@@ -3,6 +3,10 @@ This is for widgets that share content on Facebook.
 See the Facebook Linter: http://developers.facebook.com/tools/debug
 {% endcomment %}
 
+
+
+  <meta property="og:title" content="Gifpop! Give the Gift of Gif"/>
+<meta property="og:description" content="Gifpop lets you make custom gif cards with the magic of lenticular printing." />
 {% if template contains 'product' %}
   <meta property="og:url" content="{{ shop.url }}{{ product.url }}" />
   <meta property="og:title" content="{{ product.title }}" />
@@ -19,6 +23,9 @@ See the Facebook Linter: http://developers.facebook.com/tools/debug
  {% endif %}
 {% else %}
   {% if settings.use_logo %}
-    <meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
+  <meta property="og:image" content="http://cdn.gifpop.io/static/images/splash/kickstarter_project_image_gifpop.jpg" />
   {% endif %}
 {% endif %}
+
+<meta property="og:image" content="http://cdn.shopify.com/s/files/1/0172/2296/files/lenticular_explanation_full.gif" />
+  <meta property="og:image" content="http://cdn.gifpop.io/static/images/splash/gifpop_recurse_slow.gif" />
