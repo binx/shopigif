@@ -1,6 +1,39 @@
 <div class="clearfix page-container">
 
-  <h1 class="page-title">{{ page.title }}</h1>
+<h2 style="margin: 20px 0;-webkit-font-smoothing: antialiased;text-indent: 6px; color:#000;">Gifpop is a tool to make custom cards from animated gifs, using the magic of lenticular printing.</h2>
+<a class="index-wrapper gif-hover" href="/products/gifchop">
+  <div style="background-image:url({{ 'banner-dvdp.gif' | asset_url }});" class="artist-gif"></div>
+  <div style="background-image:url({{ 'index_card.jpg' | asset_url }});" class="index-image"></div>
+  <div class="caption">
+    <h2>Make Your Own</h2>
+    <p>Upload your own gifs to be printed</p>
+  </div>
+</a>
+<a class="index-wrapper gif-hover" href="/collections/artists">
+  <div style="background-image:url({{ '89a-gif.gif' | asset_url }});" class="artist-gif gifgif"></div>
+  <div style="background-image:url({{ 'index_artists.jpg' | asset_url }});" class="index-image"></div>
+  <div class="caption">
+    <h2>Support Artists</h2>
+    <p>Because your life needs more gif art</p>
+  </div>
+</a>
+<a class="index-wrapper" href="/pages/how-it-works">
+  <div style="background-image:url({{ 'index_how.jpg' | asset_url }});" class="index-image"></div>
+  <div class="caption">
+    <h2>How It Works</h2>
+    <p>Learn more about the lenticular printing process</p>
+  </div>
+</a>
+<div class="index-wrapper">
+  <div style="background-image:url({{ 'index_more.jpg' | asset_url }});" class="index-image"></div>
+  <div class="caption">
+    <h2>Business Time</h2>
+    <p><a href="mailto:hi@gifpop.io"><u>Email us</u></a> to learn more about our business cards and wedding invitation sets</p>
+  </div>
+</div>
+
+
+  <h1 class="page-title" style="margin-top: 500px">{{ page.title }}</h1>
 
   <div id="page-content" class="{% if settings.show_page_blog == false %}full-width{% endif %}">
     

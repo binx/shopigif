@@ -1299,7 +1299,7 @@ p.highlight {
 hr.title {
   margin: 0 0 -20px 0;
   border-top: 1px solid black;
-
+  clear: both;
 }
 
 .header-text {
@@ -1400,7 +1400,7 @@ hr.title {
   *display: inline;
   float:none;
   margin-bottom:20px;
-  padding: 0 40px;
+  padding: 0 60px;
 }
 .nav-item:first-child {
   padding-left: 0;
@@ -2332,6 +2332,132 @@ a.slide-link {
   left: auto;
   right: 30px;
 }
+.index-button {
+  width: 50%;
+  float: left;
+  cursor: pointer;
+}
+.index-button .button {
+  width: 100%;
+  background: #a9aaaa;
+  border-radius: 0;
+  padding: 5px 0;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-style: italic;
+}
+.index-button:hover .button {
+  background: #ff9900;
+}
+.index-button h2 {
+  color: white;
+  font-size: 35px;
+  margin: 15px 0;
+}
+.index-button p  {
+  margin: 5px 0;
+  font-weight: normal;
+}
+.index-button .gif-image {
+  height: 320px;
+}
+.index-left {
+  float: left;
+}
+.index-right {
+  float: right;
+}
+.third {
+  width: 32%;
+}
+.index-section {
+  clear: both;
+  padding-top: 70px;
+}
+.index-section h2 {
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+}
+.index-section p {
+  font-family: Helvetica;
+  color: #808080;
+  margin: 0;
+}
+.index-section b {
+  color: #000;
+  margin: 10px 0 0;
+}
+.gif-image {
+  width: 291px;
+  height: 221px;
+}
+.gif-image img {
+  position: absolute;
+}
+.gif-image .animated {
+  display: none;
+}
+.gif-image:hover .static,
+.index-button:hover .static {
+  display: none;
+}
+.gif-image:hover .animated,
+.index-button:hover .animated {
+  display: block;
+}
+.question {
+  width: 50%;
+  float: left;
+  height: 110px;
+  font-family: Helvetica;
+  color: #808080;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.question p {
+  margin: 5px 0;
+}
+.question:nth-child(odd) {
+  padding: 0 20px 0 100px;
+}
+.question:nth-child(even) {
+  padding: 0 90px 0 20px;
+}
+.question .header {
+  font-weight: bold;
+}
+.signup {
+  color: #808080;
+  width: 410px;
+  margin: 0 auto;
+  text-align: center;
+  clear: both;
+  padding-top: 20px;
+}
+#mce-EMAIL {
+  border-radius: 0;
+  float: left;
+  width: 250px;
+  margin-left: 7px;
+}
+#mc-embedded-subscribe {
+  font-weight: 100;
+  font-size: 20px;
+  display: inline-block;
+  background-color: #ff9900;
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  border-radius: 0;
+  padding: 5px 10px;
+  -webkit-font-smoothing: antialiased;
+  font-family:{{ settings.headings_font }};
+  float: left;
+  margin-left: -1px;
+}
+
+
 .artist-gif {
   position: absolute;
   height: 250px;
