@@ -231,7 +231,13 @@
 
           {% else %}
 
-          <h2 style="margin: 20px 0;-webkit-font-smoothing: antialiased;text-indent: 6px; color:#000;">Gifpop is a tool to make custom cards from animated gifs, using the magic of lenticular printing.</h2>
+          <h2 style="margin: 20px 0 50px;
+-webkit-font-smoothing: antialiased;
+text-align: center;
+color: #000;
+text-transform: uppercase;
+font-size: 24px;
+line-height: 33px;">Gifpop is a tool to make custom cards from animated gifs, using the magic of lenticular printing.</h2>
 
           <a class="index-button" href="/products/gifchop">
             <div class="gif-image">
@@ -258,7 +264,7 @@
             <img src="http://cdn.shopify.com/s/files/1/0172/2296/files/lenticular_explanation_full.gif?3945" class="index-left">
             <div class="index-right third">
               <h2>lenticular magic</h2>
-              <p><b>We are currently able to print up to ten frames of animation thanks to the magic of lenticular printing.</b> Each lenticular sheet is faceted which allows you to see different slices of an image at different angles. The sheet and the print are aligned so that each tiny slice of a frame matches with a lens in the sheet, and when you move the sheet, the animation plays!</p>
+              <p><b>We are able to print up to ten frames of animation, thanks to the magic of lenticular printing!</b> Each lenticular sheet is faceted which allows you to see different slices of an image at different angles. The sheet and the print are aligned so that each tiny slice of a frame matches with a lens in the sheet, and when you move the sheet, the animation plays!</p>
             </div>
           </div>
 
@@ -270,7 +276,7 @@
             </div>
           </div>
 
-          <div class="index-section" style="padding-bottom: 300px;">
+          <div class="index-section">
             <a class="gif-image index-left" href="http://gifpop.io/products/mr-div-retro-sphere">
               <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290_1.gif" class="static">
               <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290.gif" class="animated">
@@ -281,12 +287,36 @@
             </a>
             <div class="index-right third">
               <h2>supporting artists</h2>
-              <p><b>Each artist on Gifpop receives 80% of the profits we make on every art print sold.</b> We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
+              <p><b>Each artist receives on Gifpop receives 80% of the profits we make on every art print sold.</b> We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
+            </div>
+          </div>
+          <div class="index-section" style="padding-bottom: 300px;">
+            {% assign product = collections['gift-cards'].products.first %}
+
+            <div class="index-right">
+            {% for variant in product.variants %}
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ variant.id }}" />
+              <input class="button gift-card" type="submit" value="{{ variant.title }}" />
+            </form>
+            {% endfor %}
+            </div>
+
+            <div class="index-left third">
+              <h2>GIF-t cards</h2>
+              <p><b>An easier way to give the gift of gif!</b><br> Our gift cards are available in $10, $20, and $50 denominations. Just click on the amount you'd like to purchase, and we will email you a printable gift card.</p>
             </div>
           </div>
 
           <hr class="title" />
           <div class="title-text header-text" style="width:300px;">Frequently Asked Questions</div>
+
+          <h2 style="-webkit-font-smoothing: antialiased;
+text-align: center;
+text-transform: uppercase;
+padding: 8px 0;
+clear: both;
+font-size: 16px;">Please place your order by December 15th to receive your gifpop by Christmas!</h2>
 
           <div class="question">
             <p class="header">Do you do bulk printing?</p>
