@@ -303,8 +303,11 @@ jQuery(function() {
     if (variant) {
 
       if (variant.inventory_management == "shopify") {
-        if (variant.inventory_quantity > 0) {
-          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 20');
+        console.log(variant.price)
+        if (variant.inventory_quantity > 0 && variant.price == 2000) {
+          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 25');
+        } else if (variant.inventory_quantity > 0) {
+          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 10');
         } else {
           jQuery('#variant-inventory').text("sold out");
         }
