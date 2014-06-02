@@ -588,7 +588,7 @@ margin:0 auto;
   text-transform: uppercase;
 }
 .three-per-row .coll-prod-title {
-  font-size: 30px;
+  font-size: 20px;
   color: black;
 }
 .artist .two-per-row .coll-prod-title {
@@ -2812,8 +2812,9 @@ h1.page-title {
 .artist #product-details #product-share {
   padding: 0;
   margin: 0;
-  position: absolute;
-  top: 475px;
+  /*position: absolute;
+  top: 475px;*/
+  margin-top: 50px;
   display: block;
 }
 
@@ -3044,6 +3045,27 @@ h1.page-title {
 .artist #product-variants li:nth-child(1) .compare {
   width: 28px;
   height: 28px;
+}
+.artist #product-variants .Business.Card {
+  width: 80px;
+}
+.artist #product-variants .Business.Card .compare {
+  width: 51px;
+  height: 32px;
+}
+.artist #product-variants .Portrait.Postcard {
+  width: 80px;
+}
+.artist #product-variants .Portrait.Postcard .compare {
+  width: 53px;
+  height: 75px;
+}
+.artist #product-variants .Landscape.Postcard {
+  width: 80px;
+}
+.artist #product-variants .Landscape.Postcard .compare {
+  width: 75px;
+  height: 53px;
 }
 #product-variants .size {
   position: absolute;
@@ -3398,7 +3420,7 @@ h1.page-title {
   left:0;
   top:0;
 }
-.artist #product-photo-container img {
+.artist #product-photo-container .active {
   display: block;
 }
 
@@ -3413,13 +3435,12 @@ h1.page-title {
   height:114px;
   text-align:left;
   background-color:transparent;
-  margin-right:40px;
-  margin-bottom:40px;
+  margin: 20px 40px 0 0;
   cursor:pointer;
 }
 
 .product-photo-thumb img {
-  max-height: 114px;
+  max-height: 100px;
   opacity:0;
 }
 

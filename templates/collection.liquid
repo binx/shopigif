@@ -10,7 +10,9 @@
     {{ settings[tag].text }}
   {% endfor %}
 {% else %}
+{% if collection.title == "artist prints" %}
 <div class="subtitle">Limited Edition Runs Supporting Artists</div>
+{% endif %}
 <span style="display:none;">Filter By:</span>
 <ul class="subnav clearfix artist-tags" style="display:none;">
   <!-- <li>
@@ -82,20 +84,31 @@
       {% endif %}
     {% endfor %}
   </ul>
-  <div id="exp-text">
-    <div class="exp-text-half">
-      <h2>ART FOR ALL</h2>
-      <p><b>These artists have all been exploring animated gifs in beautiful, funny, and mindblowing ways.</b> And as designers ourselves, we understand the constant struggle between creating work that you are passionate about and paying the bills. So we want to celebrate and support this emerging medium by offering prints of this amazing work and send the profits to the artists. </p>
-      <h2>SUPPORTING ARTISTS</h2>
-      <p><b>Artists on Gifpop receive 80% of the profits we make on every art print sold.</b> This is an unheard-of arrangement for most art sales, but we think it's only fair. We are deeply uninterested in the standard 50/50 gallery model, and it has been incredibly rewarding for us to work with each artist here on bringing their work to life through lenticular printing.</p>
-      <h2>THE PRINTS</h2>
-      <p><b>All our prints are made right here in New York.</b> The large artist prints are 10"x10" (the samples on the right are 8"x8") and the small prints will be 3.5"x3.5" on sturdy 2-3mm thick lenticular sheets. We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
+  {% if collection.title == "artist prints" %}
+    <div id="exp-text">
+      <div class="exp-text-half">
+        <h2>ART FOR ALL</h2>
+        <p><b>These artists have all been exploring animated gifs in beautiful, funny, and mindblowing ways.</b> And as designers ourselves, we understand the constant struggle between creating work that you are passionate about and paying the bills. So we want to celebrate and support this emerging medium by offering prints of this amazing work and send the profits to the artists. </p>
+        <h2>SUPPORTING ARTISTS</h2>
+        <p><b>Artists on Gifpop receive 80% of the profits we make on every art print sold.</b> This is an unheard-of arrangement for most art sales, but we think it's only fair. We are deeply uninterested in the standard 50/50 gallery model, and it has been incredibly rewarding for us to work with each artist here on bringing their work to life through lenticular printing.</p>
+        <h2>THE PRINTS</h2>
+        <p><b>All our prints are made right here in New York.</b> The large artist prints are 10"x10" (the samples on the right are 8"x8") and the small prints will be 3.5"x3.5" on sturdy 2-3mm thick lenticular sheets. We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
+      </div>
+      <div class="exp-text-half">
+        <img class="exp-image exp-image-first" src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_400_crop.gif" />
+        <img class="exp-image" src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_400_crop.gif" />
+      </div>
     </div>
-    <div class="exp-text-half">
-      <img class="exp-image exp-image-first" src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_400_crop.gif" />
-      <img class="exp-image" src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_400_crop.gif" />
+  {% elsif collection.title == "historical gifs" %}
+    <div id="exp-text">
+      <div class="exp-text-half">
+        <p><b>An oldie but a goodie.</b> These historic gifs point to our rich cinematic heritage, and look pretty cool, too!</p>
+      </div>
+      <div class="exp-text-half">
+        <img class="exp-image" src="http://cdn.shopify.com/s/files/1/0172/2296/products/cockatoo_grande.gif" width="400px">
+      </div>
     </div>
-  </div>
+  {% endif %}
 {% endif %}
 
 {% include 'snippet-pagination' %}

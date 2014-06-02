@@ -94,7 +94,7 @@
           <ul>
             {% for variant in product.variants %}
             {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
-              <li class="{{ variant.id }}">
+              <li class="{{ variant.id }} {{ variant.title }}">
                 <div class="compare {{ variant.id }}"></div>
                 <div class="size"></div>
                 <div class="type">{{ variant.title }}</div>
@@ -296,7 +296,7 @@ jQuery(function() {
 
   var price = 0;
   var quanInput = $("#quantity");
-  var artist = $("#product-content").hasClass("artist");
+  var artist = $("#product-content").hasClass("artist") || $("#product-content").hasClass("out-of-copyright");
 
   var selectCallback = function(variant, selector) {
 
@@ -305,7 +305,7 @@ jQuery(function() {
       if (variant.inventory_management == "shopify") {
         console.log(variant.price)
         if (variant.inventory_quantity > 0 && variant.price == 2000) {
-          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 25');
+          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 20');
         } else if (variant.inventory_quantity > 0) {
           jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 10');
         } else {
