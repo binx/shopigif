@@ -343,13 +343,6 @@
 
     </div><!-- #container -->
 
-    {% if page_title != 'Gifpop!' %}
-      <a class="credit" href="/products/zwian">
-        <p>GIF by Zwian</p>
-        <div class="upp">View this print</div>
-      </a>
-    {% endif %}
-
     </div><!-- #outer-container -->
 
 
@@ -367,7 +360,12 @@
     <script type="text/javascript" src="//use.typekit.net/win4bdd.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <script type="text/javascript" src="{{ 'echo.min.js' | asset_url }}"></script>
-    <script src="{{ 'main.js' | asset_url }}"></script>
+
+<!-- background images -->
+{% if template == 'index' %}
+    <<script src="{{ 'main.js' | asset_url }}"></script>
+{% endif %}
+
 <!-- begin olark code -->
 <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
 f[z]=function(){
