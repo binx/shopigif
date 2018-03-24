@@ -128,30 +128,9 @@
         We currently have {{ product.variants.second.inventory_quantity }} in stock.
         {% endif %}
         </div>
-        <!-- <div class="arith" style="margin-right: 10px;">&#x3d;</div>
-        <div class="pair" style="margin-right:0px;">
-          <div class="total">{{ product.price | money }}</div>
-          <div class="caption">total</div>
-        </div> -->
+
         <div id="shappify-qty"><table class="shappify_qb_grid">  <thead>   <tr>    <th>Qty</th>    <th>Discount</th>   </tr>  </thead>  <tbody>     <tr>    <td>Buy 1</td>    <td>0% Off</td>   </tr>     <tr>    <td>Order 2+</td>    <td>10% Off</td>   </tr>     <tr>    <td>Order 5+</td>    <td>15% Off</td>   </tr>     <tr>    <td>Order 10+</td>    <td>25% Off</td>   </tr>     <tr>    <td>Order 50+</td>    <td>50% Off</td>   </tr>    </tbody>  </table></div>
       </li>
-
-      <!-- <li id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" style="clear:both;">
-        <h2 class="product-type"></h2>
-        <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
-        {% if product.available %}
-        <link itemprop="availability" href="http://schema.org/InStock" />
-        {% else %}
-        <link itemprop="availability" href="http://schema.org/OutOfStock" />
-        {% endif %}
-        <p id="product-price" class="smooth">
-          {% if product.compare_at_price > product.price %}
-          <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="product-compare-price">{{ product.compare_at_price_max | money }}</span>
-          {% else %}
-          <span class="product-price" itemprop="price">{{ product.price | money }}</span>
-          {% endif %}
-        </p>
-      </li> -->
 
       {% assign hide_default_title = false %}
       {% if shappify_qb_options_count == 1 and product.variants.first.title contains 'Default' %}
@@ -169,39 +148,6 @@
       {% endcomment %}
       <input class="text" type="hidden" id="gifbot-doc-id" name="properties[doc-id]" value="" />
 
-      {% comment %}
-      <li id="properties">
-        <div class="property-wrapper">
-          <label for="first-property">First Property</label>
-          <select id="first-property" name="properties[First Property]">
-            <option>First Option</option>
-            <option>Second Option</option>
-            <option>Third Option</option>
-            <option>Fourth Option</option>
-          </select>
-        </div>
-        <div class="property-wrapper">
-          <p>Second Property</p>
-          <input class="radio" type="radio" id="first-option" name="properties[Second Property]" value="First Option" /> <label for="first-option">First Option</label>
-          <input class="radio"type="radio" id="second-option" name="properties[Second Property]" value="Second Option" /> <label for="second-option">Second Option</label>
-          <input class="radio"type="radio" id="third-option" name="properties[Second Property]" value="Third Option" /> <label for="third-option">Third Option</label>
-          <input class="radio"type="radio" id="fourth-option" name="properties[Second Property]" value="Fourth Option" /> <label for="fourth-option">Fourth Option</label>
-        </div>
-        <div class="property-wrapper">
-          <label for="third-property">Third Property</label>
-          <input class="text" type="text" id="third-property" name="properties[Third Property]" value="" />
-        </div>
-        <div class="property-wrapper">
-          <input class="checkbox" type="checkbox" id="fourth-property" name="properties[Fourth Property]" value="Yes" />
-          <label for="fourth-property">Fourth Property Opt-in</label>
-        </div>
-        <div class="property-wrapper">
-          <label for="fifth-property">Fifth Property</label>
-          <input class="file" type="file" id="fifth-property" name="properties[Fifth Property]" />
-        </div>
-      </li>
-      {% endcomment %}
-
       <li id="backorder" class="hidden">
         <p>{{ settings.back_order_msg | replace: '%s', '<span id="selected-variant"></span>' }}</p>
       </li>
@@ -216,14 +162,19 @@
 
       <li id="product-add">
         <div id="product-add-wrap">
+          <div style="float:right;">
+            <p class="ship-date">ships in 3-5 business days</p>
+          </div>
           {% if product.type == "gifchop" || product.type == "flipflop" %}
+          <div>
             <div class="triangle"></div>
             <a id="go-back" href="{{ shop.url }}{{ product.url }}">Start Over</a>
+          </div>
           {% endif %}
-          <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
-          <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
-        </div><!-- #product-add-wrap -->
-        <p class="ship-date">ships in 2-4 business days</p>
+          <div style="float:right;">
+            <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
+          </div>
+        </div>
       </li>
 
       <!-- {% if collection %}
@@ -369,7 +320,6 @@ jQuery(function() {
     if (artist) return;
     var t = type.slice(0,3);
     gifbot.postMessage("s_"+t, "https://s3.amazonaws.com");
-    // setTotal();
   });
 
   quanInput.keyup(function(){
