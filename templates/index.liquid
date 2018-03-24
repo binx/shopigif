@@ -1,360 +1,166 @@
-{% if shop.products_count < 1 and settings.show_slideshow == false %}
-
-  {% include 'snippet-default-slideshow-message' %}
-
-{% else %}
-    {% if settings.show_slideshow %}
-    <div id="slideshow">
-
-      <div id="slideshow-container">
-        <ul id="slides">
-
-        {% comment %}
-        {% raw %}
-
-        To add slides to your home page slideshow, you need to do 2 things:
-
-        1.  Add settings to your config/settings.html file for each additional slide that you want to add.
-            Copy a block of code for a slide, replace any instance of the number for that slide
-            with the number of the next slide that you want to add. For example, if you're adding a 7th slide,
-            you would replace all instances of '6' with '7'. Repeat for each added slide. Then, save your
-            config/settings.html file and come back here.
-        2.  Change the '6' in {% for i in (1..6) %} right below to the new total of slides you have.
-
-        {% endraw %}
-        {% endcomment %}
-
-        {% for i in (1..6) %}
-
-          {% capture slide %}slide_{{ i }}{% endcapture %}
-          {% capture slide_img %}slide_{{ i }}.jpg{% endcapture %}
-          {% capture slide_media_type %}slide_{{ i }}_media_type{% endcapture %}
-          {% capture slide_bg_color %}slide_{{ i }}_bg_color{% endcapture %}
-          {% capture slide_link_type %}slide_{{ i }}_link_type{% endcapture %}
-          {% capture slide_link_url %}slide_{{ i }}_link_url{% endcapture %}
-          {% capture slide_link_title %}slide_{{ i }}_link_title{% endcapture %}
-          {% capture slide_caption %}slide_{{ i }}_caption{% endcapture %}
-          {% capture slide_video %}slide_{{ i }}_video{% endcapture %}
-
-
-          {% if settings[slide] %}
-
-            {% if settings[slide_media_type] == 'image' %}
-              <li style="background: url('{{ slide_img | asset_url }}') no-repeat 50% 50% {{ settings[slide_bg_color] }} ;" id="slide-{{ i }}" class="slide">
-                {% if settings[slide_link_type] == 'slide_link' and settings[slide_link_url].size > 0 %}
-                  <a class="slide-link-through" href="{{ settings[slide_link_url] }}"></a>
-                {% endif %}
-
-                {% if settings[slide_caption].size > 0 or settings[slide_link_title].size > 0 %}
-                  <div class="slide-caption">
-                    {% if settings[slide_caption].size > 0 %}
-                      <h2 class="smooth">{{ settings[slide_caption] }}</h2>
-                    {% endif %}
-
-                    {% if settings[slide_link_title].size > 0 %}
-                      <a class="slide-link smooth" href="{{ settings[slide_link_url] }}">{{ settings[slide_link_title] }}</a>
-                    {% endif %}
-                  </div><!-- .slide_caption -->
-                {% endif %}
-              </li>
-            {% else %}
-              <li style="background:{{ settings[slide_bg_color] }};" id="slide-{{ i }}" class="slide">
-                {{ settings[slide_video] }}
-              </li>
-            {% endif %}
-
-          {% endif %}
-
-        {% endfor %}
-
-        </ul>
-      </div><!-- #slideshow-container -->
-
-      <ul id="slideshow-controls"></ul>
-
-    </div><!-- #slideshow -->
-    {% endif %}
-
-{% endif %}
-
-
-{% if settings.show_product_slider and settings.mini_slider_collection != '' and collections[settings.mini_slider_collection].handle == settings.mini_slider_collection %}
-<div id="product-slider">
-
-  <h2 class="smooth clearfix">{{ settings.mini_slider_title }}</h2>
-
-
-  <a class="mini-slider-controls" id="mini-slider-prev" href=""></a>
-  <a class="mini-slider-controls" id="mini-slider-next" href=""></a>
-
-  <div id="mini-slider-container">
-
-    <ul class="clearfix" id="mini-slides">
-      {% assign collection = collections[settings.mini_slider_collection] %}
-      {% for product in collections[settings.mini_slider_collection].products limit: settings.mini_slider_limit %}
-        {% include 'snippet-product-item' with 'three' %}
-      {% else %}
-         <p style="width:884px; overflow:visible; text-align:center;">Your <strong>{{ collection.title }}</strong> collection is empty. <a target="_blank" href="{{ shop.url }}/admin/custom_collections">Go and add some products to it</a>.</p>
-      {% endfor %}
-    </ul>
-
-  </div><!-- #slider-container -->
-
-</div><!-- #product-slider -->
-{% endif %}
-
 <div class="clearfix" id="columns-wrap">
 
-  {% assign full_width = false %}
-
-  {% if settings.show_blog or settings.show_browse or settings.show_link_list_1 or settings.show_link_list_2 %}
-  <ul id="widgets">
-
-    {% if settings.show_blog %}
-    <li class="widget" id="fp-blog-container">
-      <h2 class="smooth widget-title" id="fp-blog-title">
-        {{ settings.fp_blog_title }}
-        {% if settings.social_rss.size > 0 %}
-          <a id="blog-share-rss" class="blog-share ir" href="/blogs/{{ settings.fp_blog }}.atom">RSS</a>
-        {% endif %}
-      </h2>
-
-      <ul id="fp-blog" class="clearfix">
-        {% for article in blogs.[settings.fp_blog].articles limit: settings.fp_blog_limit %}
-          <li id="{{ article.id }}" class="fp-article {% if forloop.first %}first{% endif %} {% if forloop.last %}last{% endif %}">
-            <em class="fp-article-date accent-text">{{ article.published_at | date: "%B %d, %Y" }}</em>
-            <h3 class="fp-article-title smooth"><a href="{{article.url}}">{{ article.title }}</a></h3>
-            <div class="fp-article-content rte">
-              {% if article.excerpt.size > 0 %}
-                {{ article.excerpt }}
-              {% else %}
-                <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
-              {% endif %}
-            </div><!-- .fp-article-content -->
-            <a class="fp-read-more accent-text" href="{{ article.url }}">{{ settings.fp_blog_rm_label }} →</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </li><!-- #fp-blog -->
-    {% endif %}
-
-    {% if settings.show_browse %}
-    <li class="widget {% if settings.show_blog == false %}first{% endif %}" id="fp-browse">
-      <h2 class="smooth widget-title" id="fp-browse-title">{{ settings.fp_browse_label }}</h2>
-
-      {% if settings.show_bb_vendor and settings.show_vendor %}
-      {% assign first_letter = settings.word_for_vendor | truncate: 1, '' %}
-      <div class="browse-by">
-        <h3 class="browse-sub-titles">Browse by {{ settings.word_for_vendor }}</h3>
-        <select class="special-select" name="fp_bb_vendor" id="fp_bb_vendor" size="1">
-          {% assign vowels = 'aeiouAEIOU' %}
-          <option value="">Choose {% if vowels contains first_letter %}an{% else %}a{% endif %} {{ settings.word_for_vendor }}</option>
-          {% for product_vendor in shop.vendors %}
-            {% assign product_vendor_handle = product_vendor | handle %}
-            {% if collections[product_vendor_handle].handle == product_vendor_handle %}
-            <option value="/collections/{{ product_vendor_handle }}">{{ product_vendor }}</option>
-            {% else %}
-            <option value="{{ product_vendor | url_for_vendor }}">{{ product_vendor }}</option>
-            {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-      {% endif %}
-
-      {% if settings.show_bb_category %}
-      <div class="browse-by">
-        <h3 class="browse-sub-titles">Browse by category</h3>
-        <select class="special-select" name="fp_bb_category" id="fp_bb_category" size="1">
-          <option value="">Choose a category</option>
-          {% for collection in collections %}
-          {% unless collection.handle == 'all' or collection.handle == 'all-products' or collection.handle == 'frontpage' %}
-          <option value="{{ collection.url }}">{{ collection.title }}</option>
-          {% endunless %}
-          {% endfor %}
-        </select>
-      </div>
-      {% endif %}
-
-    </li>
-    {% endif %}
-
-    {% if settings.show_link_list_1 %}
-    <li class="widget {% if settings.show_blog == false and settings.show_browse == false %}first{% endif %}" id="fp-link-list-1">
-      <h2 class="smooth widget-title" id="fp-link-list-1-title">{{ settings.fp_link_list_1_label }}</h2>
-      <ul id="link-list-1" class="link-list">
-        {% for link in linklists[settings.fp_link_list_1].links %}
-          <li class="ll-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </li>
-    {% endif %}
-
-    {% if settings.show_link_list_2 %}
-    <li class="widget {% if settings.show_blog == false and settings.show_browse == false and settings.show_link_list_1 == false %}first{% endif %}" id="fp-link-list-2">
-      <h2 class="smooth widget-title" id="fp-link-list-2-title">{{ settings.fp_link_list_2_label }}</h2>
-      <ul id="link-list-2" class="link-list">
-        {% for link in linklists[settings.fp_link_list_2].links %}
-        <li class="ll-item"><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </li>
-    {% endif %}
-
-  </ul>
-  {% else %}
   {% assign full_width = true %}
-  {% endif %}
 
   {% if settings.show_product_list or settings.show_collection_list or settings.show_welcome_text %}
   <div id="products-column"{% if full_width %} class="full-width"{% endif %}>
 
     {% if settings.show_product_list and settings.product_list_collection != '' and collections[settings.product_list_collection].handle == settings.product_list_collection %}
 
-    <!-- <div id="products-column-header" class="clearfix">
-      <h2>{{ settings.product_list_title }}</h2>
-      {% unless settings.hide_view_collection_link %}
-        <a class="accent-text" href="/collections/{{ settings.product_list_collection }}">View collection →</a>
-      {% endunless %}
-    </div> -->
 
-      {% if shop.products_count == 0 %}
+    <navivation id="main-nav" class="preload">
+            <div id="logo"></div>
+            <ul id="nav-items">
+                <li><a href="/products/gifchop">Make Your Own</a></li>
+                <li><a href="/pages/how-it-works">How it Works</a></li>
+                <li><a href="/collections/artists">Art Prints</a></li>
+                <li><a href="/pages/about-us">About</a></li>
+                <li><a href="http://blog.gifpop.io">Blog</a></li>
+            </ul>
+        </navivation>
 
-        {% include 'snippet-default-products' %}
+        <div id="container" class="preload">
 
-      {% else %}
-
-          {% if collections.[settings.product_list_collection].products_count == 0 %}
-
-            <div class="rte">
-              <p>It looks like the collection that you've selected is empty. Add products to your collection by clicking <a href="/admin/custom_collections">here</a>.</p>
-            </div><!-- .rte -->
-
-          {% else %}
-
-          <h2 style="margin: 20px 0 50px;
--webkit-font-smoothing: antialiased;
-text-align: center;
-color: #000;
-text-transform: uppercase;
-font-size: 24px;
-line-height: 33px;">Gifpop is a tool to make custom cards from animated gifs, using the magic of lenticular printing.</h2>
-
-          <a class="index-button" href="/products/gifchop">
-            <div class="gif-image">
-              <img src="{{ 'gifpop_index_1.gif' | asset_url }}" class="static">
-              <img src="{{ 'gifpop_index.gif' | asset_url }}" class="animated">
-            </div>
-            <div class="button">
-              <h2>Make Your Own</h2>
-              <p>Upload your own gifs to be printed</p>
-            </div>
-          </a>
-          <a class="index-button" href="/collections/artists">
-            <div class="gif-image">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_442_1.jpg" class="static">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_442.gif" class="animated">
-            </div>
-            <div class="button">
-              <h2>Support Artists</h2>
-              <p>Because your life needs more gif art</p>
-            </div>
-          </a>
-
-          <div class="index-section">
-            <img src="http://cdn.shopify.com/s/files/1/0172/2296/files/lenticular_explanation_full.gif?3945" class="index-left">
-            <div class="index-right third">
-              <h2>lenticular magic</h2>
-              <p><b>We are able to print up to ten frames of animation, thanks to the magic of lenticular printing!</b> Each lenticular sheet is faceted which allows you to see different slices of an image at different angles. The sheet and the print are aligned so that each tiny slice of a frame matches with a lens in the sheet, and when you move the sheet, the animation plays!</p>
-            </div>
-          </div>
-
-          <div class="index-section">
-            <img src="http://cdn.gifpop.io/static/images/diagrams/sizes_icon.jpg" class="index-right">
-            <div class="index-left third">
-              <h2>sizes and pricing</h2>
-              <p><b>We offer five different sizes of Gifpops, starting at only $12 for your own custom card!</b> If you're resizing your own work for Gifpop, we suggest the above resolutions for optimal printing quality.</p>
-            </div>
-          </div>
-
-          <div class="index-section">
-            <a class="gif-image index-left" href="http://gifpop.io/products/mr-div-retro-sphere">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290_1.gif" class="static">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290.gif" class="animated">
-            </a>
-            <a class="gif-image index-left" style="margin:-1px 0 0 -3px;" href="http://gifpop.io/products/mat-lucas-gif">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_290_1.gif" class="static">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_290.gif" class="animated" >
-            </a>
-            <div class="index-right third">
-              <h2>supporting artists</h2>
-              <p><b>Each artist receives on Gifpop receives 80% of the profits we make on every art print sold.</b> We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
-            </div>
-          </div>
-          <div class="index-section" style="padding-bottom: 300px;">
-            {% assign product = collections['gift-cards'].products.first %}
-
-            <div class="index-right">
-            {% for variant in product.variants %}
-            <form method="post" action="/cart/add">
-              <input type="hidden" name="id" value="{{ variant.id }}" />
-              <input class="button gift-card" type="submit" value="{{ variant.title }}" />
-            </form>
-            {% endfor %}
-            </div>
-
-            <div class="index-left third">
-              <h2>GIF-t cards</h2>
-              <p><b>An easier way to give the gift of gif!</b><br> Our gift cards are available in $10, $20, and $50 denominations. Just click on the amount you'd like to purchase, and we will email you a printable gift card within 24 hours.</p>
-            </div>
-          </div>
-
-          <hr class="title" />
-          <div class="title-text header-text" style="width:300px;">Frequently Asked Questions</div>
-
-          <h2 style="-webkit-font-smoothing: antialiased;
-text-align: center;
-text-transform: uppercase;
-padding: 8px 0;
-clear: both;
-font-size: 16px;">Please place your order by December 17th to receive your gifpop by Christmas!</h2>
-
-          <div class="question">
-            <p class="header">Do you do bulk printing?</p>
-            <p>Yes! It’s much more cost-effective for us to bulk print jobs. Contact us for pricing at omg@gifpop.io</p>
-          </div>
-          <div class="question">
-            <p class="header">Are you looking for artists?</p>
-            <p>We’re always interested in featuring new artists! Send us examples of your work to artists@gifpop.io</p>
-          </div>
-          <div class="question">
-            <p class="header">How long will my order take?</p>
-            <p>It will take only 2-3 business days to ship your order. Did we mention Gifpop is made in NY?</p>
-          </div>
-          <div class="question">
-            <p class="header">Do you do international shipping?</p>
-            <p>Yes! We ship worldwide for $10.50 flat.</p>
-          </div>
-
-          <div class="signup">
-            <p>TO BE NOTIFIED WHEN WE ANNOUNCE NEW PRODUCTS,<br>
-            ARTISTS, OR FEATURES, SUBSCRIBE TO OUR MAILING LIST!</p>
-            <div id="mc_embed_signup" class="splash-block">
-              <form action="http://gifpop.us3.list-manage2.com/subscribe/post?u=5dfc43de7b814dbcba9d1f3f9&amp;id=99ab59266f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-              </form>
-            </div>
-          </div>
-
-            <!-- <div class="header-text">Our pops come in two flavors:</div> -->
+                <!-- <div id="nav-clear"></div> -->
+                <div id="home-intro" class="home-container resize-height" data-height="125">
+                    <div class="sprite-bg" data-frames="10" data-speed="4">
+                        <img src="" data-echo="{{ '01.jpg' | asset_url }}" />
+                    </div>
+                    <div class="bg-vignette bg-vignette-dark"></div>
+                    <!-- <div id="nav-fade"></div> -->
+                    <div class="content vertical-center">
+                        <div class="wrap">
+                            <h2>Turn your GIFs into IRL prints</h2>
+                            <p>Gifs aren't just for screens anymore.<br />Gifpop brings animated gifs to life with the magic of lenticular printing.</p>
+                            <div class="cta">
+                                <a class="link-button scroll-button skew" href="#home-browse"><img src="{{ 'down-arrow.svg' | asset_url }}" width="25px" height="25px" /></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="credit" href="/products/patakk-nine">
+                      <p>GIF by Patakk</p>
+                      <div class="upp">View this print</div>
+                    </a>
+                </div>
 
 
+                <div id="home-browse" class="home-container resize-height" data-height="100">
+                    <div class="sprite-bg" data-frames="16" data-speed="1">
+                        <img src="" data-echo="{{ '02-browse.jpg' | asset_url }}" />
+                    </div>
+                    <div class="bg-vignette bg-vignette-dark"></div>
+                     <div class="content vertical-center">
+                        <div class="wrap">
+                            <h2>Use your favorite GIFs</h2>
+                            <p>From your own animated gifs to even Vine and Instagram videos, we can print it all.</p>
+                            <div class="cta">
+                                <a class="link-button scroll-button skew" href="/products/gifchop">Make One</a>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- <div class="header-text">Check out the latest artist prints:</div> -->
+                </div>
 
-            <!-- <a href="/collections/artists" class="header-text">Or see all prints!</a> -->
-          {% endif %}
+                <div id="home-example" class="home-container resize-height" data-height="100">
+                    <div class="sprite-bg" data-frames="16" data-speed="2">
+                        <img src="" data-echo="{{ '03-example.jpg' | asset_url }}" />
+                    </div>
+                    <div class="bg-vignette bg-vignette-dark"></div>
+                     <div class="content vertical-center">
+                        <div class="wrap">
+                            <h2>Hold GIFs in your hands</h2>
+                            <p>Custom lenticular printing turns those gifs into cards that come to life when you move them.</p>
+                            <div class="cta">
+                                <a class="link-button scroll-button skew" href="/how-it-works">How it works</a>
+                            </div>
+                        </div>
+                    </div>
 
-       {% endif %}
+                </div>
+
+
+                <div id="home-metagifs" class="home-container resize-height" data-height="50">
+                  <div class="sprite-bg" data-frames="10" data-speed="8">
+                    <img src="" data-echo="{{ '05-footer.png' | asset_url }}" />
+                  </div>
+                  <div class="bg-vignette bg-vignette-very-dark"></div>
+                  <div class="content">
+                    <div class="wrap">
+                      <div class="artist-gifs footer-summary">
+                        <h2>GIFs out in the wild</h2>
+                        <p>People are making amazing things with Gifpop. Here are some of our favorites.</p>
+
+                        <a href="http://blog.gifpop.io/post/70435876361/wells-riley-is-too-cool-deal-with-it"><img src="" data-echo="{{ 'preview-metagif-wellsriley.gif' | asset_url }}" width="250px" height="250px" /></a>
+                        <a href="http://unmaru.com/post/99617625849/this-is-super-long-overdue-i-know-so-i-finally"><img src="" data-echo="{{ 'preview-metagif-unmaru.gif' | asset_url }}" width="250px" height="250px" /></a>
+                        <a href="http://blog.gifpop.io/post/70299015811/traceloops-gifpop-prints-arrived-in-the-mail"><img src="" data-echo="{{ 'preview-metagifs-traceloops.gif' | asset_url }}" width="250px" height="250px" /></a>
+
+                      </div>
+
+                      <div class="artist-gifs footer-summary">
+                          <h2>Support GIF artists</h2>
+                          <p>We work with the most bitflippin' artists on the Internet to print limited editions of their work.</p>
+                          <a href="/products/bees-and-bombs"><img src="" data-echo="{{ 'preview-artists-beesandbombs.gif' | asset_url }}" width="250px" height="250px" /></a>
+                          <a href="/products/cindy-suen"><img src="" data-echo="{{ 'preview-artists-cindy.gif' | asset_url }}" width="250px" height="250px" /></a>
+                          <a href="/products/gnumblr"><img src="" data-echo="{{ 'preview-artists-gnumblr.gif' | asset_url }}" width="250px" height="250px" /></a>
+                          <div class="cta">
+                              <a class="link-button skew" href="/collections/artists">See More Art Prints</a>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="credit" href="/products/dvdp-140405">
+                    <p>GIF by Davidope</p>
+                    <div class="upp">View this print</div>
+                  </a>
+                </div>
+
+                <div id="home-footer" class="home-container resize-height" data-height="100">
+                   <div class="content">
+                      <div class="wrap">
+                        <div class="footer-summary">
+                            <h2>GET YOUR GIF ON!</h2>
+                              <ul class="make-options">
+                                  <li>
+                                      <div class="cta">
+                                        <a class="link-button skew" href="/products/gifchop">Start with a Gif</a>
+                                      </div>
+                                      <h5>Gifs, Vines, Instagrams</h5>
+                                  </li>
+                                  <li>
+                                      <div class="cta">
+                                        <a class="link-button skew" href="/products/gifchop">Start with two images</a>
+                                      </div>
+                                      <h5>Fade between two images</h5>
+                                  </li>
+                                  <li>
+                                      <div class="cta">
+                                        <a class="link-button skew" href="/collections/artists">Featured Artists</a>
+                                      </div>
+                                      <h5>View the featured artists gallery</h5>
+                                  </li>
+                              </ul>
+                              <div class="gift-card-wrapper">
+                                <h3>Or, purchase a gif-t card:</h3>
+                                <div style="display: inline-block;">
+                                  <form method="post" action="/cart/add">
+                                    <input type="hidden" name="id" value="$10" />
+                                    <input class="button gift-card" type="submit" value="$10" />
+                                  </form>
+                                  <form method="post" action="/cart/add">
+                                    <input type="hidden" name="id" value="$20" />
+                                    <input class="button gift-card" type="submit" value="$20" />
+                                  </form>
+                                  <form method="post" action="/cart/add">
+                                    <input type="hidden" name="id" value="$50" />
+                                    <input class="button gift-card" type="submit" value="$50" />
+                                  </form>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
 
      {% endif %}
 

@@ -132,7 +132,7 @@ loadImages('.related-products-list img',FOUR_PER_ROW_H);
 /*==========================*/
 
 /* Handle footer */
-$('#footer-modules li:last-child').css('margin-right', 0)
+// $('#footer-modules li:last-child').css('margin-right', 0)
 
 /* Handle Cart Total */
 var char_elem = $('#cart-price');
@@ -182,7 +182,7 @@ else {
                 HEADER.addClass('wide');
             }
             else {
-                $('#nav').css('marginTop', logo_height*0.45 +20);
+                // $('#nav').css('marginTop', logo_height*0.45 +20);
             }
             hidden_header_items.css('visibility','visible');
         }

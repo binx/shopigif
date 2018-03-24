@@ -32,6 +32,10 @@
     {% endif %}
     <div class="coll-prod-meta {% unless settings.show_buy_medallion %}no-medallion{% endunless %}">
       <a href="{{ product.url }}" class="coll-prod-title">
+        {% unless collection.title == "artist prints" %}
+          {{ product.title }}
+        {% endunless %}
+        
         {% if current_tags %}
         {{ product.title }}
         {% else %}

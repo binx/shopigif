@@ -1,118 +1,19 @@
-<div class="clearfix page-container">
 
-<h2 style="margin: 20px 0 50px;
--webkit-font-smoothing: antialiased;
-text-align: center;
-color: #000;
-text-transform: uppercase;
-font-size: 24px;
-line-height: 33px;">Gifpop is a tool to make custom cards from animated gifs, using the magic of lenticular printing.</h2>
 
-          <a class="index-button" href="/products/gifchop">
-            <div class="gif-image">
-              <img src="{{ 'gifpop_index_1.gif' | asset_url }}" class="static">
-              <img src="{{ 'gifpop_index.gif' | asset_url }}" class="animated">
-            </div>
-            <div class="button">
-              <h2>Make Your Own</h2>
-              <p>Upload your own gifs to be printed</p>
-            </div>
-          </a>
-          <a class="index-button" href="/collections/artists">
-            <div class="gif-image">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_442_1.jpg" class="static" style="top:-20px">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/dvdp_8x8_442.gif" class="animated" style="top:-20px">
-            </div>
-            <div class="button">
-              <h2>Support Artists</h2>
-              <p>Because your life needs more gif art</p>
-            </div>
-          </a>
 
-          <div class="index-section">
-            <img src="http://cdn.shopify.com/s/files/1/0172/2296/files/lenticular_explanation_full.gif?3945" class="index-left">
-            <div class="index-right third">
-              <h2>lenticular magic</h2>
-              <p><b>We are able to print up to ten frames of animation, thanks to the magic of lenticular printing!</b> Each lenticular sheet is faceted which allows you to see different slices of an image at different angles. The sheet and the print are aligned so that each tiny slice of a frame matches with a lens in the sheet, and when you move the sheet, the animation plays!</p>
-            </div>
-          </div>
 
-          <div class="index-section">
-            <img src="http://cdn.gifpop.io/static/images/diagrams/sizes_icon.jpg" class="index-right">
-            <div class="index-left third">
-              <h2>sizes and pricing</h2>
-              <p><b>We offer five different sizes of Gifpops, starting at only $12 for your own custom card!</b> If you're resizing your own work for Gifpop, we suggest the above resolutions for optimal printing quality.</p>
-            </div>
-          </div>
 
-          <div class="index-section">
-            <a class="gif-image index-left" href="http://gifpop.io/products/mr-div-retro-sphere">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290_1.gif" class="static">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/mrdiv_8x8_290.gif" class="animated">
-            </a>
-            <a class="gif-image index-left" style="margin:-1px 0 0 -3px;" href="http://gifpop.io/products/mat-lucas-gif">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_290_1.gif" class="static">
-              <img src="http://cdn.gifpop.io/static/images/sample_gifs/89a_8x8_290.gif" class="animated" >
-            </a>
-            <div class="index-right third">
-              <h2>supporting artists</h2>
-              <p><b>Each artist receives on Gifpop receives 80% of the profits we make on every art print sold.</b> We've worked with all the artists to pick gifs that will look great, and the artists themselves have worked hard to rerender, add detail, recolor, and adjust their work to make these prints truly unique.</p>
-            </div>
-          </div>
-          <div class="index-section" style="padding-bottom: 300px;">
-            {% assign product = collections['gift-cards'].products.first %}
 
-            <div class="index-right">
-            {% for variant in product.variants %}
-            <form method="post" action="/cart/add">
-              <input type="hidden" name="id" value="{{ variant.id }}" />
-              <input class="button gift-card" type="submit" value="{{ variant.title }}" />
-            </form>
-            {% endfor %}
-            </div>
 
-            <div class="index-left third">
-              <h2>GIF-t cards</h2>
-              <p><b>An easier way to give the gift of gif!</b><br> Our gift cards are available in $10, $20, and $50 denominations. Just click on the amount you'd like to purchase, and we will email you a printable gift card.</p>
-            </div>
-          </div>
+ 
 
-          <hr class="title" />
-          <div class="title-text header-text" style="width:300px;">Frequently Asked Questions</div>
 
-          <h2 style="-webkit-font-smoothing: antialiased;
-text-align: center;
-text-transform: uppercase;
-padding: 8px 0;
-clear: both;
-font-size: 16px;">Please place your order by December 15th to receive your gifpop by Christmas!</h2>
-
-          <div class="question">
-            <p class="header">Do you do bulk printing?</p>
-            <p>Yes! It’s much more cost-effective for us to bulk print jobs. Contact us for pricing at omg@gifpop.io</p>
-          </div>
-          <div class="question">
-            <p class="header">Are you looking for artists?</p>
-            <p>We’re always interested in featuring new artists! Send us examples of your work to artists@gifpop.io</p>
-          </div>
-          <div class="question">
-            <p class="header">How long will my order take?</p>
-            <p>It will take only 2-3 business days to ship your order. Did we mention Gifpop is made in NY?</p>
-          </div>
-          <div class="question">
-            <p class="header">Do you do international shipping?</p>
-            <p>Yes! We ship worldwide for $8 flat.</p>
-          </div>
-
-          <div class="signup">
-            <p>TO BE NOTIFIED WHEN WE ANNOUNCE NEW PRODUCTS,<br>
-            ARTISTS, OR FEATURES, SUBSCRIBE TO OUR MAILING LIST!</p>
-            <div id="mc_embed_signup" class="splash-block">
-              <form action="http://gifpop.us3.list-manage2.com/subscribe/post?u=5dfc43de7b814dbcba9d1f3f9&amp;id=99ab59266f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-              </form>
-            </div>
-          </div>
+<!-- <div class="accent-text" id="breadcrumbs">
+   <span><a href="/">Home</a></span>
+    
+      <span class="sep">/</span> <span><a href="/collections">Collections</a></span> <span class="sep">/</span> <span> artist prints </span> 
+         
+</div> -->
 
 
   <h1 class="page-title" style="margin-top: 500px">{{ page.title }}</h1>

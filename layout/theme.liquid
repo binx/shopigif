@@ -32,6 +32,7 @@
   {{ content_for_header }}
 
   {{ 'style.css' | asset_url | stylesheet_tag }}
+  {{ 'chris.css' | asset_url | stylesheet_tag }}
 
   {% if settings.logo_font contains 'Google' %}
   {% assign logo_font_parts = settings.logo_font | split: '_' %}
@@ -76,7 +77,18 @@
 
 </head>
 
-<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | split: '.' | first | remove: '/' | remove: '_' }}">
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | split: '.' | first | remove: '/' | remove: '_' }} {% if template == 'index' %}index{% endif %}">
+
+
+  <div id="outer-container">
+
+    {% if page_title != 'Gifpop!' %}
+    <!-- <div id="bg-container">{{ page_title }}</div> -->
+    <div class="sprite-bg" data-frames="8" data-speed="8">
+      <img src="" data-echo="{{ '06-pages.jpg' | asset_url }}" />
+    </div>
+    <div class="bg-vignette bg-vignette-very-dark"></div>
+    {% endif %}
 
   <div id="container">
 
@@ -113,16 +125,21 @@
 
       </div><!-- #cart-summary -->
 
+      <div class="old-header-wrapper">
+
       {% if settings.use_logo %}
       <a id="logo" href="/" role="banner">
-        {{ 'logo.png' | asset_url | img_tag: shop.name }}
+        {{ 'gifpop-logo.svg' | asset_url | img_tag: shop.name }}
       </a><!-- #logo -->
       {% else %}
       <h1 id="title" class="smooth" role="banner"><a href="/"></a></h1>
       {% endif %}
 
-      <hr class="title" />
-      <div class="title-text header-text">Give the Gift of GIF</div>
+      <div class="header-rule-container">
+        <hr class="inline-rule left">
+        <div class="header-text">Give the Gift of GIF</div>
+        <hr class="inline-rule right">
+      </div>
 
 
       <nav role="navigation">
@@ -172,6 +189,7 @@
       {% if settings.use_logo and template == 'index' %}
       <h1 class="hidden">{{ shop.name }}</h1>
       {% endif %}
+      </div>
 
     </header><!-- #header -->
 
@@ -199,16 +217,8 @@
       <ul class="clearfix" id="footer-modules">
 
         {% if settings.show_about_module %}
-        <li class="ft-module two-thirds" id="about-module">
-          {% if settings.about_module_title != '' %}
-          <h3>{{ settings.about_module_title | strip_html }}</h3>
-          {% endif %}
-          <div id="about-description" class="clearfix">
-            <!-- {{ settings.about_module_text | newline_to_br }} -->
-            Gifpop! is proudly made in Brooklyn and manufactured in New York.<br/>Gifpop! is a project by <a href="http://rachelbinx.com">Rachel Binx</a> and <a href="http://postarchitectural.com">Sha Hwang</a>, and they are in love with internet culture, data visualization, and travel. Together they also make <a href="http://meshu.io">Meshu</a>.
-          </div>
-        </li>
-        <li class="ft-module {{ width }}">
+
+        <li class="ft-module full-width">
           {% if settings.social_tumblr.size > 0 %}<a id="ps-tumblr" class="ft-share ir" href="{{ settings.social_tumblr }}">Tumblr</a>{% endif %}
           {% if settings.social_instagram.size > 0 %}<a id="ps-instagram" class="ft-share ir" href="{{ settings.social_instagram }}">Instagram</a>{% endif %}
           {% if settings.social_pinterest.size > 0 %}<a id="ps-pinterest" class="ft-share ir" href="{{ settings.social_pinterest }}">Pinterest</a>{% endif %}
@@ -218,6 +228,17 @@
           {% if settings.social_facebook.size > 0 %}<a id="ps-facebook" class="ft-share ir" href="{{ settings.social_facebook }}">Facebook</a>{% endif %}
           {% if settings.twitter_username.size > 0 and settings.twitter_username != 'shopify' %}<a id="ps-twitter" class="ft-share ir" href="http://www.twitter.com/{{ settings.twitter_username }}">Twitter</a>{% endif %}
         </li>
+
+        <li class="ft-module full-width" id="about-module">
+          {% if settings.about_module_title != '' %}
+          <h3>{{ settings.about_module_title | strip_html }}</h3>
+          {% endif %}
+          <div id="about-description" class="clearfix">
+            <!-- {{ settings.about_module_text | newline_to_br }} -->
+            Gifpop! is proudly made in Brooklyn and manufactured in New York.<br/>Gifpop! is a project by <a href="http://rachelbinx.com">Rachel Binx</a> and <a href="http://postarchitectural.com">Sha Hwang</a>, and they are in love with internet culture, data visualization, and travel. Together they also make <a href="http://meshu.io">Meshu</a>.
+          </div>
+        </li>
+
         {% endif %}
 
         {% if settings.show_contact_module %}
@@ -290,9 +311,8 @@
 
       </footer><!-- #footer -->
       {% endunless %}
-    </div><!-- #container -->
 
-    <div id="sub-footer" class="clearfix">
+      <div id="sub-footer" class="clearfix">
 
       <div class="footer-left-content">
         <!-- {% if linklists.footer.links.size > 0 %}
@@ -321,6 +341,19 @@
 
     </div><!-- #sub-footer -->
 
+    </div><!-- #container -->
+
+    {% if page_title != 'Gifpop!' %}
+      <a class="credit" href="/products/zwian">
+        <p>GIF by Zwian</p>
+        <div class="upp">View this print</div>
+      </a>
+    {% endif %}
+
+    </div><!-- #outer-container -->
+
+
+
     {{ 'jquery.colorbox-min.js' | asset_url | script_tag }}
     {{ 'shop.js' | asset_url | script_tag }}
     {% if settings.show_multiple_currencies %}
@@ -331,6 +364,10 @@
     {% if template == 'page.toc' %}
       {{ 'jquery.tableofcontents.min.js' | asset_url | script_tag }}
     {% endif %}
+    <script type="text/javascript" src="//use.typekit.net/win4bdd.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script type="text/javascript" src="{{ 'echo.min.js' | asset_url }}"></script>
+    <script src="{{ 'main.js' | asset_url }}"></script>
 <!-- begin olark code -->
 <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
 f[z]=function(){

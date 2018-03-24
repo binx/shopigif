@@ -5,25 +5,22 @@
   <meta itemprop="image" content="{{ product.featured_image.src | product_img_url: 'grande' }}" />
 
   {% if product.type == "gifchop" %}
-    <iframe id="gifbot" src="http://cdn.gifpop.io/static/upload-gifchop.html"></iframe>
+    <!-- <iframe id="gifbot" src="http://cdn.gifpop.io/static/upload-gifchop.html"></iframe> -->
+    <iframe id="gifbot" src="https://s3.amazonaws.com/cdn.gifpop.io/static/upload-gifchop.html"></iframe>
   {% elsif product.type == "flipflop" %}
-    <iframe id="gifbot" src="http://cdn.gifpop.io/static/upload-flipflop1.html"></iframe>
+    <iframe id="gifbot" src="https://s3.amazonaws.com/cdn.gifpop.io/static/upload-flipflop1.html"></iframe>
   {% endif %}
 
   {% comment %}The reason why we're removing the form tags when the product is sold out is because we add a 'notify me when product is available' contact form within, and nested forms don't work.{% endcomment %}
   {% if product.available %}
   <div id="exp-text">
-    <div class="exp-text-half">
-      <h2>WHAT MAKES A GOOD GIFPOP?</h2>
-      <p>Lenticular printing is an awesome process, and we're pushing it to the limit by printing many frames on a single card. That said, not all gifs were created equally, and some animations will work better than others.</p>
+    <div class="exp-text-block">
       <h2>FRAMES / GHOSTING</h2>
-      <p>We're currently printing up to ten frames on a single card. Because there is always a little ghosting on lenticular cards as you go up to high frame counts, we're currently limiting the Gifpop creation process to ten sequential frames. Gifs that are very blurry or have lots of sudden camera movements will be less clear than ones with smooth, clear motion.</p>
+      <p>We're currently printing up to ten frames on a single card. Gifs that are very blurry or have lots of sudden camera movements will be less clear than ones with smooth, clear motion.</p>
     </div>
-    <div class="exp-text-half">
-      <h2>RESOLUTION</h2>
-      <p>We know gifs aren't always the highest resolution, and so are printing small cards to start with. If you'd like to print at a high resolution, feel free to use our two image flip uploader to send us hi-res assets!</p>
+    <div class="exp-text-block">
       <h2>ARTISTS</h2>
-      <p>We work with our artists directly to do test prints at print resolution, and most of our profits go straight back to the artists. If you're an artist and want to get in touch, say hi at <a href="mailto:artists@gifpop.io"><b>artists@gifpop.io</b></a>!</p>
+      <p>We love working with artists. If you want to show off your work, send it to us on <a href="http://blog.gifpop.io/submit" target="_blank">our tumblr</a>! If you have a project idea or want to work with us on a special project, say hi at <a href="mailto:artists@gifpop.io">artists@gifpop.io</a>!</p>
     </div>
   </div>
 
@@ -94,11 +91,10 @@
           <ul>
             {% for variant in product.variants %}
             {% if variant.metafields.shappify_qb.qb_hide == "1" %}{% else %}
-              <li class="{{ variant.id }}">
+              <li class="{{ variant.id }} {{ variant.title }}">
                 <div class="compare {{ variant.id }}"></div>
                 <div class="size"></div>
                 <div class="type">{{ variant.title }}</div>
-                <!-- <div class="price">{{ variant.price | money }}</div> -->
               </li>
             {% endif %}
             {% endfor %}
@@ -227,7 +223,7 @@
           <!-- <div id="product-add-medallion" class=""></div> --><!-- #product-add-medallion -->
           <input type="submit" name="add" id="add" value="Add to cart" class="smooth skew">
         </div><!-- #product-add-wrap -->
-        <p style="float: right;clear: both;margin: 5px 7px;color: #a9aaaa;">ships in 4-5 business days</p>
+        <p class="ship-date">ships in 2-4 business days</p>
       </li>
 
       <!-- {% if collection %}
@@ -296,16 +292,15 @@ jQuery(function() {
 
   var price = 0;
   var quanInput = $("#quantity");
-  var artist = $("#product-content").hasClass("artist");
+  var artist = $("#product-content").hasClass("artist") || $("#product-content").hasClass("out-of-copyright");
 
   var selectCallback = function(variant, selector) {
 
     if (variant) {
 
       if (variant.inventory_management == "shopify") {
-        console.log(variant.price)
-        if (variant.inventory_quantity > 0 && variant.price == 2000) {
-          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 25');
+        if (variant.inventory_quantity > 0 && variant.price == 2500) {
+          jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 20');
         } else if (variant.inventory_quantity > 0) {
           jQuery('#variant-inventory').text(variant.inventory_quantity + ' left of 10');
         } else {
@@ -373,7 +368,7 @@ jQuery(function() {
     $("#product-select-option-0").val(type).change();
     if (artist) return;
     var t = type.slice(0,3);
-    gifbot.postMessage("s_"+t, "http://cdn.gifpop.io/upload");
+    gifbot.postMessage("s_"+t, "https://s3.amazonaws.com");
     // setTotal();
   });
 
